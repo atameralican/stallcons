@@ -66,7 +66,7 @@ export function Navbar() {
               stallcons
             </span>
           </div>
-          <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-400 dark:text-slate-300 mt-0.5">
+          <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-500 dark:text-slate-300 mt-0.5">
             Steel Construction
           </span>
         </Link>
@@ -76,11 +76,13 @@ export function Navbar() {
         {/* DESKTOP MENU */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
-            <NavigationMenuLink className="px-4" asChild>
-              <Link href="/" className="hover:bg-accent rounded-lg p-2">
-                {t('home')}
-              </Link>
-            </NavigationMenuLink>
+            <NavigationMenuItem>
+              <NavigationMenuLink className="px-4" asChild>
+                <Link href="/" className="hover:bg-accent rounded-lg p-2">
+                  {t('home')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent">{t('corporate')}</NavigationMenuTrigger>
               <NavigationMenuContent className="bg-zinc-100 dark:bg-zinc-900 p-1 pr-1.5">
@@ -109,16 +111,20 @@ export function Navbar() {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-            <NavigationMenuLink className="px-4" asChild>
-              <Link href="/projects" className="hover:bg-accent rounded-lg p-2">
-                {t('projects')}
-              </Link>
-            </NavigationMenuLink>
-            <NavigationMenuLink className="px-4" asChild>
-              <Link href="/contact" className="hover:bg-accent rounded-lg p-2">
-                {t('contact')}
-              </Link>
-            </NavigationMenuLink>
+            <NavigationMenuItem>
+              <NavigationMenuLink className="px-4" asChild>
+                <Link href="/projects" className="hover:bg-accent rounded-lg p-2">
+                  {t('projects')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink className="px-4" asChild>
+                <Link href="/contact" className="hover:bg-accent rounded-lg p-2">
+                  {t('contact')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 
