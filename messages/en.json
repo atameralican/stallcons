@@ -1,0 +1,108 @@
+{
+  "Metadata": {
+    "siteName": "Stallcons – Steel Construction",
+    "home": {
+      "title": "Stallcons – Steel Construction",
+      "description": "Stallcons | Professional steel construction solutions in design, manufacturing, assembly and engineering."
+    },
+    "aboutUs": {
+      "title": "About Us | Stallcons – Steel Construction",
+      "description": "Learn more about Stallcons. Professional engineering and construction services with years of experience in steel construction."
+    },
+    "quality": {
+      "title": "Quality | Stallcons – Steel Construction",
+      "description": "Stallcons quality standards and certifications. Steel construction services at international standards."
+    },
+    "missionVision": {
+      "title": "Mission & Vision | Stallcons – Steel Construction",
+      "description": "Stallcons mission and vision. We aim to be a leader in sustainable steel construction solutions."
+    },
+    "steelConstruction": {
+      "title": "Steel Construction | Stallcons – Expertise Areas",
+      "description": "Stallcons steel construction services: Design, manufacturing and assembly. Industrial structures and steel systems."
+    },
+    "engineeringDesign": {
+      "title": "Engineering & Design | Stallcons – Expertise Areas",
+      "description": "Stallcons engineering and design services: Static calculations, 3D modelling and structural analysis."
+    },
+    "projects": {
+      "title": "Projects | Stallcons – Steel Construction",
+      "description": "Stallcons completed and ongoing projects. Industrial structures and steel construction projects."
+    },
+    "contact": {
+      "title": "Contact | Stallcons – Steel Construction",
+      "description": "Contact Stallcons. Reach out to us for a quote on our steel construction services."
+    }
+  },
+  "Navbar": {
+    "home": "Home",
+    "corporate": "Corporate",
+    "expertiseAreas": "Expertise Areas",
+    "projects": "Projects",
+    "contact": "Contact",
+    "contactPrompt": "For Contact",
+    "contactLink": "Click Here"
+  },
+  "CompanyLinks": {
+    "aboutUs": {
+      "title": "About Us",
+      "description": "Learn more about Stallcons"
+    },
+    "quality": {
+      "title": "Quality",
+      "description": "Stallcons quality standards"
+    },
+    "missionVision": {
+      "title": "Mission & Vision",
+      "description": "Stallcons mission and vision"
+    }
+  },
+  "ExpertiseLinks": {
+    "engineeringDesign": {
+      "title": "Engineering & Design",
+      "description": "Stallcons engineering & design services"
+    },
+    "steelConstruction": {
+      "title": "Steel Construction",
+      "description": "Design, manufacturing and assembly services"
+    }
+  },
+  "Breadcrumb": {
+    "home": "Home",
+    "corporate": "Corporate",
+    "expertiseAreas": "Expertise Areas"
+  },
+  "Pages": {
+    "aboutUs": {
+      "title": "About Us",
+      "description": "Your reliable partner in steel construction"
+    },
+    "quality": {
+      "title": "Quality",
+      "description": "Production and quality assurance at international standards"
+    },
+    "missionVision": {
+      "title": "Mission & Vision",
+      "description": "The values that guide us on our journey to build the future"
+    },
+    "steelConstruction": {
+      "title": "Steel Construction",
+      "description": "End-to-end steel construction solutions from design to assembly"
+    },
+    "engineeringDesign": {
+      "title": "Engineering & Design",
+      "description": "From static calculations to 3D modelling, we design your projects with confidence"
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Our completed and ongoing steel construction projects"
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Get a quote for your projects, send us your questions",
+      "comingSoon": "Contact Page Coming Soon",
+      "workInProgress": "Contact page is being prepared.",
+      "workInProgressDesc": "Content for this page will be added soon. Please contact us for detailed information."
+    }
+  }
+}

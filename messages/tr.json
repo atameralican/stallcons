@@ -1,0 +1,108 @@
+{
+  "Metadata": {
+    "siteName": "Stallcons – Çelik Konstrüksiyon",
+    "home": {
+      "title": "Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons | Tasarım, imalat, montaj ve mühendislik alanlarında profesyonel çelik konstrüksiyon çözümleri."
+    },
+    "aboutUs": {
+      "title": "Hakkımızda | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons hakkında daha fazla bilgi edinin. Çelik konstrüksiyon alanında yılların deneyimiyle profesyonel hizmetler."
+    },
+    "quality": {
+      "title": "Kalite | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons kalite standartları ve sertifikaları. Uluslararası standartlarda çelik konstrüksiyon hizmetleri."
+    },
+    "missionVision": {
+      "title": "Misyon & Vizyon | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons misyonu ve vizyonu. Sürdürülebilir çelik konstrüksiyon çözümleriyle sektörün öncüsü olmayı hedefliyoruz."
+    },
+    "steelConstruction": {
+      "title": "Çelik Konstrüksiyon | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons çelik konstrüksiyon hizmetleri: Tasarım, imalat ve montaj. Endüstriyel yapılar ve çelik sistemler."
+    },
+    "engineeringDesign": {
+      "title": "Mühendislik & Tasarım | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons mühendislik ve tasarım hizmetleri: Statik hesaplar, 3D modelleme ve yapısal analiz."
+    },
+    "projects": {
+      "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons tamamlanan ve devam eden projeleri. Endüstriyel yapılar ve çelik konstrüksiyon projelerimiz."
+    },
+    "contact": {
+      "title": "İletişim | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons ile iletişime geçin. Çelik konstrüksiyon hizmetlerimiz hakkında teklif almak için bize ulaşın."
+    }
+  },
+  "Navbar": {
+    "home": "Ana Sayfa",
+    "corporate": "Kurumsal",
+    "expertiseAreas": "Faaliyet Alanlarımız",
+    "projects": "Projeler",
+    "contact": "İletişim",
+    "contactPrompt": "İletişim İçin",
+    "contactLink": "Tıklayınız"
+  },
+  "CompanyLinks": {
+    "aboutUs": {
+      "title": "Hakkımızda",
+      "description": "Stallcons hakkında daha fazla bilgi"
+    },
+    "quality": {
+      "title": "Kalite",
+      "description": "Stallcons kalite standartları"
+    },
+    "missionVision": {
+      "title": "Misyon & Vizyon",
+      "description": "Stallcons misyon ve vizyon"
+    }
+  },
+  "ExpertiseLinks": {
+    "engineeringDesign": {
+      "title": "Mühendislik & Tasarım",
+      "description": "Stallcons mühendislik & tasarım hizmetleri"
+    },
+    "steelConstruction": {
+      "title": "Çelik Konstrüksiyon",
+      "description": "Tasarım, imalat ve montaj hizmetleri"
+    }
+  },
+  "Breadcrumb": {
+    "home": "Ana Sayfa",
+    "corporate": "Kurumsal",
+    "expertiseAreas": "Faaliyet Alanlarımız"
+  },
+  "Pages": {
+    "aboutUs": {
+      "title": "Hakkımızda",
+      "description": "Çelik konstrüksiyon alanında güvenilir çözüm ortağınız"
+    },
+    "quality": {
+      "title": "Kalite",
+      "description": "Uluslararası standartlarda üretim ve kalite güvencesi"
+    },
+    "missionVision": {
+      "title": "Misyon & Vizyon",
+      "description": "Geleceği inşa etme yolculuğumuzda bizi yönlendiren değerler"
+    },
+    "steelConstruction": {
+      "title": "Çelik Konstrüksiyon",
+      "description": "Tasarımdan montaja kadar uçtan uca çelik konstrüksiyon çözümleri"
+    },
+    "engineeringDesign": {
+      "title": "Mühendislik & Tasarım",
+      "description": "Statik hesaptan 3D modellemeye, projelerinizi güvenle tasarlıyoruz"
+    },
+    "projects": {
+      "title": "Projeler",
+      "description": "Tamamlanan ve devam eden çelik konstrüksiyon projelerimiz"
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Projeleriniz için teklif alın, sorularınızı iletin",
+      "comingSoon": "İletişim Sayfası Yakında",
+      "workInProgress": "İletişim sayfası hazırlanıyor.",
+      "workInProgressDesc": "Bu sayfa için içerik çok yakında eklenecektir. Detaylı bilgi almak için lütfen bizimle iletişime geçin."
+    }
+  }
+}
