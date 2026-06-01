@@ -9,6 +9,7 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/footer";
 
 const sourceSans = Source_Sans_3({
   subsets: ["latin", "latin-ext"],
@@ -66,9 +67,10 @@ export default async function LocaleLayout({ children, params }: Props) {
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="flex-1 bg-zinc-100 dark:bg-zinc-800">
+            <main className="relative z-10 flex-1 bg-zinc-200 dark:bg-zinc-800 min-h-svh rounded-b-[2.5rem] shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:shadow-[0_15px_30px_rgba(0,0,0,0.7)]">
               {children}
             </main>
+            < Footer />
           </ThemeProvider>
         </NextIntlClientProvider>
         <Analytics />

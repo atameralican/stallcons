@@ -39,7 +39,7 @@ export function PageHeader({
   return (
     <>
       {/* Banner */}
-      <div className="px-4 sm:px-6" style={{ marginTop: '80px' }}>
+      <div className="px-4 sm:px-6 mt-5" >
         <section
           className="relative w-full overflow-hidden flex flex-col items-center justify-center rounded-3xl"
           style={{
