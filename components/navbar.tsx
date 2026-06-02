@@ -67,7 +67,7 @@ export function Navbar() {
             </span>
           </div>
           <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-500 dark:text-slate-300 mt-0.5">
-            Steel Construction
+            STEEL CONSTRUCTION
           </span>
         </Link>
 

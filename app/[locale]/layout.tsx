@@ -67,7 +67,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             disableTransitionOnChange
           >
             <Navbar />
-            <main className="relative z-10 flex-1 bg-zinc-200 dark:bg-zinc-800 min-h-svh rounded-b-[2.5rem] shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:shadow-[0_15px_30px_rgba(0,0,0,0.7)]">
+            <main className="relative z-10 pb-12 flex-1 bg-zinc-200 dark:bg-zinc-800 min-h-svh rounded-b-[2.5rem] shadow-[0_15px_30px_rgba(0,0,0,0.3)] dark:shadow-[0_15px_30px_rgba(0,0,0,0.7)]">
               {children}
             </main>
             < Footer />
