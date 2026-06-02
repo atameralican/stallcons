@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-
+import Image from "next/image";
 
 export interface GalleryData {
     id: string;
@@ -149,9 +149,13 @@ function PhotoCard({
             onMouseEnter={() => onHover(data.id)}
             onMouseLeave={() => onHover(null)}
         >
-            <img
+            <Image
                 src={data.image}
                 alt={data.name}
+                width={500}
+                height={500}
+                //width height değişebilir.
+                // fill
                 className="w-full h-full object-cover transition-[filter] duration-500"
                 style={{
                     filter: isActive ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.77)',

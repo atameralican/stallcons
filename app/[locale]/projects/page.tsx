@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import GalleryShowcase from "@/components/gallery-showcase";
+import { Timeline } from "@/components/timeline";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -27,6 +28,9 @@ export default async function Page({ params }: Props) {
   const t = await getTranslations({ locale, namespace: "Pages.projects" });
   const b = await getTranslations({ locale, namespace: "Breadcrumb" });
 
+
+
+
   return (
     <>
       <PageHeader
@@ -39,6 +43,9 @@ export default async function Page({ params }: Props) {
       />
       <div className="min-h-[40vh] mt-5 ">
         <GalleryShowcase />
+      </div>
+      <div className="min-h-[40vh] mt-5 ">
+        <Timeline />
       </div>
     </>
   );
