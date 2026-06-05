@@ -21,9 +21,9 @@ export function LanguageSwitcher() {
       size="sm"
       onClick={toggleLocale}
       className="rounded-full h-9 px-3 text-xs font-semibold tracking-wider transition-all hover:bg-accent"
-      aria-label={locale === 'tr' ? 'Switch to English' : "Türkçe'ye geç"}
+      aria-label={locale === 'en' ? 'Switch to English' : "Türkçe'ye geç"}
     >
-      {locale === 'tr' ? 'EN' : 'TR'}
+      {locale === 'en' ? 'EN' : 'TR'}
     </Button>
   );
 }
