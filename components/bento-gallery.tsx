@@ -6,6 +6,7 @@ import {
     useScroll,
     useTransform,
     AnimatePresence,
+    Variants,
 } from "framer-motion"
 import { cn } from "@/lib/utils" // Assumes a 'lib/utils.ts' file for 'cn'
 import { X, ZoomIn } from "lucide-react"
@@ -27,7 +28,7 @@ interface ExpertiseImageBentoGalleryProps {
 }
 
 // Animation variants for the container to stagger children
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: {},
     visible: {
         transition: {
@@ -37,7 +38,7 @@ const containerVariants = {
 }
 
 // Animation variants for each gallery item
-const itemVariants = {
+const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
         opacity: 1,
