@@ -37,9 +37,17 @@
       "title": "Savunma | Stallcons – Faaliyet Alanları",
       "description": "Stallcons savunma sanayi çözümleri: Savunma için güvenli ve dayanıklı çelik yapılar."
     },
+    "craneSystems": {
+      "title": "Vinç Yolları ve Ağır Sanayi Ekipmanları | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons vinç yolları: Özel tasarım tavan vinci yolları ve ağır sanayi çelik konstrüksiyonları."
+    },
     "projects": {
       "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
       "description": "Stallcons tamamlanan ve devam eden projeleri. Endüstriyel yapılar ve çelik konstrüksiyon projelerimiz."
+    },
+    "products": {
+      "title": "Ürünler | Stallcons – Çelik Konstrüksiyon",
+      "description": "Stallcons ürünleri. Çelik konstrüksiyon ve ağır sanayi ürünlerimiz."
     },
     "contact": {
       "title": "İletişim | Stallcons – Çelik Konstrüksiyon",
@@ -51,6 +59,7 @@
     "corporate": "Kurumsal",
     "expertiseAreas": "Faaliyet Alanlarımız",
     "projects": "Projeler",
+    "products": "Ürünler",
     "contact": "İletişim",
     "contactPrompt": "İletişim İçin",
     "contactLink": "Tıklayınız"
@@ -89,6 +98,10 @@
     "defense": {
       "title": "Savunma",
       "description": "Savunma sanayi yapıları"
+    },
+    "craneSystems": {
+      "title": "Vinç Yolları ve Ekipmanları",
+      "description": "Ağır sanayi vinç yolu sistemleri"
     }
   },
   "Breadcrumb": {
@@ -132,6 +145,17 @@
     "defense": {
       "title": "Savunma",
       "description": "Savunma sanayi için özel çelik yapılar ve çözümler"
+    },
+    "craneSystems": {
+      "title": "Vinç Yolları & Ağır Sanayi Ekipmanları",
+      "description": "Ağır sanayi için özel tasarım tavan vinci yolları ve ekipmanları"
+    },
+    "products": {
+      "title": "Ürünler",
+      "description": "Geniş ürün yelpazemizi keşfedin",
+      "comingSoon": "Ürünler Sayfası Yakında",
+      "workInProgress": "Ürünler sayfası hazırlanıyor.",
+      "workInProgressDesc": "Bu sayfa için içerik çok yakında eklenecektir. Detaylı bilgi almak için lütfen bizimle iletişime geçin."
     },
     "contact": {
       "title": "İletişim",

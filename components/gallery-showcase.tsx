@@ -3,50 +3,53 @@
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import { ArrowUpRight } from 'lucide-react';
 
 export interface GalleryData {
     id: string;
     name: string;
     role: string;
+    href: string;
     image: string;
-
 }
 
-const DEFAULT_DATA: GalleryData[] = [
+const ITEMS_CONFIG = [
     {
         id: '1',
-        name: 'Project One',
-        role: 'description 1',
+        translationKey: 'engineeringDesign' as const,
+        href: '/expertise-areas/engineering-design',
         image: 'https://fastly.picsum.photos/id/845/536/354.jpg?hmac=N0jid6KpFZyaCJhFdFJVRQUImWIJuxYl53n3GkFj9Ps',
     },
     {
         id: '2',
-        name: 'Project Two',
-        role: 'description 2',
+        translationKey: 'steelConstruction' as const,
+        href: '/expertise-areas/steel-construction',
         image: 'https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA'
     },
     {
         id: '3',
-        name: 'Project Three',
-        role: 'description 3',
+        translationKey: 'consulting' as const,
+        href: '/expertise-areas/consulting',
         image: 'https://fastly.picsum.photos/id/76/367/267.jpg?hmac=Jh_us_gqJLuNJOhki3d6cVGyA4OsoiID7bhwIoooi48',
     },
     {
         id: '4',
-        name: 'Project Four',
-        role: 'description 4',
+        translationKey: 'qualityControl' as const,
+        href: '/expertise-areas/quality-control',
         image: 'https://fastly.picsum.photos/id/16/367/267.jpg?hmac=ZyyuET1a6X-Ym6MXK8OyHrdWFJiLI4To0iYLTlyrD-0',
     },
     {
         id: '5',
-        name: 'Project Five',
-        role: 'description 5',
+        translationKey: 'defense' as const,
+        href: '/expertise-areas/defense',
         image: 'https://fastly.picsum.photos/id/9/367/267.jpg?hmac=T7owcj6NXY0SJiB-H1XxauCZKaZJkkXWOEQw8GZseAc',
     },
     {
         id: '6',
-        name: 'Project Six',
-        role: 'description 6',
+        translationKey: 'craneSystems' as any,
+        href: '/expertise-areas/crane-systems',
         image: 'https://fastly.picsum.photos/id/63/367/267.jpg?hmac=v7Io1SRLfeajvMXPM49T9R2ScLVsYEXzclwdxNtABTk',
     },
 ];
@@ -55,8 +58,17 @@ interface GalleryShowcaseProps {
     datas?: GalleryData[];
 }
 
-export default function GalleryShowcase({ datas = DEFAULT_DATA }: GalleryShowcaseProps) {
+export default function GalleryShowcase({ datas: externalDatas }: GalleryShowcaseProps) {
+    const t = useTranslations("ExpertiseLinks");
     const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+    const datas: GalleryData[] = externalDatas || ITEMS_CONFIG.map(item => ({
+        id: item.id,
+        name: t(`${item.translationKey}.title`),
+        role: t(`${item.translationKey}.description`),
+        href: item.href,
+        image: item.image,
+    }));
 
     // 3-column layout (>= 390px)
     const col1 = datas.filter((_, i) => i % 3 === 0);
@@ -173,9 +185,10 @@ function PhotoCard({
     const isDimmed = hoveredId !== null && !isActive;
 
     return (
-        <div
+        <Link
+            href={data.href as any}
             className={cn(
-                'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-400',
+                'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-400 block',
                 className,
                 isDimmed ? 'opacity-60' : 'opacity-100',
             )}
@@ -194,7 +207,7 @@ function PhotoCard({
                     filter: isActive ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.77)',
                 }}
             />
-        </div>
+        </Link>
     );
 }
 
@@ -215,9 +228,10 @@ function DataRow({
     const isDimmed = hoveredId !== null && !isActive;
 
     return (
-        <div
+        <Link
+            href={data.href as any}
             className={cn(
-                'cursor-pointer transition-opacity duration-300',
+                'cursor-pointer transition-opacity duration-300 block',
                 isDimmed ? 'opacity-50' : 'opacity-100',
             )}
             onMouseEnter={() => onHover(data.id)}
@@ -233,20 +247,24 @@ function DataRow({
                 />
                 <span
                     className={cn(
-                        'text-base md:text-[18px] font-semibold leading-none tracking-tight transition-colors duration-300',
+                        'text-base md:text-[18px] font-semibold leading-none tracking-tight transition-colors duration-300 flex items-center',
                         isActive ? 'text-foreground' : 'text-foreground/80',
                     )}
                 >
                     {data.name}
+                    <ArrowUpRight
+                        className={cn(
+                            "w-4 h-4 ml-1 transition-all duration-300",
+                            isActive ? "opacity-100 translate-x-0 translate-y-0" : "opacity-0 -translate-x-1 translate-y-1"
+                        )}
+                    />
                 </span>
-
-
             </div>
 
             {/* Role */}
             <p className="mt-1.5 pl-[27px] text-[7px] md:text-[10px] font-medium capitalize tracking-[0.2em] text-muted-foreground">
                 {data.role}
             </p>
-        </div>
+        </Link>
     );
 }

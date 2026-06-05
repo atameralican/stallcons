@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Briefcase, ShieldCheck, ClipboardCheck } from 'lucide-react';
+import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Briefcase, ShieldCheck, ClipboardCheck, Factory, Package } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
@@ -44,6 +44,7 @@ export function Navbar() {
     { title: el('consulting.title'), href: '/expertise-areas/consulting', description: el('consulting.description'), icon: Briefcase },
     { title: el('qualityControl.title'), href: '/expertise-areas/quality-control', description: el('qualityControl.description'), icon: ClipboardCheck },
     { title: el('defense.title'), href: '/expertise-areas/defense', description: el('defense.description'), icon: ShieldCheck },
+    { title: el('craneSystems.title'), href: '/expertise-areas/crane-systems', description: el('craneSystems.description'), icon: Factory },
   ];
 
   React.useEffect(() => {
@@ -123,6 +124,13 @@ export function Navbar() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink className="px-4" asChild>
+                <Link href="/products" className="hover:bg-accent rounded-lg p-2">
+                  {t('products')}
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink className="px-4" asChild>
                 <Link href="/contact" className="hover:bg-accent rounded-lg p-2">
                   {t('contact')}
                 </Link>
@@ -162,6 +170,8 @@ export function Navbar() {
             {expertiseAreasLinks.map((link) => (<ListItem key={link.title} {...link} onClick={() => setOpen(false)} />))}
             <span className="text-sm">{t('projects')}</span>
             <ListItem key="projects" title={t('projects')} href="/projects" description="" icon={List} onClick={() => setOpen(false)} />
+            <span className="text-sm">{t('products')}</span>
+            <ListItem key="products" title={t('products')} href="/products" description="" icon={Package} onClick={() => setOpen(false)} />
             <span className="text-sm">{t('contact')}</span>
             <ListItem key="contact" title={t('contact')} href="/contact" description="" icon={MailIcon} onClick={() => setOpen(false)} />
           </div>

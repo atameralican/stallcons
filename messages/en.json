@@ -37,9 +37,17 @@
       "title": "Defense | Stallcons – Expertise Areas",
       "description": "Stallcons defense industry solutions: Secure and durable steel structures for defense."
     },
+    "craneSystems": {
+      "title": "Crane Runways & Heavy Industry Equipment | Stallcons – Expertise Areas",
+      "description": "Stallcons crane systems: Custom-designed crane runways and heavy industry steel structures."
+    },
     "projects": {
       "title": "Projects | Stallcons – Steel Construction",
       "description": "Stallcons completed and ongoing projects. Industrial structures and steel construction projects."
+    },
+    "products": {
+      "title": "Products | Stallcons – Steel Construction",
+      "description": "Stallcons products. Steel construction and heavy industry products."
     },
     "contact": {
       "title": "Contact | Stallcons – Steel Construction",
@@ -51,6 +59,7 @@
     "corporate": "Corporate",
     "expertiseAreas": "Expertise Areas",
     "projects": "Projects",
+    "products": "Products",
     "contact": "Contact",
     "contactPrompt": "For Contact",
     "contactLink": "Click Here"
@@ -89,6 +98,10 @@
     "defense": {
       "title": "Defense",
       "description": "Defense industry structures"
+    },
+    "craneSystems": {
+      "title": "Crane Runways & Equipment",
+      "description": "Heavy industry crane runway systems"
     }
   },
   "Breadcrumb": {
@@ -132,6 +145,17 @@
     "defense": {
       "title": "Defense",
       "description": "Specialized steel structures and solutions for the defense industry"
+    },
+    "craneSystems": {
+      "title": "Crane Runways & Heavy Industry Equipment",
+      "description": "Specialized crane runways and heavy industry steel structures"
+    },
+    "products": {
+      "title": "Products",
+      "description": "Discover our range of products",
+      "comingSoon": "Products Page Coming Soon",
+      "workInProgress": "Products page is being prepared.",
+      "workInProgressDesc": "Content for this page will be added soon. Please contact us for detailed information."
     },
     "contact": {
       "title": "Contact",
