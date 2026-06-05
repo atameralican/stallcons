@@ -92,8 +92,7 @@ export default async function Page({ params }: Props) {
       <div className="w-full antialiased">
         <ExpertiseImageBentoGallery
           imageItems={imageItems}
-          // title="Curated Moments"
-          description="A collection of stunning landscapes. Drag to explore, click to expand."
+          description={t("galleryDescription")}
         />
       </div>
     </>

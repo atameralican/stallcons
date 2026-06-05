@@ -124,11 +124,13 @@
     },
     "steelConstruction": {
       "title": "Steel Construction",
-      "description": "End-to-end steel construction solutions from design to assembly"
+      "description": "End-to-end steel construction solutions from design to assembly",
+      "galleryDescription": "A showcase of our steel construction works. Drag to explore, click to expand."
     },
     "engineeringDesign": {
       "title": "Engineering & Design",
-      "description": "From static calculations to 3D modelling, we design your projects with confidence"
+      "description": "From static calculations to 3D modelling, we design your projects with confidence",
+      "galleryDescription": "Discover our engineering and design projects. Drag to explore, click to expand."
     },
     "projects": {
       "title": "Projects",
@@ -136,19 +138,23 @@
     },
     "consulting": {
       "title": "Consulting",
-      "description": "Expert guidance and engineering consulting for your projects"
+      "description": "Expert guidance and engineering consulting for your projects",
+      "galleryDescription": "Highlights from our consulting expertise. Drag to explore, click to expand."
     },
     "qualityControl": {
       "title": "Quality Control",
-      "description": "Rigorous quality control and assurance in every step"
+      "description": "Rigorous quality control and assurance in every step",
+      "galleryDescription": "Our rigorous quality control processes in action. Drag to explore, click to expand."
     },
     "defense": {
       "title": "Defense",
-      "description": "Specialized steel structures and solutions for the defense industry"
+      "description": "Specialized steel structures and solutions for the defense industry",
+      "galleryDescription": "Secure and durable structures for the defense industry. Drag to explore, click to expand."
     },
     "craneSystems": {
       "title": "Crane Runways & Heavy Industry Equipment",
-      "description": "Specialized crane runways and heavy industry steel structures"
+      "description": "Specialized crane runways and heavy industry steel structures",
+      "galleryDescription": "Specialized crane runways and heavy equipment projects. Drag to explore, click to expand."
     },
     "products": {
       "title": "Products",

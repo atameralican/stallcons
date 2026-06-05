@@ -124,11 +124,13 @@
     },
     "steelConstruction": {
       "title": "Çelik Konstrüksiyon",
-      "description": "Tasarımdan montaja kadar uçtan uca çelik konstrüksiyon çözümleri"
+      "description": "Tasarımdan montaja uçtan uca çelik konstrüksiyon çözümleri",
+      "galleryDescription": "Çelik konstrüksiyon çalışmalarımızdan kesitler. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "engineeringDesign": {
       "title": "Mühendislik & Tasarım",
-      "description": "Statik hesaptan 3D modellemeye, projelerinizi güvenle tasarlıyoruz"
+      "description": "Statik hesaplamalardan 3D modellemeye kadar projelerinizi güvenle tasarlıyoruz",
+      "galleryDescription": "Mühendislik ve tasarım projelerimizi keşfedin. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "projects": {
       "title": "Projeler",
@@ -136,19 +138,23 @@
     },
     "consulting": {
       "title": "Danışmanlık",
-      "description": "Projeleriniz için uzman rehberlik ve mühendislik danışmanlığı"
+      "description": "Projeleriniz için uzman rehberlik ve mühendislik danışmanlığı",
+      "galleryDescription": "Danışmanlık uzmanlığımızdan öne çıkanlar. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "qualityControl": {
       "title": "Kalite Kontrol",
-      "description": "Her adımda titiz kalite kontrol ve güvence"
+      "description": "Her aşamada titiz kalite kontrol ve güvence",
+      "galleryDescription": "Titiz kalite kontrol süreçlerimiz iş başında. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "defense": {
       "title": "Savunma",
-      "description": "Savunma sanayi için özel çelik yapılar ve çözümler"
+      "description": "Savunma sanayi için özel çelik yapılar ve çözümler",
+      "galleryDescription": "Savunma sanayi için güvenli ve dayanıklı yapılar. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "craneSystems": {
       "title": "Vinç Yolları & Ağır Sanayi Ekipmanları",
-      "description": "Ağır sanayi için özel tasarım tavan vinci yolları ve ekipmanları"
+      "description": "Ağır sanayi için özel tasarım tavan vinci yolları ve ekipmanları",
+      "galleryDescription": "Özel tasarım vinç yolları ve ağır ekipman projeleri. İncelemek için kaydırın, büyütmek için tıklayın."
     },
     "products": {
       "title": "Ürünler",
