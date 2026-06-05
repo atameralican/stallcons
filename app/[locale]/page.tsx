@@ -2,6 +2,7 @@
 import { TextFlippingBoard } from "@/components/ui/text-flipping-board";
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocale } from "next-intl";
+import GalleryShowcase from "@/components/gallery-showcase";
 
 const MESSAGES: Record<string, string[]> = {
   tr: [
@@ -44,6 +45,17 @@ export default function Home() {
             ? "Yakında profesyonel çelik konstrüksiyon hizmetlerimizle hizmetinizdeyiz."
             : "Professional steel construction services, coming soon."}
         </p>
+      </div>
+      <div className="min-h-[40vh] mt-5 w-full">
+        <div className="max-w-7xl mx-auto pt-20 pb-4 px-4 md:px-8 lg:px-10">
+          <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
+            Faaliyetler
+          </h2>
+          <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
+            Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz.
+          </p>
+        </div>
+        <GalleryShowcase />
       </div>
     </div>
   );

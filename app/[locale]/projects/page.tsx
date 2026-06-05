@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
-import GalleryShowcase from "@/components/gallery-showcase";
 import { Timeline } from "@/components/timeline";
 import HoverBrandLogo from "@/components/hover-brand-logo";
 
@@ -42,9 +41,7 @@ export default async function Page({ params }: Props) {
           { label: t("title") },
         ]}
       />
-      <div className="min-h-[40vh] mt-5 ">
-        <GalleryShowcase />
-      </div>
+
       <div className="min-h-[40vh] mt-5 ">
         <Timeline />
       </div>
