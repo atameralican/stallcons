@@ -25,6 +25,18 @@
       "title": "Mühendislik & Tasarım | Stallcons – Faaliyet Alanları",
       "description": "Stallcons mühendislik ve tasarım hizmetleri: Statik hesaplar, 3D modelleme ve yapısal analiz."
     },
+    "consulting": {
+      "title": "Danışmanlık | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons danışmanlık hizmetleri: Profesyonel mühendislik ve çelik konstrüksiyon danışmanlığı."
+    },
+    "qualityControl": {
+      "title": "Kalite Kontrol | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons kalite kontrol hizmetleri: Çelik konstrüksiyonda en yüksek standartların sağlanması."
+    },
+    "defense": {
+      "title": "Savunma | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons savunma sanayi çözümleri: Savunma için güvenli ve dayanıklı çelik yapılar."
+    },
     "projects": {
       "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
       "description": "Stallcons tamamlanan ve devam eden projeleri. Endüstriyel yapılar ve çelik konstrüksiyon projelerimiz."
@@ -65,6 +77,18 @@
     "steelConstruction": {
       "title": "Çelik Konstrüksiyon",
       "description": "Tasarım, imalat ve montaj hizmetleri"
+    },
+    "consulting": {
+      "title": "Danışmanlık",
+      "description": "Profesyonel danışmanlık hizmetleri"
+    },
+    "qualityControl": {
+      "title": "Kalite Kontrol",
+      "description": "Yüksek standartlarda kalite güvencesi"
+    },
+    "defense": {
+      "title": "Savunma",
+      "description": "Savunma sanayi yapıları"
     }
   },
   "Breadcrumb": {
@@ -96,6 +120,18 @@
     "projects": {
       "title": "Projeler",
       "description": "Tamamlanan ve devam eden çelik konstrüksiyon projelerimiz"
+    },
+    "consulting": {
+      "title": "Danışmanlık",
+      "description": "Projeleriniz için uzman rehberlik ve mühendislik danışmanlığı"
+    },
+    "qualityControl": {
+      "title": "Kalite Kontrol",
+      "description": "Her adımda titiz kalite kontrol ve güvence"
+    },
+    "defense": {
+      "title": "Savunma",
+      "description": "Savunma sanayi için özel çelik yapılar ve çözümler"
     },
     "contact": {
       "title": "İletişim",

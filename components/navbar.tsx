@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home } from 'lucide-react';
+import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Briefcase, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
@@ -41,6 +41,9 @@ export function Navbar() {
   const expertiseAreasLinks: LinkItem[] = [
     { title: el('engineeringDesign.title'), href: '/expertise-areas/engineering-design', description: el('engineeringDesign.description'), icon: Users },
     { title: el('steelConstruction.title'), href: '/expertise-areas/steel-construction', description: el('steelConstruction.description'), icon: LayersIcon },
+    { title: el('consulting.title'), href: '/expertise-areas/consulting', description: el('consulting.description'), icon: Briefcase },
+    { title: el('qualityControl.title'), href: '/expertise-areas/quality-control', description: el('qualityControl.description'), icon: ClipboardCheck },
+    { title: el('defense.title'), href: '/expertise-areas/defense', description: el('defense.description'), icon: ShieldCheck },
   ];
 
   React.useEffect(() => {
