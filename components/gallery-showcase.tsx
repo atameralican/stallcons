@@ -58,14 +58,47 @@ interface GalleryShowcaseProps {
 export default function GalleryShowcase({ datas = DEFAULT_DATA }: GalleryShowcaseProps) {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+    // 3-column layout (>= 390px)
     const col1 = datas.filter((_, i) => i % 3 === 0);
     const col2 = datas.filter((_, i) => i % 3 === 1);
     const col3 = datas.filter((_, i) => i % 3 === 2);
 
+    // 2-column layout (< 390px)
+    const twoCol1 = datas.filter((_, i) => i % 2 === 0);
+    const twoCol2 = datas.filter((_, i) => i % 2 === 1);
+
     return (
         <div className="flex flex-col md:flex-row items-start gap-8 md:gap-10 lg:gap-14 select-none w-full max-w-5xl mx-auto py-8 px-4 md:px-6 font-sans">
             {/* ── Left: photo grid ── */}
-            <div className="flex gap-2 md:gap-3 flex-shrink-0 overflow-x-auto pb-1 md:pb-0">
+
+            {/* 2-column grid (< 390px) */}
+            <div className="flex gap-2 flex-shrink-0 pb-1 min-[390px]:hidden mx-auto">
+                <div className="flex flex-col gap-2">
+                    {twoCol1.map((data) => (
+                        <PhotoCard
+                            key={data.id}
+                            data={data}
+                            className="w-[140px] h-[150px]"
+                            hoveredId={hoveredId}
+                            onHover={setHoveredId}
+                        />
+                    ))}
+                </div>
+                <div className="flex flex-col gap-2 mt-[36px]">
+                    {twoCol2.map((data) => (
+                        <PhotoCard
+                            key={data.id}
+                            data={data}
+                            className="w-[140px] h-[150px]"
+                            hoveredId={hoveredId}
+                            onHover={setHoveredId}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* 3-column grid (>= 390px) */}
+            <div className="hidden min-[390px]:flex gap-2 md:gap-3 flex-shrink-0 pb-1 md:pb-0">
                 {/* Column 1 */}
                 <div className="flex flex-col gap-2 md:gap-3">
                     {col1.map((data) => (
