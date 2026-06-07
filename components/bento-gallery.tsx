@@ -61,24 +61,33 @@ const ImageModal = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
             onClick={onClose}
         >
             <motion.div
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
-                className="relative w-full max-w-4xl p-4"
+                className="relative w-full max-w-4xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 {item.url && (
                     <img
                         src={item.url}
                         alt={item.title || ""}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full max-h-[80vh] object-contain rounded-xl"
                     />
                 )}
-
+                {(item.title || item.desc) && (
+                    <div className="mt-3 text-center">
+                        {item.title && (
+                            <p className="text-white font-semibold text-lg">{item.title}</p>
+                        )}
+                        {item.desc && (
+                            <p className="text-white/70 text-sm mt-1">{item.desc}</p>
+                        )}
+                    </div>
+                )}
             </motion.div>
             <button
                 onClick={onClose}
