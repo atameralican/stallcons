@@ -159,9 +159,9 @@ export function Navbar() {
       </nav>
 
       {/* MOBILE MENU */}
-      <MobileMenu open={open} className="flex flex-col overflow-y-auto-">
-        <NavigationMenu className="max-w-full max-h-full">
-          <div className="flex w-full h-full flex-col justify-start gap-y-2-">
+      <MobileMenu open={open} className="flex flex-col overflow-y-auto scrollbar-hide pb-6">
+        <NavigationMenu className="max-w-full h-auto">
+          <div className="flex w-full h-full flex-col justify-start gap-y-2">
             <ListItem key="home" title={t('home')} href="/" description="" icon={Home} onClick={() => setOpen(false)} />
 
             <span className="text-sm">{t('corporate')}</span>

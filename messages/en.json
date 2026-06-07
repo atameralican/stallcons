@@ -166,9 +166,28 @@
     "contact": {
       "title": "Contact",
       "description": "Get a quote for your projects, send us your questions",
-      "comingSoon": "Contact Page Coming Soon",
-      "workInProgress": "Contact page is being prepared.",
-      "workInProgressDesc": "Content for this page will be added soon. Please contact us for detailed information."
+      "sectionLabel": "Get in Touch",
+      "sectionHeading": "Get a Quote for Your Project",
+      "sectionDesc": "Contact our expert team for your steel construction projects. We will get back to you as soon as possible.",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "addressValue": "Ankara, Turkey",
+      "linkedin": "LinkedIn",
+      "formHeading": "Fill in the Form",
+      "firstname": "First Name",
+      "firstnamePlaceholder": "Your First Name",
+      "lastname": "Last Name",
+      "lastnamePlaceholder": "Your Last Name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "example@mail.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+90 5XX XXX XX XX",
+      "subject": "Subject",
+      "subjectPlaceholder": "Briefly describe your project",
+      "message": "Your Message",
+      "messagePlaceholder": "You can write your project details, requirements and questions here...",
+      "send": "Send Message"
     }
   }
 }

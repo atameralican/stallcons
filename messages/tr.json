@@ -166,9 +166,28 @@
     "contact": {
       "title": "İletişim",
       "description": "Projeleriniz için teklif alın, sorularınızı iletin",
-      "comingSoon": "İletişim Sayfası Yakında",
-      "workInProgress": "İletişim sayfası hazırlanıyor.",
-      "workInProgressDesc": "Bu sayfa için içerik çok yakında eklenecektir. Detaylı bilgi almak için lütfen bizimle iletişime geçin."
+      "sectionLabel": "Bize Ulaşın",
+      "sectionHeading": "Projeniz İçin Teklif Alın",
+      "sectionDesc": "Çelik konstrüksiyon projeleriniz için uzman ekibimizle iletişime geçin. En kısa sürede size dönüş yapacağız.",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "address": "Adres",
+      "addressValue": "Ankara, Türkiye",
+      "linkedin": "LinkedIn",
+      "formHeading": "Formu Doldurun",
+      "firstname": "Ad",
+      "firstnamePlaceholder": "Adınız",
+      "lastname": "Soyad",
+      "lastnamePlaceholder": "Soyadınız",
+      "emailLabel": "E-posta",
+      "emailPlaceholder": "ornek@mail.com",
+      "phoneLabel": "Telefon",
+      "phonePlaceholder": "+90 5XX XXX XX XX",
+      "subject": "Konu",
+      "subjectPlaceholder": "Projeniz hakkında kısaca belirtin",
+      "message": "Mesajınız",
+      "messagePlaceholder": "Projenizin detaylarını, ihtiyaçlarınızı ve sorularınızı buraya yazabilirsiniz...",
+      "send": "Mesaj Gönder"
     }
   }
 }
