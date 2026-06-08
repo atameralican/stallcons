@@ -127,11 +127,36 @@
     },
     "quality": {
       "title": "Kalite",
-      "description": "Uluslararası standartlarda üretim ve kalite güvencesi"
+      "description": "Uluslararası standartlarda üretim ve kalite güvencesi",
+      "introHeading": "Kalite Teslimatta Değil, Tasarım Masasında Başlar",
+      "introBody1": "Her projenin teknik şartnamesini EN 1090 ve ISO 3834 gereklilikleri çerçevesinde inceliyoruz. Malzeme kabulünden sahada son montaj kaynağına kadar kritik her noktada ölçüm, test ve doğrulama yapılır.",
+      "introBody2": "Kalite kontrol ekibimiz üretim sürecinin dışında değil, içinde çalışır. Her kaynak prosedürü onaylı, her malzeme sertifikalı, her bileşen izlenebilir. Belge olmayan iş teslim edilmez.",
+      "pillarsHeading": "Kalite Anlayışımız",
+      "pillar1Title": "Kaynaklı Yapı — EN 1090",
+      "pillar1Desc": "EXC 2 ve EXC 3 yürütme sınıfları kapsamında sertifikalı üretim. Kaynaklı çelik yapıların tasarım, imalat ve montaj aşamalarında EN 1090 normuna uygunluk belgelenmiş ve bağımsız denetimle doğrulanmış.",
+      "pillar2Title": "Kaynak Kalitesi — ISO 3834",
+      "pillar2Desc": "Onaylı kaynak prosedürleri (WPS/pWPS), sertifikalı kaynakçılar ve kaynak koordinatörü gözetiminde üretim. Metalik malzemelerin füzyon kaynağında kapsamlı kalite gerekliliklerinin tamamı karşılanmış.",
+      "pillar3Title": "Malzeme İzlenebilirliği",
+      "pillar3Desc": "Gelen her çelik profil ve levha için sertifika kontrolü ve ısı numarası takibi yapılır. Hammaddeden teslimata uzanan tam izlenebilirlik kaydı projenin her aşamasında erişilebilir.",
+      "pillar4Title": "Tahribatsız Muayene",
+      "pillar4Desc": "Kritik birleşimlerde görsel muayene (VT), ultrasonik test (UT) ve radyografik test (RT) uygulaması. Bağımsız üçüncü taraf denetimleri ile iç kalite kayıtları eşzamanlı tutulur."
     },
     "missionVision": {
       "title": "Misyon & Vizyon",
-      "description": "Geleceği inşa etme yolculuğumuzda bizi yönlendiren değerler"
+      "description": "Geleceği inşa etme yolculuğumuzda bizi yönlendiren değerler",
+      "missionHeading": "Misyon",
+      "missionStatement": "Çelik konstrüksiyon projelerini tasarımdan montaja, mühendislik bütünlüğünden ödün vermeden zamanında teslim etmek.",
+      "missionBody": "Stallcons, her projeyi teknik bir taahhüt olarak görür. Başından teslime kadar aynı standartları, aynı belge disiplinini ve aynı hesap verebilirliği koruruz. Müşterimiz projeyi devraldığında arkasında eksiksiz bir mühendislik kaydı bulur.",
+      "visionHeading": "Vizyon",
+      "visionStatement": "Türkiye'nin uluslararası projelerde tercih edilen çelik konstrüksiyon firması olmak.",
+      "visionBody": "Yurt içindeki başarılarımızı uluslararası referanslara dönüştürmeyi hedefliyoruz. Savunma ve havacılık sektörlerindeki birikimimiz ile endüstriyel yapı uzmanlığımızı, küresel ölçekte tanınan bir marka haline getireceğiz.",
+      "principlesHeading": "Temel Değerlerimiz",
+      "principle1Title": "Mühendislik Bütünlüğü",
+      "principle1Desc": "Teknik kararlar ticari baskılardan bağımsız verilir. Hesaplama sonucu yapıyı doğruluyorsa devam edilir; doğrulamıyorsa tasarım yeniden yapılır. Bu sınır müzakereye kapalıdır.",
+      "principle2Title": "Uzun Vadeli Ortaklık",
+      "principle2Desc": "Projeler tamamlanır, ilişkiler sürer. Teslim sonrası teknik destek, bakım rehberliği ve ek ihtiyaçlarda öncelikli yanıt — müşterimiz projeyi devraldıktan sonra da yanındayız.",
+      "principle3Title": "Sürekli İyileştirme",
+      "principle3Desc": "Her proje sonunda süreç gözden geçirilir. Tekrar eden sorunlar sisteme alınır, kaçırılan fırsatlar kayıt altına alınır. Bildiklerimiz kadar bilmediklerimizi takip etmek de kalite politikamızın parçasıdır."
     },
     "steelConstruction": {
       "title": "Çelik Konstrüksiyon",

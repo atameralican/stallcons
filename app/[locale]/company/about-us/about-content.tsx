@@ -1,32 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-
-// function useFadeInUp(delay = 0) {
-//   const reduced = useReducedMotion();
-//   if (reduced) return {};
-//   return {
-//     initial: { opacity: 0, y: 20 },
-//     whileInView: { opacity: 1, y: 0 },
-//     viewport: { once: true, amount: 0.1 },
-//     transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay },
-//   };
-// }
-
-const staggerContainer: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+import { motion, useReducedMotion } from "framer-motion";
 
 export function AboutContent() {
   const t = useTranslations("Pages.aboutUs");
@@ -44,7 +19,7 @@ export function AboutContent() {
   return (
     <>
       {/* ── Story ──────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-24">
+      <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <motion.div
@@ -96,7 +71,7 @@ export function AboutContent() {
 
 
       {/* ── Values ─────────────────────────────────────────────── */}
-      <section className="py-16- lg:py-24">
+      <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.h2
             className="mb-6 text-2xl font-bold md:text-3xl"

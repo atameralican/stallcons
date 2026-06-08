@@ -127,11 +127,36 @@
     },
     "quality": {
       "title": "Quality",
-      "description": "Production and quality assurance at international standards"
+      "description": "Production and quality assurance at international standards",
+      "introHeading": "Quality Starts at the Drawing Board, Not at Delivery",
+      "introBody1": "We review every project's technical specification against EN 1090 and ISO 3834 requirements. From material receipt to the final weld on site, measurement, testing, and verification take place at every critical point.",
+      "introBody2": "Our quality control team works inside the production process, not separate from it. Every welding procedure is approved, every material certified, every component traceable. Work without documentation does not ship.",
+      "pillarsHeading": "Our Quality Approach",
+      "pillar1Title": "Welded Structures — EN 1090",
+      "pillar1Desc": "Certified production under execution classes EXC 2 and EXC 3. Compliance with EN 1090 across the design, fabrication, and assembly of welded steel structures is documented and independently verified.",
+      "pillar2Title": "Weld Quality — ISO 3834",
+      "pillar2Desc": "Production under approved welding procedure specifications (WPS/pWPS), certified welders, and welding coordinator supervision. The full set of quality requirements for fusion welding of metallic materials is met.",
+      "pillar3Title": "Material Traceability",
+      "pillar3Desc": "Certificate checks and heat number tracking for every incoming steel profile and plate. A complete traceability record from raw material to delivery is accessible at every project stage.",
+      "pillar4Title": "Non-Destructive Testing",
+      "pillar4Desc": "Visual examination (VT), ultrasonic testing (UT), and radiographic testing (RT) on critical joints. Independent third-party audits and internal quality records are maintained in parallel."
     },
     "missionVision": {
       "title": "Mission & Vision",
-      "description": "The values that guide us on our journey to build the future"
+      "description": "The values that guide us on our journey to build the future",
+      "missionHeading": "Mission",
+      "missionStatement": "To deliver steel construction projects from design to installation, on time, without compromising engineering integrity.",
+      "missionBody": "Stallcons treats every project as a technical commitment. From project start to handover, we maintain the same standards, the same documentation discipline, and the same accountability. When the client takes over, they find a complete engineering record behind the work.",
+      "visionHeading": "Vision",
+      "visionStatement": "To become Turkey's preferred steel construction firm for international projects.",
+      "visionBody": "We aim to convert our domestic track record into international references. Our depth in defense and aviation, combined with our industrial construction expertise, will establish Stallcons as a globally recognized name in steel construction.",
+      "principlesHeading": "Core Values",
+      "principle1Title": "Engineering Integrity",
+      "principle1Desc": "Technical decisions are made independently of commercial pressure. If the calculation validates the structure, we proceed. If it does not, the design is redone. That boundary is not open to negotiation.",
+      "principle2Title": "Long-Term Partnership",
+      "principle2Desc": "Projects end; relationships continue. Post-delivery technical support, maintenance guidance, and priority response for additional needs — we remain available to our clients after handover.",
+      "principle3Title": "Continuous Improvement",
+      "principle3Desc": "Every project closes with a process review. Recurring issues enter the system; missed opportunities are recorded. Tracking what we do not yet know is as much a part of our quality policy as tracking what we do."
     },
     "steelConstruction": {
       "title": "Steel Construction",

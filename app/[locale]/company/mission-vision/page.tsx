@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
+import { MissionVisionContent } from "./mission-vision-content";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -38,7 +39,7 @@ export default async function Page({ params }: Props) {
           { label: t("title") },
         ]}
       />
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-16" />
+      <MissionVisionContent />
     </>
   );
 }
