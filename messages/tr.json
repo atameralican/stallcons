@@ -112,7 +112,18 @@
   "Pages": {
     "aboutUs": {
       "title": "Hakkımızda",
-      "description": "Çelik konstrüksiyon alanında güvenilir çözüm ortağınız"
+      "description": "Çelik konstrüksiyon alanında güvenilir çözüm ortağınız",
+      "storyHeading": "Çeliği Projeden Yapıya Taşıyan Ekip",
+      "storyBody1": "Stallcons, Ankara merkezli bir çelik konstrüksiyon firmasıdır. Statik tasarımdan imalata, sahada montajdan teknik danışmanlığa kadar tüm süreçleri tek çatı altında yönetiyoruz. Her projede mühendislik titizliğini, zamanında teslimatı ve uzun vadeli güveni ön planda tutuyoruz.",
+      "storyBody2": "Endüstriyel tesislerden savunma yapılarına, havacılık hangarlarından vinç yollarına kadar geniş bir yelpazede hizmet veriyoruz. Uluslararası standartlara uygun üretim anlayışımız ve deneyimli mühendis kadromuzla projelerinizin her aşamasında yanınızdayız.",
+      "storyImageAlt": "Stallcons mühendislik ekibi sahada",
+      "valuesHeading": "Neden Stallcons?",
+      "value1Title": "Mühendislik Önce Gelir",
+      "value1Desc": "Her projede statik hesaplar ve yapısal analizler, görsellikten önce gelir. Doğru tasarlanan yapı onlarca yıl sorunsuz çalışır. Estetik, mühendisliğin üzerine kurulur; tersine değil.",
+      "value2Title": "Uçtan Uca Sorumluluk",
+      "value2Desc": "Tasarımdan sahaya kadar tüm süreci tek ekip yönetir. Koordinasyon kopukluğu olmaz, muhatap kaybolmaz. Projenizin her aşamasında aynı ekip, aynı hesap verebilirlik.",
+      "value3Title": "Uluslararası Standart",
+      "value3Desc": "EN ve ISO normlarına uygun imalat, belgelenmiş kalite kontrol süreci. Her kaynak dikişi izlenebilir, her bileşen test edilmiş. Belge olmayan iş teslim edilmez."
     },
     "quality": {
       "title": "Kalite",

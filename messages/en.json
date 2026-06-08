@@ -112,7 +112,18 @@
   "Pages": {
     "aboutUs": {
       "title": "About Us",
-      "description": "Your reliable partner in steel construction"
+      "description": "Your reliable partner in steel construction",
+      "storyHeading": "The Team That Turns Steel Into Structure",
+      "storyBody1": "Stallcons is an Ankara-based steel construction firm. From structural design and fabrication to on-site installation and technical consulting, we manage every phase under one roof. We hold engineering precision, on-time delivery, and long-term reliability as non-negotiables on every project.",
+      "storyBody2": "We serve across industrial facilities, defense structures, aviation hangars, and crane runway systems. With production aligned to international standards and an experienced engineering team, we are present at every stage of your project.",
+      "storyImageAlt": "Stallcons engineering team in the field",
+      "valuesHeading": "Why Stallcons?",
+      "value1Title": "Engineering First",
+      "value1Desc": "On every project, structural calculations and analysis precede aesthetics. A correctly engineered structure performs for decades. Appearance is built on engineering, not the other way around.",
+      "value2Title": "End-to-End Ownership",
+      "value2Desc": "One team manages the full scope, from design to installation. No coordination gaps, no lost contacts. The same team with the same accountability at every stage of your project.",
+      "value3Title": "International Standards",
+      "value3Desc": "Manufacturing in compliance with EN and ISO norms, with documented quality control throughout. Every weld is traceable, every component tested. Work without documentation does not ship."
     },
     "quality": {
       "title": "Quality",
