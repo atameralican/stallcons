@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import { Timeline } from "@/components/timeline";
 import HoverBrandLogo from "@/components/hover-brand-logo";
+import { ProjectShowcase } from "@/components/project-showcase";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -42,12 +43,11 @@ export default async function Page({ params }: Props) {
         ]}
       />
 
-      <div className="min-h-[40vh] mt-5 ">
-        <Timeline />
-      </div>
 
-      <div className="min-h-[20vh] mt-5 ">
-        <HoverBrandLogo />
+
+
+      <div className="min-h-[20vh]">
+        <ProjectShowcase />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const FLAP_CHARS =  " ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789!@#$()-+&=;:'\"%,./?°";
+const FLAP_CHARS = " ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789!@#$()-+&=;:'\"%,./?°";
 const BOARD_ROWS = 5;
 const BOARD_COLS = 22;
 
@@ -254,11 +254,11 @@ const FlapCell = React.memo(function FlapCell({
     </div>
   );
 },
-(prevProps, nextProps) =>
-  prevProps.target === nextProps.target &&
-  prevProps.delay === nextProps.delay &&
-  prevProps.stepMs === nextProps.stepMs &&
-  prevProps.flipDuration === nextProps.flipDuration,
+  (prevProps, nextProps) =>
+    prevProps.target === nextProps.target &&
+    prevProps.delay === nextProps.delay &&
+    prevProps.stepMs === nextProps.stepMs &&
+    prevProps.flipDuration === nextProps.flipDuration,
 );
 
 // ── Color Tile ────────────────────────────────────────────────────────
@@ -410,7 +410,7 @@ export function TextFlippingBoard({
   return (
     <div
       className={cn(
-        "relative mx-auto w-full max-w-3xl rounded-xl bg-neutral-100 p-2 shadow-xl md:rounded-2xl md:p-4 dark:bg-neutral-900 dark:shadow-[0_20px_70px_-15px_rgba(0,0,0,0.6)]",
+        "relative mx-auto w-full max-w-4xl rounded-xl bg-neutral-100 p-2 shadow-xl md:rounded-2xl md:p-4 dark:bg-neutral-900 dark:shadow-[0_20px_70px_-15px_rgba(0,0,0,0.6)]",
         className,
       )}
     >
