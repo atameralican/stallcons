@@ -224,6 +224,12 @@
       "message": "Mesajınız",
       "messagePlaceholder": "Projenizin detaylarını, ihtiyaçlarınızı ve sorularınızı buraya yazabilirsiniz...",
       "send": "Mesaj Gönder"
+    },
+    "notFound": {
+      "title": "404 - Sayfa Bulunamadı",
+      "heading": "Sayfa Bulunamadı",
+      "description": "Aradığınız sayfa silinmiş, ismi değiştirilmiş veya geçici olarak kullanım dışı olabilir.",
+      "button": "Ana Sayfaya Dön"
     }
   }
 }

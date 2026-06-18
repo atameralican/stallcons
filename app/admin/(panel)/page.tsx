@@ -1,4 +1,4 @@
-import LogoutButton from "./logout-button";
+
 
 export default function AdminPage() {
     return (
@@ -12,7 +12,7 @@ export default function AdminPage() {
                         <h1 className="mt-1 text-2xl font-semibold">Hoş geldiniz</h1>
                     </div>
 
-                    <LogoutButton />
+
                 </header>
 
                 <section className="grid gap-4 md:grid-cols-3">

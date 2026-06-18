@@ -7,7 +7,7 @@ export default function AdminLoginPage() {
         <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-white">
             {/* Background glow */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-orange-500/20 blur-[110px]" />
+                <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[110px]" />
                 <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-zinc-500/10 blur-[100px]" />
             </div>
 
@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label="LinkedIn"
-                                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-400 transition hover:scale-105 hover:border-orange-500/30 hover:bg-orange-500/10 hover:text-white"
+                                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-400 transition hover:scale-105 hover:border-blue-500/30 hover:bg-blue-500/10 hover:text-white"
                                     >
                                         <LinkedInLogoIcon className="w-4 h-4" />
                                     </Link>
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label="GitHub"
-                                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-400 transition hover:scale-105 hover:border-orange-500/30 hover:bg-orange-500/10 hover:text-white"
+                                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-400 transition hover:scale-105 hover:border-blue-500/30 hover:bg-blue-500/10 hover:text-white"
                                     >
                                         <GitHubLogoIcon className="w-4 h-4" />
                                     </Link>

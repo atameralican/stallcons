@@ -224,6 +224,12 @@
       "message": "Your Message",
       "messagePlaceholder": "You can write your project details, requirements and questions here...",
       "send": "Send Message"
+    },
+    "notFound": {
+      "title": "404 - Page Not Found",
+      "heading": "Page Not Found",
+      "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+      "button": "Return to Home Page"
     }
   }
 }
