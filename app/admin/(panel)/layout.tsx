@@ -6,6 +6,13 @@ type Props = {
     children: React.ReactNode;
 };
 
+const adminNavItems = [
+    { id: "dashboard", name: "Yönetim Paneli", icon: "Home", href: "/admin" },
+    { id: "projects", name: "Projeler", icon: "FileText", href: "/admin/projects" },
+    { id: "products", name: "Ürünler", icon: "BarChart3", href: "/admin/products" },
+    { id: "settings", name: "Ayarlar", icon: "Settings", href: "/admin/settings" },
+];
+
 export default async function AdminPanelLayout({ children }: Props) {
     const supabase = await createClient();
 
@@ -17,7 +24,12 @@ export default async function AdminPanelLayout({ children }: Props) {
 
     return (
         <div className="flex min-h-screen bg-zinc-100 dark:bg-zinc-950">
-            <Sidebar />
+            <Sidebar 
+                brandLogoChar="S"
+                brandTitle="Stallcons"
+                brandSubtitle="Yönetici Paneli"
+                items={adminNavItems}
+            />
             
             <div className="flex-1 flex flex-col min-w-0">
                 {/* Mobile Top Bar */}
