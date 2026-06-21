@@ -8,133 +8,23 @@ import { ArrowUpRight } from "lucide-react"
 interface Project {
     title: string
     description: string
-    year: string
+    metric: string
     link: string
     image: string
 }
 
-const projects: Project[] = [
-    {
-        title: "Lumina",
-        description: "AI-powered design system generator.",
-        year: "2024",
-        link: "#",
-        image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Flux",
-        description: "Real-time collaboration for creative teams.",
-        year: "2024",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Prism",
-        description: "Color palette extraction from any image.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
-    },
-    {
-        title: "Vertex",
-        description: "3D modeling toolkit for the web.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
-    },
-    {
-        title: "Lumina",
-        description: "AI-powered design system generator.",
-        year: "2024",
-        link: "#",
-        image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Flux",
-        description: "Real-time collaboration for creative teams.",
-        year: "2024",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Prism",
-        description: "Color palette extraction from any image.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
-    },
-    {
-        title: "Vertex",
-        description: "3D modeling toolkit for the web.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
-    },
-    {
-        title: "Lumina",
-        description: "AI-powered design system generator.",
-        year: "2024",
-        link: "#",
-        image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Flux",
-        description: "Real-time collaboration for creative teams.",
-        year: "2024",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Prism",
-        description: "Color palette extraction from any image.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
-    },
-    {
-        title: "Vertex",
-        description: "3D modeling toolkit for the web.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
-    },
-    {
-        title: "Lumina",
-        description: "AI-powered design system generator.",
-        year: "2024",
-        link: "#",
-        image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Flux",
-        description: "Real-time collaboration for creative teams.",
-        year: "2024",
-        link: "#",
-        image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
-    },
-    {
-        title: "Prism",
-        description: "Color palette extraction from any image.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
-    },
-    {
-        title: "Vertex",
-        description: "3D modeling toolkit for the web.",
-        year: "2023",
-        link: "#",
-        image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
-    },
-]
-
-export function ProjectShowcase() {
+export function ProjectShowcase({
+    projects,
+    fallbackImage,
+}: {
+    projects: Project[]
+    fallbackImage: string
+}) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
     const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
     const [isVisible, setIsVisible] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
-    const animationRef = useRef<number | null>(null)
 
     useEffect(() => {
         const lerp = (start: number, end: number, factor: number) => {
@@ -211,7 +101,7 @@ export function ProjectShowcase() {
                     {projects.map((project, index) => (
                         <img
                             key={`${project.title}-${index}`}
-                            src={project.image || "/placeholder.svg"}
+                            src={project.image || fallbackImage}
                             alt={project.title}
                             className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
                             style={{
@@ -227,6 +117,11 @@ export function ProjectShowcase() {
             </div>
 
             <div className="space-y-0">
+                {projects.length === 0 && (
+                    <div className="border-t border-border py-8 text-sm text-muted-foreground">
+                        Henüz yayınlanmış proje bulunmuyor.
+                    </div>
+                )}
                 {projects.map((project, index) => (
                     <a
                         key={`${project.title}-${index}`}
@@ -288,7 +183,7 @@ export function ProjectShowcase() {
                                     </p>
                                 </div>
 
-                                {/* Year badge */}
+                                {/* Weight badge */}
                                 <span
                                     className={`
                     text-xs font-mono text-muted-foreground tabular-nums
@@ -296,7 +191,7 @@ export function ProjectShowcase() {
                     ${hoveredIndex === index ? "text-foreground/60" : ""}
                   `}
                                 >
-                                    {project.year}
+                                    {project.metric}
                                 </span>
                             </div>
                         </div>
