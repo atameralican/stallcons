@@ -88,7 +88,6 @@ export default async function Page({ params }: Props) {
           { label: t("title") },
         ]}
       />
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 py-16" />
       <div className="w-full antialiased">
         <ExpertiseImageBentoGallery
           imageItems={imageItems}

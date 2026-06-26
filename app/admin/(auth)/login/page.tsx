@@ -1,8 +1,17 @@
 import LoginForm from "./login-form";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { LinkedInLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { createClient } from "@/lib/supabase/server";
 
-export default function AdminLoginPage() {
+export default async function AdminLoginPage() {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.getClaims();
+
+    if (!error && data?.claims) {
+        redirect("/admin/projects");
+    }
+
     return (
         <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-white">
             {/* Background glow */}

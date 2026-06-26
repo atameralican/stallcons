@@ -138,7 +138,7 @@ const ExpertiseImageBentoGallery: React.FC<
     return (
         <section
             ref={targetRef}
-            className="relative w-full overflow-hidden bg-background- py-16- sm:py-24-"
+            className="relative w-full overflow-hidden bg-background- pt-10 sm:pt-12"
         >
             <motion.div
                 style={{ opacity, y }}
@@ -148,9 +148,7 @@ const ExpertiseImageBentoGallery: React.FC<
                     {title}
                 </h2>}
 
-                <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-                    {description}
-                </p>
+                <GalleryDescription description={description} />
             </motion.div>
 
             <div
@@ -215,6 +213,59 @@ const ExpertiseImageBentoGallery: React.FC<
                 )}
             </AnimatePresence>
         </section>
+    )
+}
+
+function GalleryDescription({ description }: { description: string }) {
+    const lines = description
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+    const heading = lines[0];
+    const contentLines = lines.slice(1);
+    const introLines = contentLines.filter((line) => !line.startsWith("•") && !line.endsWith(":"));
+    const subHeading = contentLines.find((line) => line.endsWith(":"));
+    const bulletLines = contentLines
+        .filter((line) => line.startsWith("•"))
+        .map((line) => line.replace(/^•\s*/, ""));
+
+    return (
+        <div className="mx-auto mt-6 max-w-4xl text-left">
+            {heading && (
+                <h2 className="text-center text-2xl font-semibold leading-tight text-foreground sm:text-3xl">
+                    {heading}
+                </h2>
+            )}
+
+            {introLines.length > 0 && (
+                <div className="mx-auto mt-5 max-w-3xl space-y-4 text-center text-base leading-8 text-muted-foreground sm:text-lg">
+                    {introLines.map((line) => (
+                        <p key={line}>{line}</p>
+                    ))}
+                </div>
+            )}
+
+            {(subHeading || bulletLines.length > 0) && (
+                <div className="mx-auto mt-8 max-w-3xl text-left">
+                    {subHeading && (
+                        <h3 className="text-base font-semibold text-foreground sm:text-lg">
+                            {subHeading}
+                        </h3>
+                    )}
+
+                    {bulletLines.length > 0 && (
+                        <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground sm:text-base">
+                            {bulletLines.map((line) => (
+                                <li key={line} className="flex gap-3">
+                                    <span className="mt-2 h-2 w-2 flex-none rounded-full bg-foreground/70" />
+                                    <span>{line}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            )}
+        </div>
     )
 }
 

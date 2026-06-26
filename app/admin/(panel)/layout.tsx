@@ -7,10 +7,9 @@ type Props = {
 };
 
 const adminNavItems = [
-    { id: "dashboard", name: "Yönetim Paneli", icon: "Home", href: "/admin" },
     { id: "projects", name: "Projeler", icon: "FileText", href: "/admin/projects" },
+    { id: "services", name: "Hizmetler", icon: "HelpCircle", href: "/admin/services" },
     { id: "products", name: "Ürünler", icon: "BarChart3", href: "/admin/products" },
-    { id: "settings", name: "Ayarlar", icon: "Settings", href: "/admin/settings" },
 ];
 
 export default async function AdminPanelLayout({ children }: Props) {

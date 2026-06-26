@@ -38,8 +38,8 @@
       "description": "Stallcons savunma sanayi çözümleri: Savunma için güvenli ve dayanıklı çelik yapılar."
     },
     "craneSystems": {
-      "title": "Vinç Yolları ve Ağır Sanayi Ekipmanları | Stallcons – Faaliyet Alanları",
-      "description": "Stallcons vinç yolları: Özel tasarım tavan vinci yolları ve ağır sanayi çelik konstrüksiyonları."
+      "title": "Maden Ekipmanları & Çelik Yapıları | Stallcons – Faaliyet Alanları",
+      "description": "Stallcons maden ekipmanları ve çelik yapıları: Ağır hizmet tipi maden altyapısı ve endüstriyel çelik imalatları."
     },
     "projects": {
       "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
@@ -161,12 +161,12 @@
     "steelConstruction": {
       "title": "Çelik Konstrüksiyon",
       "description": "Tasarımdan montaja uçtan uca çelik konstrüksiyon çözümleri",
-      "galleryDescription": "Çelik konstrüksiyon çalışmalarımızdan kesitler. İncelemek için kaydırın, büyütmek için tıklayın."
+      "galleryDescription": "Yarının Güçlü ve Güvenli Yapılarını Çeliğin Gücüyle İnşa Ediyoruz\n\nAğır sanayi yapılarından estetik çelik tasarımlara kadar her projemizi, küresel mühendislik standartlarını ve yasal mevzuatları rehber alarak hayata geçiriyoruz. Stallcons imzasını taşıyan her yapı, en zorlu testlerden ve kalite süreçlerinden geçerek üretilir.\n\nKalite ve İmalat Standartlarımız:\n• EN 1090 & CE Uygunluğu: Avrupa standartlarında izlenebilir malzeme kullanımı, tasarım doğrulaması ve yürütme sınıflarına (EXC2-EXC3) uygun imalat.\n• ISO 3834 Standartlarında Kaynak Kalitesi: Yetkin kaynak mühendisleri ve sertifikalı (WPS / WPQR onaylı) kaynakçılar ile sıfır hatalı birleştirme işlemleri.\n• Gelişmiş NDT (Tahribatsız Muayene) Kontrolleri: Ultrasonik (UT), Manyetik Parçacık (MT) ve Penetrant (PT) testleri ile şantiyeye gitmeden önce fabrikada tam kontrol.\n• Eurocode ve AISC Standartlarında Tasarım: Statik ve dinamik hesaplamalarda küresel kodlara tam uyum sağlayarak maksimum deprem ve yük direnci."
     },
     "engineeringDesign": {
       "title": "Mühendislik & Tasarım",
       "description": "Statik hesaplamalardan 3D modellemeye kadar projelerinizi güvenle tasarlıyoruz",
-      "galleryDescription": "Mühendislik ve tasarım projelerimizi keşfedin. İncelemek için kaydırın, büyütmek için tıklayın."
+      "galleryDescription": "Hatasız Tasarım, Optimize Edilmiş Çözümler\n\nÇelik yapı sektöründeki uzmanlığımızı, yenilikçi mühendislik çözümleri ve hassas tasarım süreçleriyle birleştiriyoruz. Projelerinizin her detayını titizlikle ele alarak, üretim ve montaj aşamasında sıfır hata toleransı ile çalışıyoruz.\n\nMühendislik ve Tasarım Alanındaki Yetkinliklerimiz:\n• Statik ve Dinamik Analizler: Uluslararası kodlara (Eurocode, AISC vb.) uygun yapısal hesaplamalar.\n• 3D Modelleme ve Detaylandırma: İmalat kolaylığı ve montaj doğruluğu sağlayan modern 3D modelleme süreçleri.\n• Maliyet ve Malzeme Optimizasyonu: Dayanıklılıktan ödün vermeden, en ekonomik ve verimli malzeme yönetimi.\n• Projeye Özel Çözümler: Endüstriyel tesislerden özel mimari yapılara kadar her ihtiyaca uygun esnek mühendislik yaklaşımları."
     },
     "projects": {
       "title": "Projeler",
@@ -175,22 +175,22 @@
     "consulting": {
       "title": "Danışmanlık",
       "description": "Projeleriniz için uzman rehberlik ve mühendislik danışmanlığı",
-      "galleryDescription": "Danışmanlık uzmanlığımızdan öne çıkanlar. İncelemek için kaydırın, büyütmek için tıklayın."
+      "galleryDescription": "Mühendislikte Standartları Yükseltin: Tasarımdan Montaja Teknik Denetim\n\nÇelik yapı projelerinizin bütçe sınırları içinde kalması, şantiye takvimine sadık kalınması ve en önemlisi uluslararası yapı güvenliği normlarına uyması için profesyonel danışmanlık çözümleri üretiyoruz. Mühendislik gücümüzle, projenizin her adımını teknik bir gözle denetliyor ve optimize ediyoruz.\n\n• Standartlar ve Proje Yönetimi: Tasarım ve statik hesaplama süreçlerinin Eurocode, AISC ve yerel yönetmeliklere uygunluğunun denetlenmesi.\n• Bağlantı Detayları Tasarımı: Yapısal güvenliği doğrudan etkileyen cıvatalı ve kaynaklı birleşim detaylarının, şantiye ve imalat ortamına uygun olarak optimize edilmesi.\n• Üretim ve Kalite Güvencesi: Fabrika imalat aşamasının EN 1090 ve ISO 3834 standartlarında yürütülmesi, hammadde izlenebilirliği ve NDT (Tahribatsız Muayene) testlerinin koordinasyonu.\n• Saha ve Montaj Kontrolü: Şantiyede çelik elemanların kaldırma, yerleştirme ve torklama işlemlerinin uluslararası montaj standartlarına ve iş güvenliği kurallarına uygun olarak gerçekleştirilmesinin denetimi."
     },
     "qualityControl": {
       "title": "Kalite Kontrol",
       "description": "Her aşamada titiz kalite kontrol ve güvence",
-      "galleryDescription": "Titiz kalite kontrol süreçlerimiz iş başında. İncelemek için kaydırın, büyütmek için tıklayın."
+      "galleryDescription": "Üretimin Her Aşamasında Kusursuz Denetim ve İzlenebilirlik\n\nStallcons imzasını taşıyan her çelik parça, şantiyeye sevk edilmeden önce zorlu test ve kontrol süreçlerinden geçer. Uluslararası normlara uygun olarak kurguladığımız Kalite Güvence ve Kalite Kontrol (QA/QC) sistemimiz şu aşamalardan oluşmaktadır:\n\n• Giriş Kalite Kontrolü (Malzeme Kabul): Fabrikamıza giren tüm çelik profillerin, sacların ve sarf malzemelerinin uluslararası standartlara (EN/ASTM) uygunluk sertifikalarının (MTC 3.1) ve geometrik toleranslarının kontrolü.\n• Görsel ve Boyutsal Kontrol: Kesim, delim ve çatma aşamalarında projeye tam uyumun, kaynak öncesi ağız açma ve montaj detaylarının hassas ölçümlerle doğrulanması.\n• Kaynak Kalitesi ve WPS/WPQR Yönetimi: Tüm kaynak işlemlerinin, onaylı kaynak prosedür spesifikasyonlarına (WPS / WPQR) uygun olarak, sertifikalı kaynakçılar tarafından yapılması.\n• Tahribatsız Muayene (NDT) Testleri: Kaynaklı birleşimlerin yapısal bütünlüğünü doğrulamak için kendi uzman kadromuz veya bağımsız (3. parti) kuruluşlarca yapılan Ultrasonik (UT), Manyetik Parçacık (MT), Penetrant (PT) ve Görsel (VT) testleri.\n• Yüzey Koruma ve Boya Kalite Kontrolü: Kumlama kalitesinin (Sa 2.5 standardı) ve yaş/kuru boya film kalınlıklarının (DFT) iklimsel şartlar takip edilerek mikron düzeyinde ölçülmesi ve raporlanması.\n• Montaj ve Tork Kontrolü: Sahada yapılan bağlantıların, cıvatalı düğüm noktalarının tork değerlerinin ve yapısal eksenlerin montaj standartlarına uygunluğunun denetlenmesi."
     },
     "defense": {
       "title": "Savunma",
       "description": "Savunma sanayi için özel çelik yapılar ve çözümler",
-      "galleryDescription": "Savunma sanayi için güvenli ve dayanıklı yapılar. İncelemek için kaydırın, büyütmek için tıklayın."
+      "galleryDescription": "Yüksek Tehdit Seviyelerine Karşı Sertifikalı Çelik Çözümleri\n\nSavunma sanayiinin ihtiyaç duyduğu maksimum güvenlikli ve yüksek hassasiyetli çelik elemanları, mühendislik doğruluğu ve sıfır hata felsefesiyle fabrikamızda üretiyoruz. Stratejik tesislerin ve personelin emniyetini sağlamak amacıyla geliştirdiğimiz ürün ve hizmet gruplarımız şunlardır:\n\n• Balistik Kapı ve Geçiş Sistemleri: Farklı tehdit ve koruma sınıflarına (BR2-BR7, STANAG vb.) uygun olarak tasarlanan, patlamaya ve balistik saldırılara karşı yüksek mukavemetli zırhlı kapı sistemleri imalatı.\n• Silah Doldur-Boşalt İstasyonları: Askeri ve emniyet personeli için kaza kurşunlarına karşı tam koruma sağlayan, balistik çelik ve özel sönümleyici malzemelerle donatılmış, iç ve dış mekan uyumlu güvenli doldur-boşalt istasyonları.\n• Zırhlandırılmış Korunaklar ve Yaşam Alanları: Modüler askeri yapılar, yüksek güvenlikli nöbet kulübeleri ve komuta kontrol merkezleri için çelik konstrüksiyon ve zırh plakası entegrasyonu.\n• Askeri Standartlarda İmalat Kontrolü: Tüm kaynak ve birleştirme süreçlerinin askeri normlara uygunluğu, malzeme izlenebilirliği (MTC 3.1) ve gelişmiş laboratuvar testleri (NDT) ile belgelenmiş kalite güvencesi."
     },
     "craneSystems": {
-      "title": "Vinç Yolları & Ağır Sanayi Ekipmanları",
-      "description": "Ağır sanayi için özel tasarım tavan vinci yolları ve ekipmanları",
-      "galleryDescription": "Özel tasarım vinç yolları ve ağır ekipman projeleri. İncelemek için kaydırın, büyütmek için tıklayın."
+      "title": "Maden Ekipmanları & Çelik Yapıları",
+      "description": "Ağır hizmet tipi maden ekipmanları ve altyapı imalatı",
+      "galleryDescription": "Ağır Hizmet Tipi Maden Ekipmanları ve Altyapı İmalatı\n\nMaden sahalarında yüksek üretkenlik ve iş güvenliği, ancak doğru mühendislikle üretilmiş çelik yapılarla mümkündür. Stallcons kalitesiyle, en zorlu aşınma ve darbe koşullarına dayanacak şekilde ürettiğimiz maden ekipmanları ve çelik yapı gruplarımız şunlardır:\n\n• Kırıcı, Eleme ve Besleyici Şaseleri: Yoğun titreşim ve dinamik yüklere maruz kalan tesisler için özel statik analizlerle güçlendirilmiş ağır çelik şaseler.\n• Konveyör Galeri ve Bant Sistemleri: Geniş açıklıkları güvenle geçebilen, dış ortam şartlarına ve korozyona dayanıklı çelik konveyör hatları ve destek kuleleri.\n• Silo, Bunker ve Şut (Oluk) İmalatları: Aşındırıcı cevher hareketlerine karşı Hardox ve benzeri aşınma plakası (astar) entegrasyonlu, yüksek hacimli depolama ve transfer üniteleri.\n• Maden Tesisi Yapısal Çeliği: Flotasyon, liç ve zenginleştirme tesisleri için korozyon direnci yüksek, özel boyalı veya galvanizli çok katlı endüstriyel çelik binalar.\n• Standartlara Uygun İzlenebilir Kalite: Aşırı yük altında çalışacak tüm ekipmanlarda %100 malzeme izlenebilirliği (MTC 3.1) ve kaynak birleşimlerinde hassas NDT (Ultrasonik ve Manyetik) test raporlaması."
     },
     "products": {
       "title": "Ürünler",

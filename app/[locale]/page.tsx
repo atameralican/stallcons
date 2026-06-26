@@ -1,65 +1,61 @@
-"use client";
-import { TextFlippingBoard } from "@/components/ui/text-flipping-board";
-import React, { useState, useEffect, useCallback } from "react";
-import { useLocale } from "next-intl";
+import { headers } from "next/headers";
 import GalleryShowcase from "@/components/gallery-showcase";
-import { Timeline } from "@/components/timeline";
 import HoverBrandLogo from "@/components/hover-brand-logo";
+import { HomeHero } from "@/components/home-hero";
+import { Timeline, type TimelineServiceData } from "@/components/timeline";
+import noPhoto from "@/app/assets/no-photo.webp";
 
-const MESSAGES: Record<string, string[]> = {
-  tr: [
-    "STALLCONS\nSTEEL REDEFINED\nÇELİĞİN YENİ STANDARDI",
-    "COMING SOON\nPRECISION IN STEEL\nYAKINDA HİZMETİNİZDE",
-    "BUILT FOR STRENGTH\nDESIGNED FOR TOMORROW\nGELECEK İÇİN TASARLANDI",
-    "MODERN STEEL\nTIMELESS STRUCTURES\nMODERN ÇELİK YAPILAR",
-    "STALLCONS\nENGINEERING TRUST\nMÜHENDİSLİK & GÜVEN",
-  ],
-  en: [
-    "STALLCONS\nSTEEL REDEFINED\nTHE NEW STANDARD IN STEEL",
-    "COMING SOON\nPRECISION IN STEEL\nSERVING YOU SOON",
-    "BUILT FOR STRENGTH\nDESIGNED FOR TOMORROW\nENGINEERED FOR THE FUTURE",
-    "MODERN STEEL\nTIMELESS STRUCTURES\nMODERN STEEL STRUCTURES",
-    "STALLCONS\nENGINEERING TRUST\nENGINEERING & CONFIDENCE",
-  ],
+type Locale = "tr" | "en";
+
+type ServiceTranslation = {
+  id: string;
+  locale: Locale | "es";
+  title: string;
+  description: string | null;
 };
 
-export default function Home() {
-  const locale = useLocale();
-  const msgs = MESSAGES[locale] ?? MESSAGES.tr;
-  const [msgIdx, setMsgIdx] = useState(0);
-  const next = useCallback(() => setMsgIdx((i) => (i + 1) % msgs.length), [msgs.length]);
+type ServicePhoto = {
+  id: string;
+  photo_url: string;
+  created_at: string;
+};
 
-  useEffect(() => {
-    const id = setInterval(next, 12000);
-    return () => clearInterval(id);
-  }, [next]);
+type ServiceRecord = {
+  id: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  service_translations: ServiceTranslation[];
+  service_photos: ServicePhoto[];
+};
+
+type ServicesResponse = {
+  services?: ServiceRecord[];
+  error?: string;
+};
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
+  const activeLocale: Locale = locale === "en" ? "en" : "tr";
+  const services = await getHomeServices(activeLocale);
 
   return (
     <>
-      <div className="flex min-h-screen flex-col items-center justify-center px-4 py-10-">
-        <TextFlippingBoard text={msgs[msgIdx]} />
-        <div className="mt-10 flex flex-col items-center text-center">
-          <h1 className="select-none text-[16vw] font-black uppercase tracking-[-0.08em] leading-none sm:text-[12vw] lg:text-[10rem]">
-            STALLCONS
-          </h1>
-          <div className="mt-2 h-[2px] w-32 bg-neutral-700" />
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
-            {locale === "tr"
-              ? "Yakında profesyonel çelik konstrüksiyon hizmetlerimizle hizmetinizdeyiz."
-              : "Professional steel construction services, coming soon."}
-          </p>
-        </div>
-
-
-      </div>
+      <HomeHero locale={activeLocale} />
 
       <div className="min-h-[40vh] mt-5- w-full text-black dark:text-white ">
         <div className="max-w-7xl mx-auto pt-10 pb-4 px-4 md:px-8 lg:px-10">
           <h2 className="text-lg md:text-4xl mb-4 max-w-4xl">
-            Faaliyetler
+            {activeLocale === "tr" ? "Faaliyetler" : "Activities"}
           </h2>
           <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
-            Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz.
+            {activeLocale === "tr"
+              ? "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz."
+              : "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise."}
           </p>
         </div>
         <GalleryShowcase />
@@ -68,20 +64,63 @@ export default function Home() {
       <div className="min-h-[40vh] mt-5- w-full bg-white dark:bg-neutral-950 text-black dark:text-white">
         <div className="max-w-7xl mx-auto pt-20 pb-4 px-4 md:px-8 lg:px-10">
           <h2 className="text-lg md:text-4xl mb-4  max-w-4xl">
-            Projeler
+            Hizmet Alanlarımız
           </h2>
           <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
-            Tamamladığımız projeler, sektördeki uzmanlığımızın ve kaliteye verdiğimiz önemin en somut kanıtıdır.
+            {activeLocale === "tr"
+              ? "Çelik konstrüksiyon, mühendislik, imalat ve montaj süreçlerinde ihtiyaca göre şekillenen profesyonel hizmetler sunuyoruz."
+              : "We provide professional services shaped around your needs across steel construction, engineering, fabrication and assembly processes."}
           </p>
         </div>
-        <Timeline />
+        <Timeline services={services} fallbackImage={noPhoto.src} />
       </div>
 
       <div className="min-h-[20vh] mt-5 ">
         <HoverBrandLogo />
       </div>
-
-
     </>
   );
+}
+
+async function getHomeServices(locale: Locale) {
+  const headerStore = await headers();
+  const host = headerStore.get("host");
+  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+
+  if (!host) return [];
+
+  try {
+    // hizmet alanları server tarafında admin services routeundan geliyor
+    const response = await fetch(`${protocol}://${host}/api/admin/services`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) return [];
+
+    const result = (await response.json()) as ServicesResponse;
+
+    return (result.services ?? [])
+      .filter((service) => service.is_active)
+      .map((service) => mapServiceForTimeline(service, locale))
+      .filter((service): service is TimelineServiceData => Boolean(service));
+  } catch {
+    // hata olursa sayfa patlamasın boş kalsın
+    return [];
+  }
+}
+
+function mapServiceForTimeline(service: ServiceRecord, locale: Locale) {
+  const currentTranslation = service.service_translations.find((item) => item.locale === locale);
+  const fallbackTranslation = service.service_translations.find((item) => item.locale === "tr")
+    ?? service.service_translations.find((item) => item.locale === "en");
+  const translation = currentTranslation ?? fallbackTranslation;
+
+  if (!translation?.title) return null;
+
+  return {
+    id: service.id,
+    title: translation.title,
+    description: translation.description ?? "",
+    photos: service.service_photos.map((photo) => photo.photo_url).filter(Boolean),
+  };
 }

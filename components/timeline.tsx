@@ -1,17 +1,23 @@
 "use client";
 import {
-    useMotionValueEvent,
     useScroll,
     useTransform,
     motion,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+
 interface TimelineEntry {
     title: string;
     content: React.ReactNode;
 }
 
+export interface TimelineServiceData {
+    id: string;
+    title: string;
+    description: string;
+    photos: string[];
+}
 
 const DEFAULT_DATA = [
     {
@@ -104,7 +110,7 @@ const DEFAULT_DATA = [
         content: (
             <div>
                 <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure
+                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&apos;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure
                 </p>
                 <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
                     All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words,
@@ -144,8 +150,29 @@ const DEFAULT_DATA = [
     },
 ];
 
-export const Timeline = ({ data }: { data?: TimelineEntry[] }) => {
-    const timelineData = data ?? DEFAULT_DATA;
+export const Timeline = ({
+    data,
+    services,
+    fallbackImage,
+}: {
+    data?: TimelineEntry[];
+    services?: TimelineServiceData[];
+    fallbackImage?: string;
+}) => {
+    // hizmet datası geldiyse onu basıyorum gelmediyse eski örnek data duruyor
+    const timelineData = services
+        ? services.map((service) => ({
+            title: service.title,
+            content: (
+                <ServiceTimelineContent
+                    title={service.title}
+                    description={service.description}
+                    photos={service.photos}
+                    fallbackImage={fallbackImage}
+                />
+            ),
+        }))
+        : data ?? DEFAULT_DATA;
 
     const ref = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -154,7 +181,7 @@ export const Timeline = ({ data }: { data?: TimelineEntry[] }) => {
     useEffect(() => {
         if (!ref.current) return;
         const observer = new ResizeObserver((entries) => {
-            for (let entry of entries) {
+            for (const entry of entries) {
                 setHeight(entry.target.getBoundingClientRect().height);
             }
         });
@@ -217,3 +244,46 @@ export const Timeline = ({ data }: { data?: TimelineEntry[] }) => {
         </div>
     );
 };
+
+function ServiceTimelineContent({
+    title,
+    description,
+    photos,
+    fallbackImage,
+}: {
+    title: string;
+    description: string;
+    photos: string[];
+    fallbackImage?: string;
+}) {
+    const images = getServiceImages(photos, fallbackImage);
+
+    return (
+        <div>
+            <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
+                {description}
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+                {images.map((photo, index) => (
+                    <Image
+                        key={`${photo}-${index}`}
+                        src={photo}
+                        alt={index === 0 ? title : ""}
+                        width={500}
+                        height={500}
+                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function getServiceImages(photos: string[], fallbackImage?: string) {
+    const cleanPhotos = photos.filter(Boolean).slice(0, 4);
+    const fallback = fallbackImage ? [fallbackImage] : [];
+    const images = cleanPhotos.length > 0 ? cleanPhotos : fallback;
+
+    // grid boş kalmasın diye aynı görseli 4 kutuya tamamlıyorum
+    return Array.from({ length: 4 }, (_, index) => images[index % images.length]).filter(Boolean);
+}
