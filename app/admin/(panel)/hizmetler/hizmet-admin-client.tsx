@@ -3,8 +3,8 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { FormEvent, ReactNode, useMemo, useState } from "react";
-import { Edit3, ImageIcon, Plus, Save, Trash2, X } from "lucide-react";
-import { InboxOutlined } from "@ant-design/icons";
+import { Edit3, ImageIcon, Plus, Save, Star, Trash2, X } from "lucide-react";
+import { InboxOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Input, message as antMessage, Switch, Upload, type UploadFile, type UploadProps } from "antd";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -13,33 +13,41 @@ const { TextArea } = Input;
 
 type Locale = "tr" | "en";
 
-export type ServiceTranslation = {
+export type HizmetTranslation = {
     id: string;
-    locale: Locale | "es";
+    locale: Locale;
     title: string;
     description: string | null;
 };
 
-export type ServicePhoto = {
+export type HizmetPhoto = {
     id: string;
-    photo_url: string;
+    url: string;
+    alt: string | null;
+    sort_order: number;
     created_at: string;
 };
 
-export type ServiceRecord = {
+export type HizmetRecord = {
     id: string;
-    is_active: boolean;
+    is_published: boolean;
     created_at: string;
     updated_at: string;
-    service_translations: ServiceTranslation[];
-    service_photos: ServicePhoto[];
+    hizmet_translations: HizmetTranslation[];
+    hizmet_photos: HizmetPhoto[];
 };
 
-type ServiceFormState = {
+type HizmetFormState = {
     id?: string;
-    is_active: boolean;
+    // slug: string;
+    // main_photo: string;
+    // year: string;
+    // weight_tons: string;
+    // sort_order: string;
+    // is_favorite: boolean;
+    is_published: boolean;
     translations: Record<Locale, { title: string; description: string }>;
-    photos: Array<{ photo_url: string }>;
+    photos: Array<{ url: string; alt: string; sort_order: number }>;
 };
 
 type UploadResponse = {
@@ -49,18 +57,18 @@ type UploadResponse = {
 
 type ImageUploadFile = UploadFile<UploadResponse>;
 
-type ServicesResponse = {
-    services?: ServiceRecord[];
+type HizmetResponse = {
+    hizmetler?: HizmetRecord[];
     error?: string;
 };
 
-type ServiceMutationResponse = {
+type HizmetMutationResponse = {
     id?: string;
     error?: string;
 };
 
-const EMPTY_FORM: ServiceFormState = {
-    is_active: false,
+const EMPTY_FORM: HizmetFormState = {
+    is_published: false,
     translations: {
         tr: { title: "", description: "" },
         en: { title: "", description: "" },
@@ -68,31 +76,31 @@ const EMPTY_FORM: ServiceFormState = {
     photos: [],
 };
 
-export function ServiceAdminClient({ initialServices }: { initialServices: ServiceRecord[] }) {
+export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: HizmetRecord[] }) {
     const supabase = useMemo(() => createClient(), []);
     const [messageApi, contextHolder] = antMessage.useMessage();
-    const [services, setServices] = useState<ServiceRecord[]>(initialServices);
-    const [form, setForm] = useState<ServiceFormState>(EMPTY_FORM);
-    const [isFormOpen, setIsFormOpen] = useState(initialServices.length === 0);
+    const [hizmetler, setHizmetler] = useState<HizmetRecord[]>(initialHizmetler);
+    const [form, setForm] = useState<HizmetFormState>(EMPTY_FORM);
+    const [isFormOpen, setIsFormOpen] = useState(initialHizmetler.length === 0);
     const [saving, setSaving] = useState(false);
+    const [coverUploading, setCoverUploading] = useState(false);
     const [galleryFileList, setGalleryFileList] = useState<ImageUploadFile[]>([]);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-    const activeCount = services.filter((service) => service.is_active).length;
-    const passiveCount = services.length - activeCount;
+    const publishedCount = hizmetler.filter((hizmet) => hizmet.is_published).length;
 
-    async function refreshServices() {
-        // kayıttan sonra listeyi tekrar çekiyorum state şaşmasın
-        const response = await fetch("/api/admin/services", { cache: "no-store" });
-        const result = (await response.json()) as ServicesResponse;
+    async function refreshHizmetler() {
+
+        const response = await fetch("/api/admin/hizmetler", { cache: "no-store" });
+        console.log(response)
+        const result = (await response.json()) as HizmetResponse;
 
         if (!response.ok) {
             setMessage({ type: "error", text: result.error ?? "Hizmetler alınamadı." });
             return;
         }
-
-        setServices(result.services ?? []);
+        setHizmetler(result.hizmetler ?? []);
     }
 
     async function ensureAdmin() {
@@ -114,16 +122,20 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
         setMessage(null);
     }
 
-    function startEdit(service: ServiceRecord) {
-        const tr = service.service_translations.find((item) => item.locale === "tr");
-        const en = service.service_translations.find((item) => item.locale === "en");
-        const photos = service.service_photos.map((photo) => ({
-            photo_url: photo.photo_url,
+    function startEdit(hizmet: HizmetRecord) {
+        const tr = hizmet.hizmet_translations.find((item) => item.locale === "tr");
+        const en = hizmet.hizmet_translations.find((item) => item.locale === "en");
+
+        // ant upload kendi formatını istediği için urlleri dönüştürüyorum
+        const photos = hizmet.hizmet_photos.map((photo) => ({
+            url: photo.url,
+            alt: photo.alt ?? "",
+            sort_order: photo.sort_order,
         }));
 
         setForm({
-            id: service.id,
-            is_active: service.is_active,
+            id: hizmet.id,
+            is_published: hizmet.is_published,
             translations: {
                 tr: {
                     title: tr?.title ?? "",
@@ -136,7 +148,8 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
             },
             photos,
         });
-        setGalleryFileList(toUploadFileList(photos.map((photo) => photo.photo_url)));
+        setGalleryFileList(toUploadFileList(photos.map((photo) => photo.url)));
+        setCoverUploading(false);
         setIsFormOpen(true);
         setMessage(null);
     }
@@ -144,6 +157,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
     function cancelForm() {
         setForm(EMPTY_FORM);
         setGalleryFileList([]);
+        setCoverUploading(false);
         setIsFormOpen(false);
         setMessage(null);
     }
@@ -164,8 +178,11 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
     function updateGalleryPhotos(urls: string[]) {
         setForm((current) => ({
             ...current,
-            photos: urls.map((url) => ({
-                photo_url: url,
+            // alt metni kullanıcı girmiyor kayıtta başlıktan veriyorum
+            photos: urls.map((url, index) => ({
+                url,
+                alt: "",
+                sort_order: index,
             })),
         }));
     }
@@ -204,6 +221,8 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
         }
     };
 
+
+
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setSaving(true);
@@ -211,11 +230,15 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
 
         const trTitle = form.translations.tr.title.trim();
         const enTitle = form.translations.en.title.trim();
+        // galeri alt alanı yok en varsa onu yoksa tr başlığı kullanıyorum
+        const photoAlt = enTitle || trTitle;
         const photos = form.photos
-            .map((photo) => ({
-                photo_url: photo.photo_url.trim(),
+            .map((photo, index) => ({
+                url: photo.url.trim(),
+                alt: photoAlt || null,
+                sort_order: index,
             }))
-            .filter((photo) => photo.photo_url.length > 0);
+            .filter((photo) => photo.url.length > 0);
 
         if (!trTitle || !enTitle) {
             setSaving(false);
@@ -223,22 +246,24 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
             return;
         }
 
+        const hizmetPayload = {
+            is_published: form.is_published,
+        };
+
         try {
             const isAdmin = await ensureAdmin();
 
             if (!isAdmin) return;
 
-            // db yazma işi clientta değil services api route'a gidiyor
-            const response = await fetch("/api/admin/services", {
+            // db yazma işi clientta değil hizmetler api route'a gidiyor
+            const response = await fetch("/api/admin/hizmetler", {
                 method: form.id ? "PUT" : "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     id: form.id,
-                    service: {
-                        is_active: form.is_active,
-                    },
+                    hizmet: hizmetPayload,
                     translations: (["tr", "en"] as Locale[]).map((locale) => ({
                         locale,
                         title: form.translations[locale].title.trim(),
@@ -247,15 +272,14 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                     photos,
                 }),
             });
-            const result = (await response.json()) as ServiceMutationResponse;
+            const result = (await response.json()) as HizmetMutationResponse;
 
             if (!response.ok) {
                 throw new Error(result.error ?? "Hizmet kaydedilemedi.");
             }
 
-            await refreshServices();
+            await refreshHizmetler();
             setForm(EMPTY_FORM);
-            setGalleryFileList([]);
             setIsFormOpen(false);
             setMessage({
                 type: "success",
@@ -271,13 +295,13 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
         }
     }
 
-    async function deleteService(service: ServiceRecord) {
-        const title = getServiceTitle(service);
+    async function deleteHizmet(hizmet: HizmetRecord) {
+        const title = getHizmetTitle(hizmet);
         const confirmed = window.confirm(`${title} hizmetini silmek istediğine emin misin?`);
 
         if (!confirmed) return;
 
-        setDeletingId(service.id);
+        setDeletingId(hizmet.id);
         setMessage(null);
 
         const isAdmin = await ensureAdmin();
@@ -289,24 +313,24 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
 
         try {
             // silme de direkt supabase'e değil api route'a gidiyor
-            const response = await fetch("/api/admin/services", {
+            const response = await fetch("/api/admin/hizmetler", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ id: service.id }),
+                body: JSON.stringify({ id: hizmet.id }),
             });
-            const result = (await response.json()) as ServiceMutationResponse;
+            const result = (await response.json()) as HizmetMutationResponse;
 
             if (!response.ok) {
                 setMessage({ type: "error", text: result.error ?? "Hizmet silinemedi." });
                 return;
             }
 
-            setServices((current) => current.filter((item) => item.id !== service.id));
+            setHizmetler((current) => current.filter((item) => item.id !== hizmet.id));
             setMessage({ type: "success", text: "Hizmet silindi." });
 
-            if (form.id === service.id) {
+            if (form.id === hizmet.id) {
                 cancelForm();
             }
         } catch (error) {
@@ -322,10 +346,9 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
     return (
         <div className="space-y-6">
             {contextHolder}
-            <section className="grid gap-4 md:grid-cols-3">
-                <StatCard label="Toplam" value={services.length.toString()} />
-                <StatCard label="Yayında" value={activeCount.toString()} />
-                <StatCard label="Pasif" value={passiveCount.toString()} />
+            <section className="grid gap-4 md:grid-cols-2">
+                <StatCard label="Toplam" value={hizmetler.length.toString()} />
+                <StatCard label="Yayında" value={publishedCount.toString()} />
             </section>
 
             <div className="rounded-3xl border border-zinc-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.04]">
@@ -333,7 +356,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                     <div>
                         <h2 className="text-lg font-semibold">Hizmet Listesi</h2>
                         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                            Hizmetleri ve yayın durumlarını buradan yönetin.
+                            Yayın, favori ve sıralama durumlarını buradan yönetin.
                         </p>
                     </div>
                     <Button type="primary" onClick={startCreate} icon={<Plus className="h-4 w-4" />}>
@@ -355,7 +378,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                 )}
 
                 <div className="mt-5 overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10">
-                    {services.length === 0 ? (
+                    {hizmetler.length === 0 ? (
                         <div className="flex min-h-64 flex-col items-center justify-center gap-3 p-8 text-center">
                             <div className="rounded-full bg-zinc-100 p-4 text-zinc-500 dark:bg-white/10 dark:text-zinc-300">
                                 <ImageIcon className="h-8 w-8" />
@@ -363,20 +386,20 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                             <div>
                                 <h3 className="font-semibold">Henüz hizmet yok</h3>
                                 <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                                    İlk hizmeti ekleyerek panel verisini hazırlayabilirsiniz.
+                                    İlk hizmeti ekleyerek public site verisini hazırlayabilirsiniz.
                                 </p>
                             </div>
                         </div>
                     ) : (
                         <div className="divide-y divide-zinc-200 dark:divide-white/10">
-                            {services.map((service) => (
-                                <ServiceRow
-                                    key={service.id}
-                                    service={service}
-                                    active={form.id === service.id}
-                                    deleting={deletingId === service.id}
-                                    onEdit={() => startEdit(service)}
-                                    onDelete={() => deleteService(service)}
+                            {hizmetler.map((hizmet) => (
+                                <HizmetRow
+                                    key={hizmet.id}
+                                    hizmet={hizmet}
+                                    active={form.id === hizmet.id}
+                                    deleting={deletingId === hizmet.id}
+                                    onEdit={() => startEdit(hizmet)}
+                                    onDelete={() => deleteHizmet(hizmet)}
                                 />
                             ))}
                         </div>
@@ -413,7 +436,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                         </div>
                     </div>
 
-                    <div className="grid gap-6 pt-6 lg:grid-cols-[1fr_320px]">
+                    <div className="grid gap-6 pt-6 lg:grid-cols-[1fr_360px]">
                         <div className="space-y-6">
                             <div className="grid gap-4 md:grid-cols-2">
                                 <LocalizedFields
@@ -433,7 +456,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                             <div className="rounded-2xl border border-zinc-200 p-4 dark:border-white/10">
                                 <div className="mb-4">
                                     <div>
-                                        <h3 className="font-semibold">Hizmet Fotoğrafları</h3>
+                                        <h3 className="font-semibold">Galeri Fotoğrafları</h3>
                                         <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                                             Birden fazla görsel seçebilir veya dosyaları alana bırakabilirsiniz.
                                         </p>
@@ -462,7 +485,7 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                                         <InboxOutlined />
                                     </p>
                                     <p className="ant-upload-text">
-                                        Hizmet fotoğraflarını seçin veya buraya sürükleyin
+                                        Galeri fotoğraflarını seçin veya buraya sürükleyin
                                     </p>
                                     <p className="ant-upload-hint">
                                         Çoklu yükleme desteklenir. Sadece görsel dosyaları, maksimum 2 MB.
@@ -472,12 +495,14 @@ export function ServiceAdminClient({ initialServices }: { initialServices: Servi
                         </div>
 
                         <aside className="space-y-4 rounded-2xl border border-zinc-200 p-4 dark:border-white/10">
+
+
                             <div className="space-y-3 rounded-2xl bg-zinc-50 p-4 dark:bg-white/5">
                                 <SwitchRow
                                     label="Yayında"
                                     description="Public sitede görünür."
-                                    checked={form.is_active}
-                                    onChange={(value) => setForm((current) => ({ ...current, is_active: value }))}
+                                    checked={form.is_published}
+                                    onChange={(value) => setForm((current) => ({ ...current, is_published: value }))}
                                 />
                             </div>
                         </aside>
@@ -497,21 +522,21 @@ function StatCard({ label, value }: { label: string; value: string }) {
     );
 }
 
-function ServiceRow({
-    service,
+function HizmetRow({
+    hizmet,
     active,
     deleting,
     onEdit,
     onDelete,
 }: {
-    service: ServiceRecord;
+    hizmet: HizmetRecord;
     active: boolean;
     deleting: boolean;
     onEdit: () => void;
     onDelete: () => void;
 }) {
-    const title = getServiceTitle(service);
-    const photo = service.service_photos[0]?.photo_url;
+    const title = getHizmetTitle(hizmet);
+    const photo = hizmet.hizmet_photos[0]?.url;
 
     return (
         <article
@@ -533,18 +558,15 @@ function ServiceRow({
             <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                     <h3 className="truncate font-semibold">{title}</h3>
-                    {service.is_active ? (
+                    {hizmet.is_published ? (
                         <Badge tone="green">Yayında</Badge>
                     ) : (
-                        <Badge tone="zinc">Pasif</Badge>
+                        <Badge tone="zinc">Taslak</Badge>
                     )}
                 </div>
-                <p className="mt-1 truncate text-sm text-zinc-500 dark:text-zinc-400">
-                    {getServiceDescription(service)}
-                </p>
+
                 <div className="mt-3 flex flex-wrap gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-                    <span>Fotoğraf: {service.service_photos.length}</span>
-                    <span>Güncelleme: {formatDate(service.updated_at)}</span>
+                    <span>Fotoğraf: {hizmet.hizmet_photos.length}</span>
                 </div>
             </div>
 
@@ -637,13 +659,14 @@ function Badge({
     tone,
 }: {
     children: ReactNode;
-    tone: "green" | "zinc";
+    tone: "green" | "amber" | "zinc";
 }) {
     return (
         <span
             className={cn(
                 "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
                 tone === "green" && "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-200",
+                tone === "amber" && "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-200",
                 tone === "zinc" && "bg-zinc-100 text-zinc-600 dark:bg-white/10 dark:text-zinc-300"
             )}
         >
@@ -652,19 +675,11 @@ function Badge({
     );
 }
 
-function getServiceTitle(service: ServiceRecord) {
+function getHizmetTitle(hizmet: HizmetRecord) {
     return (
-        service.service_translations.find((item) => item.locale === "tr")?.title ||
-        service.service_translations.find((item) => item.locale === "en")?.title ||
-        "Başlıksız hizmet"
-    );
-}
-
-function getServiceDescription(service: ServiceRecord) {
-    return (
-        service.service_translations.find((item) => item.locale === "tr")?.description ||
-        service.service_translations.find((item) => item.locale === "en")?.description ||
-        "Açıklama yok"
+        hizmet.hizmet_translations.find((item) => item.locale === "tr")?.title ||
+        hizmet.hizmet_translations.find((item) => item.locale === "en")?.title ||
+        ""
     );
 }
 
@@ -681,10 +696,10 @@ function slugify(value: string) {
         .replace(/^-+|-+$/g, "");
 }
 
-function getUploadFolder(form: ServiceFormState) {
+function getUploadFolder(form: HizmetFormState) {
     const folder = form.id ?? slugify(form.translations.tr.title || form.translations.en.title);
 
-    return folder ? `stallcons/services/${folder}` : "stallcons/services";
+    return folder ? `stallcons/hizmetler/${folder}` : "stallcons/hizmetler";
 }
 
 function toUploadFileList(urls: string[]): ImageUploadFile[] {
@@ -692,7 +707,7 @@ function toUploadFileList(urls: string[]): ImageUploadFile[] {
         .filter(Boolean)
         .map((url, index) => ({
             uid: url,
-            name: getFileNameFromUrl(url) || `service-photo-${index + 1}`,
+            name: getFileNameFromUrl(url) || `hizmet-photo-${index + 1}`,
             status: "done",
             url,
             response: { url },
@@ -711,12 +726,4 @@ function getFileNameFromUrl(url: string) {
     } catch {
         return url.split("/").pop() ?? "";
     }
-}
-
-function formatDate(value: string) {
-    return new Intl.DateTimeFormat("tr-TR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-    }).format(new Date(value));
 }

@@ -15,7 +15,7 @@ export default function AdminNotFound() {
                     Yönetim panelinde geçersiz veya var olmayan bir adrese ulaştınız. Lütfen soldaki menüyü kullanarak geçerli bir sayfaya gidin.
                 </p>
                 <Link
-                    href="/admin/projects"
+                    href="/admin"
                     className="inline-flex rounded-2xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-500"
                 >
                     Yönetim Paneline Dön

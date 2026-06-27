@@ -8,7 +8,7 @@ type Props = {
 
 const adminNavItems = [
     { id: "projects", name: "Projeler", icon: "FileText", href: "/admin/projects" },
-    { id: "services", name: "Hizmetler", icon: "HelpCircle", href: "/admin/services" },
+    { id: "hizmetler", name: "Hizmetler", icon: "HelpCircle", href: "/admin/hizmetler" },
     { id: "products", name: "Ürünler", icon: "BarChart3", href: "/admin/products" },
 ];
 
@@ -23,13 +23,13 @@ export default async function AdminPanelLayout({ children }: Props) {
 
     return (
         <div className="flex min-h-screen bg-zinc-100 dark:bg-zinc-950">
-            <Sidebar 
+            <Sidebar
                 brandLogoChar="S"
                 brandTitle="Stallcons"
                 brandSubtitle="Yönetici Paneli"
                 items={adminNavItems}
             />
-            
+
             <div className="flex-1 flex flex-col min-w-0">
                 {/* Mobile Top Bar */}
                 <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white px-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 backdrop-blur-md md:hidden">
