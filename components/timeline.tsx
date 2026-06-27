@@ -7,172 +7,31 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-interface TimelineEntry {
-    title: string;
-    content: React.ReactNode;
-}
-
-export interface TimelineServiceData {
+export interface TimelineHizmetData {
     id: string;
     title: string;
     description: string;
     photos: string[];
 }
 
-const DEFAULT_DATA = [
-    {
-        title: "Hangarlar",
-        content: (
-            <div>
-                <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    Mosley, the librarian at St Bride Printing Library, took a 1914 Cicero translation and scrambled it to make dummy
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                    <Image
-                        src='https://fastly.picsum.photos/id/9/367/267.jpg?hmac=T7owcj6NXY0SJiB-H1XxauCZKaZJkkXWOEQw8GZseAc'
-                        alt="startup template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/63/367/267.jpg?hmac=v7Io1SRLfeajvMXPM49T9R2ScLVsYEXzclwdxNtABTk'
-                        alt="startup template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src="https://fastly.picsum.photos/id/16/367/267.jpg?hmac=ZyyuET1a6X-Ym6MXK8OyHrdWFJiLI4To0iYLTlyrD-0"
-                        alt="startup template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src="https://fastly.picsum.photos/id/63/367/267.jpg?hmac=v7Io1SRLfeajvMXPM49T9R2ScLVsYEXzclwdxNtABTk"
-                        alt="startup template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                </div>
-            </div>
-        ),
-    },
-    {
-        title: "Havalimanı",
-        content: (
-            <div>
-                <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    I usually run out of copy, but when I see content this big, I try to
-                    integrate lorem ipsum.
-                </p>
-                <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    Lorem ipsum is for people who are too lazy to write copy. But we are
-                    not. Here are some more example of beautiful designs I built.
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                    <Image
-                        src='https://fastly.picsum.photos/id/9/367/267.jpg?hmac=T7owcj6NXY0SJiB-H1XxauCZKaZJkkXWOEQw8GZseAc'
-                        alt="hero template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/845/536/354.jpg?hmac=N0jid6KpFZyaCJhFdFJVRQUImWIJuxYl53n3GkFj9Ps'
-                        alt="feature template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA'
-                        alt="bento template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/63/367/267.jpg?hmac=v7Io1SRLfeajvMXPM49T9R2ScLVsYEXzclwdxNtABTk'
-                        alt="cards template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                </div>
-            </div>
-        ),
-    },
-    {
-        title: "Lojistik",
-        content: (
-            <div>
-                <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&apos;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure
-                </p>
-                <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-lg font-normal mb-8">
-                    All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words,
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                    <Image
-                        src='https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA'
-                        alt="hero template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/845/536/354.jpg?hmac=N0jid6KpFZyaCJhFdFJVRQUImWIJuxYl53n3GkFj9Ps'
-                        alt="feature template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/76/367/267.jpg?hmac=Jh_us_gqJLuNJOhki3d6cVGyA4OsoiID7bhwIoooi48'
-                        alt="bento template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                    <Image
-                        src='https://fastly.picsum.photos/id/16/367/267.jpg?hmac=ZyyuET1a6X-Ym6MXK8OyHrdWFJiLI4To0iYLTlyrD-0'
-                        alt="cards template"
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
-                    />
-                </div>
-            </div>
-        ),
-    },
-];
-
 export const Timeline = ({
-    data,
-    services,
+    hizmetler = [],
     fallbackImage,
 }: {
-    data?: TimelineEntry[];
-    services?: TimelineServiceData[];
+    hizmetler?: TimelineHizmetData[];
     fallbackImage?: string;
 }) => {
-    // hizmet datası geldiyse onu basıyorum gelmediyse eski örnek data duruyor
-    const timelineData = services
-        ? services.map((service) => ({
-            title: service.title,
-            content: (
-                <ServiceTimelineContent
-                    title={service.title}
-                    description={service.description}
-                    photos={service.photos}
-                    fallbackImage={fallbackImage}
-                />
-            ),
-        }))
-        : data ?? DEFAULT_DATA;
+    const timelineData = hizmetler.map((hizmet) => ({
+        title: hizmet.title,
+        content: (
+            <HizmetTimelineContent
+                title={hizmet.title}
+                description={hizmet.description}
+                photos={hizmet.photos}
+                fallbackImage={fallbackImage}
+            />
+        ),
+    }));
 
     const ref = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -245,7 +104,7 @@ export const Timeline = ({
     );
 };
 
-function ServiceTimelineContent({
+function HizmetTimelineContent({
     title,
     description,
     photos,
@@ -256,7 +115,7 @@ function ServiceTimelineContent({
     photos: string[];
     fallbackImage?: string;
 }) {
-    const images = getServiceImages(photos, fallbackImage);
+    const images = getHizmetImages(photos, fallbackImage);
 
     return (
         <div>
@@ -279,11 +138,10 @@ function ServiceTimelineContent({
     );
 }
 
-function getServiceImages(photos: string[], fallbackImage?: string) {
-    const cleanPhotos = photos.filter(Boolean).slice(0, 4);
-    const fallback = fallbackImage ? [fallbackImage] : [];
-    const images = cleanPhotos.length > 0 ? cleanPhotos : fallback;
-
-    // grid boş kalmasın diye aynı görseli 4 kutuya tamamlıyorum
-    return Array.from({ length: 4 }, (_, index) => images[index % images.length]).filter(Boolean);
+function getHizmetImages(photos: string[], fallbackImage?: string) {
+    const cleanPhotos = photos.filter(Boolean);
+    if (cleanPhotos.length > 0) {
+        return cleanPhotos.slice(0, 4);
+    }
+    return fallbackImage ? [fallbackImage] : [];
 }

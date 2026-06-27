@@ -1,36 +1,36 @@
 import { headers } from "next/headers";
 import GalleryShowcase from "@/components/gallery-showcase";
 import HoverBrandLogo from "@/components/hover-brand-logo";
-import { HomeHero } from "@/components/home-hero";
-import { Timeline, type TimelineServiceData } from "@/components/timeline";
+import { Timeline, type TimelineHizmetData } from "@/components/timeline";
 import noPhoto from "@/app/assets/no-photo.webp";
+import { HomeHero } from "@/components/home-hero";
 
 type Locale = "tr" | "en";
 
-type ServiceTranslation = {
+type HizmetTranslation = {
   id: string;
   locale: Locale | "es";
   title: string;
   description: string | null;
 };
 
-type ServicePhoto = {
+type HizmetPhoto = {
   id: string;
-  photo_url: string;
+  url: string;
   created_at: string;
 };
 
-type ServiceRecord = {
+type HizmetRecord = {
   id: string;
-  is_active: boolean;
+  is_published: boolean;
   created_at: string;
   updated_at: string;
-  service_translations: ServiceTranslation[];
-  service_photos: ServicePhoto[];
+  hizmet_translations: HizmetTranslation[];
+  hizmet_photos: HizmetPhoto[];
 };
 
-type ServicesResponse = {
-  services?: ServiceRecord[];
+type HizmetlerResponse = {
+  hizmetler?: HizmetRecord[];
   error?: string;
 };
 
@@ -41,7 +41,7 @@ type Props = {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
-  const services = await getHomeServices(activeLocale);
+  const hizmetler = await getHomeHizmetler(activeLocale);
 
   return (
     <>
@@ -72,7 +72,7 @@ export default async function Home({ params }: Props) {
               : "We provide professional services shaped around your needs across steel construction, engineering, fabrication and assembly processes."}
           </p>
         </div>
-        <Timeline services={services} fallbackImage={noPhoto.src} />
+        <Timeline hizmetler={hizmetler} fallbackImage={noPhoto.src} />
       </div>
 
       <div className="min-h-[20vh] mt-5 ">
@@ -82,7 +82,7 @@ export default async function Home({ params }: Props) {
   );
 }
 
-async function getHomeServices(locale: Locale) {
+async function getHomeHizmetler(locale: Locale) {
   const headerStore = await headers();
   const host = headerStore.get("host");
   const protocol = headerStore.get("x-forwarded-proto") ?? "http";
@@ -91,36 +91,36 @@ async function getHomeServices(locale: Locale) {
 
   try {
     // hizmet alanları server tarafında admin services routeundan geliyor
-    const response = await fetch(`${protocol}://${host}/api/admin/services`, {
+    const response = await fetch(`${protocol}://${host}/api/admin/hizmetler`, {
       cache: "no-store",
     });
 
     if (!response.ok) return [];
 
-    const result = (await response.json()) as ServicesResponse;
+    const result = (await response.json()) as HizmetlerResponse;
 
-    return (result.services ?? [])
-      .filter((service) => service.is_active)
-      .map((service) => mapServiceForTimeline(service, locale))
-      .filter((service): service is TimelineServiceData => Boolean(service));
+    return (result.hizmetler ?? [])
+      .filter((hizmet) => hizmet.is_published)
+      .map((hizmet) => mapHizmetForTimeline(hizmet, locale))
+      .filter((hizmet): hizmet is TimelineHizmetData => Boolean(hizmet));
   } catch {
     // hata olursa sayfa patlamasın boş kalsın
     return [];
   }
 }
 
-function mapServiceForTimeline(service: ServiceRecord, locale: Locale) {
-  const currentTranslation = service.service_translations.find((item) => item.locale === locale);
-  const fallbackTranslation = service.service_translations.find((item) => item.locale === "tr")
-    ?? service.service_translations.find((item) => item.locale === "en");
+function mapHizmetForTimeline(hizmet: HizmetRecord, locale: Locale) {
+  const currentTranslation = hizmet.hizmet_translations.find((item) => item.locale === locale);
+  const fallbackTranslation = hizmet.hizmet_translations.find((item) => item.locale === "tr")
+    ?? hizmet.hizmet_translations.find((item) => item.locale === "en");
   const translation = currentTranslation ?? fallbackTranslation;
 
   if (!translation?.title) return null;
 
   return {
-    id: service.id,
+    id: hizmet.id,
     title: translation.title,
     description: translation.description ?? "",
-    photos: service.service_photos.map((photo) => photo.photo_url).filter(Boolean),
+    photos: hizmet.hizmet_photos.map((photo) => photo.url).filter(Boolean),
   };
 }
