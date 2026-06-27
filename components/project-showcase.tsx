@@ -24,7 +24,19 @@ export function ProjectShowcase({
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
     const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
     const [isVisible, setIsVisible] = useState(false)
+    const [containerWidth, setContainerWidth] = useState(1200)
     const containerRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (!containerRef.current) return
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                setContainerWidth(entry.contentRect.width)
+            }
+        })
+        observer.observe(containerRef.current)
+        return () => observer.disconnect()
+    }, [])
 
     useEffect(() => {
         const lerp = (start: number, end: number, factor: number) => {
@@ -82,6 +94,13 @@ export function ProjectShowcase({
         setIsVisible(false)
     }
 
+    const cardWidth = 280
+    const paddingX = 24 // px-6 padding is 24px
+    const constrainedX = Math.max(
+        paddingX,
+        Math.min(containerWidth - cardWidth - paddingX, smoothPosition.x + 20)
+    )
+
     return (
         <section ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-7xl mx-auto px-6 py-16">
             <h2 className="text-muted-foreground text-sm- font-medium- tracking-wide uppercase mb-8">Tüm Projeler</h2>
@@ -91,7 +110,7 @@ export function ProjectShowcase({
                 style={{
                     left: 0,
                     top: 0,
-                    transform: `translate3d(${smoothPosition.x + 20}px, ${smoothPosition.y - 100}px, 0)`,
+                    transform: `translate3d(${constrainedX}px, ${smoothPosition.y - 100}px, 0)`,
                     opacity: isVisible ? 1 : 0,
                     scale: isVisible ? 1 : 0.8,
                     transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
