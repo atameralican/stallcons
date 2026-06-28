@@ -41,7 +41,10 @@ type Props = {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
-  const hizmetler = await getHomeHizmetler(activeLocale);
+  const [hizmetler, partners] = await Promise.all([
+    getHomeHizmetler(activeLocale),
+    getHomePartners(),
+  ]);
 
   return (
     <>
@@ -76,7 +79,7 @@ export default async function Home({ params }: Props) {
       </div>
 
       <div className="min-h-[20vh] mt-5 ">
-        <HoverBrandLogo />
+        <HoverBrandLogo partners={partners} />
       </div>
     </>
   );
@@ -123,4 +126,25 @@ function mapHizmetForTimeline(hizmet: HizmetRecord, locale: Locale) {
     description: translation.description ?? "",
     photos: hizmet.hizmet_photos.map((photo) => photo.url).filter(Boolean),
   };
+}
+
+async function getHomePartners() {
+  const headerStore = await headers();
+  const host = headerStore.get("host");
+  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+
+  if (!host) return [];
+
+  try {
+    const response = await fetch(`${protocol}://${host}/api/admin/partners`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) return [];
+
+    const result = await response.json();
+    return (result.partners ?? []).filter((partner: any) => partner.is_published);
+  } catch {
+    return [];
+  }
 }

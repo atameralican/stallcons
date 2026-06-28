@@ -2,39 +2,26 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-    GitHubLogoIcon,
-    DiscordLogoIcon,
-    FigmaLogoIcon,
-    VercelLogoIcon,
-    NotionLogoIcon,
-    TwitterLogoIcon,
-    InstagramLogoIcon,
-    LinkedInLogoIcon,
-    CodeSandboxLogoIcon,
-    SketchLogoIcon,
-    StitchesLogoIcon,
-    FramerLogoIcon,
-} from '@radix-ui/react-icons';
+import { cn } from '@/lib/utils';
 
-const brands = [
-    { id: 'github', name: 'GitHub', Icon: GitHubLogoIcon },
-    { id: 'discord', name: 'Discord', Icon: DiscordLogoIcon },
-    { id: 'figma', name: 'Figma', Icon: FigmaLogoIcon },
-    { id: 'vercel', name: 'Vercel', Icon: VercelLogoIcon },
-    { id: 'notion', name: 'Notion', Icon: NotionLogoIcon },
-    { id: 'twitter', name: 'Twitter', Icon: TwitterLogoIcon },
-    { id: 'instagram', name: 'Instagram', Icon: InstagramLogoIcon },
-    { id: 'linkedin', name: 'LinkedIn', Icon: LinkedInLogoIcon },
-    { id: 'codesandbox', name: 'CodeSandbox', Icon: CodeSandboxLogoIcon },
-    { id: 'sketch', name: 'Sketch', Icon: SketchLogoIcon },
-    { id: 'stitches', name: 'Stitches', Icon: StitchesLogoIcon },
-    { id: 'framer', name: 'Framer', Icon: FramerLogoIcon },
-];
+type HomePartner = {
+    id: string;
+    name: string;
+    url: string;
+};
 
-export default function HoverBrandLogo() {
+type HoverBrandLogoProps = {
+    partners: HomePartner[];
+};
+
+export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
-    const activeBrand = brands.find(b => b.id === hoveredId);
+
+    if (!partners || partners.length === 0) {
+        return null;
+    }
+
+    const activeBrand = partners.find(b => b.id === hoveredId);
 
     return (
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-16 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -67,30 +54,39 @@ export default function HoverBrandLogo() {
                 </div>
             </div>
 
-            {/* Right: icon grid */}
-            <div className="grid grid-cols-4 sm:grid-cols-6 md:flex md:flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 w-full md:w-auto mt-6 md:mt-0 max-w-2xl">
-                {brands.map(({ id, name, Icon }) => {
-                    const isActive = hoveredId === id;
+            {/* Right: image grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 w-full md:w-auto mt-6 md:mt-0 max-w-2xl">
+                {partners.map((partner) => {
+                    const isActive = hoveredId === partner.id;
                     const isDimmed = hoveredId !== null && !isActive;
                     return (
-                        <button
-                            key={id}
-                            aria-label={name}
-                            className={[
-                                'flex items-center justify-center p-2.5 sm:p-3 lg:p-3.5 rounded-lg border transition-all duration-200',
+                        <div
+                            key={partner.id}
+                            className={cn(
+                                'flex items-center justify-center p-3 rounded-2xl border transition-all duration-200 w-28 h-16 sm:w-32 sm:h-20 bg-white dark:bg-zinc-100 shadow-sm',
                                 isActive
-                                    ? 'border-foreground/30 text-foreground bg-foreground/5'
-                                    : 'border-transparent text-foreground/30 hover:text-foreground/50',
-                                isDimmed ? 'opacity-40 ' : '',
-                            ].join(' ')}
-                            onMouseEnter={() => setHoveredId(id)}
+                                    ? 'border-zinc-300 bg-white'
+                                    : 'border-zinc-200 hover:border-zinc-300',
+                                isDimmed && 'opacity-40'
+                            )}
+                            onMouseEnter={() => setHoveredId(partner.id)}
                             onMouseLeave={() => setHoveredId(null)}
                         >
-                            <Icon className="w-8 h-8 sm:w-6 sm:h-6" />
-                        </button>
+                            <img
+                                src={partner.url}
+                                alt={partner.name}
+                                className={cn(
+                                    "max-h-full max-w-full object-contain transition-all duration-200",
+                                    isActive
+                                        ? "grayscale-0 opacity-100"
+                                        : "grayscale opacity-60"
+                                )}
+                            />
+                        </div>
                     );
                 })}
             </div>
         </div>
     );
 }
+
