@@ -55,7 +55,7 @@ export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
             </div>
 
             {/* Right: image grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center md:justify-start gap-2 md:gap-3 w-full md:w-auto mt-6 md:mt-0 max-w-2xl">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center md:justify-start justify-items-center gap-2 md:gap-3 w-full md:w-auto mt-6 md:mt-0 max-w-2xl">
                 {partners.map((partner) => {
                     const isActive = hoveredId === partner.id;
                     const isDimmed = hoveredId !== null && !isActive;
@@ -63,10 +63,10 @@ export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
                         <div
                             key={partner.id}
                             className={cn(
-                                'flex items-center justify-center p-3 rounded-2xl border transition-all duration-200 w-28 h-16 sm:w-32 sm:h-20 bg-white dark:bg-zinc-100 shadow-sm',
+                                'flex items-center justify-center p-3 rounded-2xl border transition-all duration-200 w-28 h-16 sm:w-32 sm:h-20 dark:bg-white dark:bg-zinc-300 dark:shadow-sm',
                                 isActive
-                                    ? 'border-zinc-300 bg-white'
-                                    : 'border-zinc-200 hover:border-zinc-300',
+                                    ? 'bg-zinc-300'
+                                    : 'hover:border-zinc-300',
                                 isDimmed && 'opacity-40'
                             )}
                             onMouseEnter={() => setHoveredId(partner.id)}
