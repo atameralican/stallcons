@@ -17,18 +17,22 @@ type ContactMailResult = {
     customerEmailSentAt: string | null;
 };
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+    const apiKey = process.env.RESEND_API_KEY;
 
+    if (!apiKey) {
+        throw new Error("RESEND_API_KEY tanımlı değil.");
+    }
+
+    return new Resend(apiKey);
+}
 export async function sendContactRequestEmails(
     payload: ContactMailPayload
 ): Promise<ContactMailResult> {
+    const resend = getResendClient();
+
     const from = process.env.CONTACT_MAIL_FROM;
     const to = process.env.CONTACT_MAIL_TO;
-    const publicEmail = process.env.CONTACT_PUBLIC_EMAIL || "info@stallcons.com";
-
-    if (!process.env.RESEND_API_KEY) {
-        throw new Error("RESEND_API_KEY tanımlı değil.");
-    }
 
     if (!from) {
         throw new Error("CONTACT_MAIL_FROM tanımlı değil.");
