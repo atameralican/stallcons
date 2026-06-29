@@ -52,6 +52,10 @@
     "contact": {
       "title": "İletişim | Stallcons – Çelik Konstrüksiyon",
       "description": "Stallcons ile iletişime geçin. Çelik konstrüksiyon hizmetlerimiz hakkında teklif almak için bize ulaşın."
+    },
+    "privacyPolicy": {
+      "title": "Aydınlatma Metni / Gizlilik Politikası | Stallcons",
+      "description": "Stallcons kişisel verilerin işlenmesi, saklanması, aktarılması ve ilgili kişi haklarına ilişkin aydınlatma metni."
     }
   },
   "Navbar": {
@@ -107,7 +111,8 @@
   "Breadcrumb": {
     "home": "Ana Sayfa",
     "corporate": "Kurumsal",
-    "expertiseAreas": "Faaliyet Alanlarımız"
+    "expertiseAreas": "Faaliyet Alanlarımız",
+    "privacyPolicy": "Aydınlatma Metni / Gizlilik Politikası"
   },
   "Pages": {
     "aboutUs": {
@@ -223,7 +228,100 @@
       "subjectPlaceholder": "Projeniz hakkında kısaca belirtin",
       "message": "Mesajınız",
       "messagePlaceholder": "Projenizin detaylarını, ihtiyaçlarınızı ve sorularınızı buraya yazabilirsiniz...",
-      "send": "Mesaj Gönder"
+      "send": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "privacyConsentPrefix": "Kişisel verilerimin, iletişim talebimin yanıtlanması amacıyla işlenmesine ilişkin ",
+      "privacyConsentLink": "Aydınlatma Metni / Gizlilik Politikası",
+      "privacyConsentSuffix": "’nı okudum."
+    },
+    "privacyPolicy": {
+      "title": "Aydınlatma Metni / Gizlilik Politikası",
+      "description": "Kişisel verilerinizin işlenmesine ilişkin bilgilendirme",
+      "lastUpdatedLabel": "Son güncelleme",
+      "lastUpdated": "29 Haziran 2026",
+      "sections": {
+        "dataController": {
+          "title": "Veri Sorumlusu",
+          "paragraphs": [
+            "Bu Aydınlatma Metni / Gizlilik Politikası, Stallcons tarafından yürütülen web sitesi ve iletişim süreçleri kapsamında kişisel verilerinizin nasıl işlendiğini açıklamak amacıyla hazırlanmıştır.",
+            "Kişisel verilerinize ilişkin sorularınız ve talepleriniz için info@stallcons.com adresinden Stallcons ile iletişime geçebilirsiniz."
+          ],
+          "items": []
+        },
+        "personalDataProcessed": {
+          "title": "İşlenen Kişisel Veriler",
+          "paragraphs": [
+            "İletişim formunu doldurmanız halinde aşağıdaki kişisel veriler işlenebilir:"
+          ],
+          "items": [
+            "Ad, soyad, e-posta adresi, telefon numarası, konu ve mesaj içeriği.",
+            "Spam, kötüye kullanım ve bot faaliyetlerini önlemek amacıyla IP adresi, user-agent bilgisi, kaynak sayfa ve güvenlik doğrulama bilgileri.",
+            "Talebinizin içeriğine göre tarafınızca serbestçe paylaşılan ek bilgiler."
+          ]
+        },
+        "purposes": {
+          "title": "Kişisel Verilerin İşlenme Amaçları",
+          "paragraphs": [
+            "Kişisel verileriniz, iletişim talebinizi yanıtlamak, projenizle ilgili ön değerlendirme yapmak, fiyat teklifi sürecini yürütmek, web sitesi ve form güvenliğini sağlamak, spam ve bot trafiğini önlemek ve hukuki yükümlülükleri yerine getirmek amacıyla işlenir."
+          ],
+          "items": []
+        },
+        "legalBasis": {
+          "title": "Hukuki Sebep",
+          "paragraphs": [
+            "Kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması; veri sorumlusunun meşru menfaati; hukuki yükümlülüklerin yerine getirilmesi ve gerekli hallerde açık rızanız hukuki sebeplerine dayanarak işlenebilir."
+          ],
+          "items": []
+        },
+        "transfer": {
+          "title": "Kişisel Verilerin Aktarılması",
+          "paragraphs": [
+            "Kişisel verileriniz, yukarıda belirtilen amaçlarla sınırlı ve gerekli ölçüde olmak üzere teknik altyapı, barındırma, güvenlik, e-posta gönderimi ve iş uygulamaları hizmetleri aldığımız hizmet sağlayıcılarla paylaşılabilir.",
+            "Bu kapsamda Supabase, Resend, Cloudflare ve Google Workspace gibi teknik hizmet sağlayıcılar kişisel verilerinize sınırlı şekilde erişebilir. Gerekli hallerde yetkili kamu kurum ve kuruluşlarıyla da paylaşım yapılabilir."
+          ],
+          "items": []
+        },
+        "retention": {
+          "title": "Saklama Süresi",
+          "paragraphs": [
+            "Kişisel verileriniz, iletişim talebinizin yanıtlanması, teklif ve takip süreçlerinin yürütülmesi, uyuşmazlıkların çözümlenmesi ve yasal yükümlülüklerin yerine getirilmesi için gerekli süre boyunca saklanır.",
+            "Saklama süresinin sona ermesi veya işleme amacının ortadan kalkması halinde kişisel verileriniz silinir, yok edilir veya anonim hale getirilir."
+          ],
+          "items": []
+        },
+        "commercialMessages": {
+          "title": "Ticari Elektronik İleti",
+          "paragraphs": [
+            "İletişim formunu göndermeniz sonrasında tarafınıza iletilebilecek otomatik bilgilendirme e-postaları, talebinizin alındığını veya yanıt sürecini bildirmek amacıyla gönderilir.",
+            "Bu e-postalar reklam, kampanya veya pazarlama amaçlı ticari elektronik ileti niteliğinde değildir."
+          ],
+          "items": []
+        },
+        "rights": {
+          "title": "İlgili Kişinin Hakları",
+          "paragraphs": [
+            "KVKK m.11 kapsamında aşağıdaki haklara sahipsiniz:"
+          ],
+          "items": [
+            "Kişisel verilerinizin işlenip işlenmediğini öğrenme.",
+            "Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme.",
+            "İşleme amacını ve verilerin amacına uygun kullanılıp kullanılmadığını öğrenme.",
+            "Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme.",
+            "Eksik veya yanlış işlenmiş verilerin düzeltilmesini isteme.",
+            "Mevzuatta öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme.",
+            "İşlenen verilerin münhasıran otomatik sistemlerle analiz edilmesi nedeniyle aleyhinize bir sonucun ortaya çıkmasına itiraz etme.",
+            "Kanuna aykırı işleme nedeniyle zarara uğramanız halinde zararın giderilmesini talep etme."
+          ]
+        },
+        "updates": {
+          "title": "Güncellemeler",
+          "paragraphs": [
+            "Stallcons, bu Aydınlatma Metni / Gizlilik Politikası’nı mevzuat, hizmet ve teknik altyapı değişikliklerine bağlı olarak güncelleyebilir.",
+            "Güncel metin her zaman bu sayfada yayımlanır. Haklarınıza ilişkin talepleriniz için info@stallcons.com adresinden bize ulaşabilirsiniz."
+          ],
+          "items": []
+        }
+      }
     },
     "notFound": {
       "title": "404 - Sayfa Bulunamadı",

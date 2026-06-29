@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
+import { ContactForm } from "./contact-form";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -119,82 +116,29 @@ export default async function Page({ params }: Props) {
             </div>
 
             {/* Sağ — İletişim Formu */}
-            <div
-              data-slot="card"
-              className="lg:col-span-2 flex flex-col gap-6 rounded-xl border bg-card py-8 text-card-foreground shadow-none"
-            >
-              <div data-slot="card-header" className="px-6">
-                <h3 className="text-xl font-semibold">{t("formHeading")}</h3>
-              </div>
-              <div data-slot="card-content" className="px-6 flex flex-col gap-5">
-                <div className="flex gap-4">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="firstname">{t("firstname")}</Label>
-                    <Input
-                      type="text"
-                      id="firstname"
-                      name="firstname"
-                      placeholder={t("firstnamePlaceholder")}
-                      autoComplete="given-name"
-                    />
-                  </div>
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="lastname">{t("lastname")}</Label>
-                    <Input
-                      type="text"
-                      id="lastname"
-                      name="lastname"
-                      placeholder={t("lastnamePlaceholder")}
-                      autoComplete="family-name"
-                    />
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="email">{t("emailLabel")}</Label>
-                    <Input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder={t("emailPlaceholder")}
-                      autoComplete="email"
-                    />
-                  </div>
-                  <div className="grid w-full items-center gap-1.5">
-                    <Label htmlFor="phone">{t("phoneLabel")}</Label>
-                    <Input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      placeholder={t("phonePlaceholder")}
-                      autoComplete="tel"
-                    />
-                  </div>
-                </div>
-                <div className="grid w-full items-center gap-1.5">
-                  <Label htmlFor="subject">{t("subject")}</Label>
-                  <Input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    placeholder={t("subjectPlaceholder")}
-                  />
-                </div>
-                <div className="grid w-full gap-1.5">
-                  <Label htmlFor="message">{t("message")}</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder={t("messagePlaceholder")}
-                    className="min-h-36 resize-none"
-                  />
-                </div>
-                <Button type="submit" className="w-full gap-2">
-                  <Send className="h-4 w-4" />
-                  {t("send")}
-                </Button>
-              </div>
-            </div>
+            <ContactForm
+              locale={locale}
+              labels={{
+                formHeading: t("formHeading"),
+                firstname: t("firstname"),
+                firstnamePlaceholder: t("firstnamePlaceholder"),
+                lastname: t("lastname"),
+                lastnamePlaceholder: t("lastnamePlaceholder"),
+                emailLabel: t("emailLabel"),
+                emailPlaceholder: t("emailPlaceholder"),
+                phoneLabel: t("phoneLabel"),
+                phonePlaceholder: t("phonePlaceholder"),
+                subject: t("subject"),
+                subjectPlaceholder: t("subjectPlaceholder"),
+                message: t("message"),
+                messagePlaceholder: t("messagePlaceholder"),
+                send: t("send"),
+                sending: t("sending"),
+                privacyConsentPrefix: t("privacyConsentPrefix"),
+                privacyConsentLink: t("privacyConsentLink"),
+                privacyConsentSuffix: t("privacyConsentSuffix"),
+              }}
+            />
           </div>
         </div>
       </section>

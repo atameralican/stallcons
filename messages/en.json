@@ -52,6 +52,10 @@
     "contact": {
       "title": "Contact | Stallcons – Steel Construction",
       "description": "Contact Stallcons. Reach out to us for a quote on our steel construction services."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy | Stallcons",
+      "description": "Stallcons privacy policy regarding the processing, retention, transfer and rights related to personal data."
     }
   },
   "Navbar": {
@@ -107,7 +111,8 @@
   "Breadcrumb": {
     "home": "Home",
     "corporate": "Corporate",
-    "expertiseAreas": "Expertise Areas"
+    "expertiseAreas": "Expertise Areas",
+    "privacyPolicy": "Privacy Policy"
   },
   "Pages": {
     "aboutUs": {
@@ -223,7 +228,100 @@
       "subjectPlaceholder": "Briefly describe your project",
       "message": "Your Message",
       "messagePlaceholder": "You can write your project details, requirements and questions here...",
-      "send": "Send Message"
+      "send": "Send Message",
+      "sending": "Sending...",
+      "privacyConsentPrefix": "I have read the ",
+      "privacyConsentLink": "Privacy Policy",
+      "privacyConsentSuffix": " regarding the processing of my personal data for responding to my contact request."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "Information about the processing of your personal data",
+      "lastUpdatedLabel": "Last updated",
+      "lastUpdated": "June 29, 2026",
+      "sections": {
+        "dataController": {
+          "title": "Data Controller",
+          "paragraphs": [
+            "This Privacy Policy explains how Stallcons processes personal data in connection with its website and contact request processes.",
+            "For questions and requests regarding your personal data, you can contact Stallcons at info@stallcons.com."
+          ],
+          "items": []
+        },
+        "personalDataProcessed": {
+          "title": "Personal Data Processed",
+          "paragraphs": [
+            "When you submit the contact form, the following personal data may be processed:"
+          ],
+          "items": [
+            "First name, last name, email address, phone number, subject and message content.",
+            "IP address, user-agent information, source page and security verification information for spam, abuse and bot prevention.",
+            "Additional information that you voluntarily share depending on the content of your request."
+          ]
+        },
+        "purposes": {
+          "title": "Purposes of Processing",
+          "paragraphs": [
+            "Your personal data is processed to respond to your contact request, make an initial assessment regarding your project, carry out quotation processes, ensure website and form security, prevent spam and bot traffic, and comply with legal obligations."
+          ],
+          "items": []
+        },
+        "legalBasis": {
+          "title": "Legal Basis",
+          "paragraphs": [
+            "Your personal data may be processed on the basis that processing is necessary for the establishment, exercise or protection of a right; for the legitimate interests of the data controller; for compliance with legal obligations; and, where required, based on your explicit consent."
+          ],
+          "items": []
+        },
+        "transfer": {
+          "title": "Transfer of Personal Data",
+          "paragraphs": [
+            "Your personal data may be shared with service providers from whom we receive technical infrastructure, hosting, security, email delivery and business application services, limited to and to the extent necessary for the purposes described above.",
+            "In this context, technical service providers such as Supabase, Resend, Cloudflare and Google Workspace may have limited access to your personal data. Where required, data may also be shared with authorized public institutions and authorities."
+          ],
+          "items": []
+        },
+        "retention": {
+          "title": "Retention Period",
+          "paragraphs": [
+            "Your personal data is retained for the period necessary to respond to your contact request, carry out quotation and follow-up processes, resolve disputes and comply with legal obligations.",
+            "When the retention period expires or the purpose of processing no longer exists, your personal data is deleted, destroyed or anonymized."
+          ],
+          "items": []
+        },
+        "commercialMessages": {
+          "title": "Commercial Electronic Messages",
+          "paragraphs": [
+            "Automatic emails that may be sent to you after submitting the contact form are intended to confirm receipt of your request or inform you about the response process.",
+            "These emails are not commercial electronic messages sent for advertising, campaign or marketing purposes."
+          ],
+          "items": []
+        },
+        "rights": {
+          "title": "Your Rights",
+          "paragraphs": [
+            "Subject to applicable data protection laws, you may have the following rights:"
+          ],
+          "items": [
+            "To learn whether your personal data is being processed.",
+            "To request information if your personal data has been processed.",
+            "To learn the purpose of processing and whether the data is used in accordance with that purpose.",
+            "To know the third parties to whom your personal data is transferred domestically or abroad.",
+            "To request correction of incomplete or inaccurate personal data.",
+            "To request deletion or destruction under the conditions set out in applicable law.",
+            "To object to a result against you arising from the analysis of processed data exclusively through automated systems.",
+            "To request compensation if you suffer damage due to unlawful processing."
+          ]
+        },
+        "updates": {
+          "title": "Updates",
+          "paragraphs": [
+            "Stallcons may update this Privacy Policy due to changes in legislation, services or technical infrastructure.",
+            "The current version is always published on this page. For requests regarding your rights, you can contact us at info@stallcons.com."
+          ],
+          "items": []
+        }
+      }
     },
     "notFound": {
       "title": "404 - Page Not Found",

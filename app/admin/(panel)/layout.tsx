@@ -10,6 +10,7 @@ const adminNavItems = [
     { id: "projects", name: "Projeler", icon: "FileText", href: "/admin/projects" },
     { id: "hizmetler", name: "Hizmetler", icon: "HelpCircle", href: "/admin/hizmetler" },
     { id: "partners", name: "İş Ortaklarımız", icon: "Users", href: "/admin/partners" },
+    { id: "contact-requests", name: "Talepler", icon: "MessageSquare", href: "/admin/contact-requests" },
     { id: "products", name: "Ürünler", icon: "BarChart3", href: "/admin/products" },
 ];
 
