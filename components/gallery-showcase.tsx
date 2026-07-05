@@ -20,37 +20,37 @@ const ITEMS_CONFIG = [
         id: '1',
         translationKey: 'engineeringDesign' as const,
         href: '/expertise-areas/engineering-design',
-        image: 'https://fastly.picsum.photos/id/845/536/354.jpg?hmac=N0jid6KpFZyaCJhFdFJVRQUImWIJuxYl53n3GkFj9Ps',
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/tasarim_dgauhb.webp',
     },
     {
         id: '2',
         translationKey: 'steelConstruction' as const,
         href: '/expertise-areas/steel-construction',
-        image: 'https://fastly.picsum.photos/id/28/4928/3264.jpg?hmac=GnYF-RnBUg44PFfU5pcw_Qs0ReOyStdnZ8MtQWJqTfA'
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/celik_kont_or9lhd.webp'
     },
     {
         id: '3',
         translationKey: 'consulting' as const,
         href: '/expertise-areas/consulting',
-        image: 'https://fastly.picsum.photos/id/76/367/267.jpg?hmac=Jh_us_gqJLuNJOhki3d6cVGyA4OsoiID7bhwIoooi48',
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/danismanlik_ntmdyh.webp',
     },
     {
         id: '4',
         translationKey: 'qualityControl' as const,
         href: '/expertise-areas/quality-control',
-        image: 'https://fastly.picsum.photos/id/16/367/267.jpg?hmac=ZyyuET1a6X-Ym6MXK8OyHrdWFJiLI4To0iYLTlyrD-0',
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/kalite_h3yb4n.webp',
     },
     {
         id: '5',
         translationKey: 'defense' as const,
         href: '/expertise-areas/defense',
-        image: 'https://fastly.picsum.photos/id/9/367/267.jpg?hmac=T7owcj6NXY0SJiB-H1XxauCZKaZJkkXWOEQw8GZseAc',
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/savunma_z09zsq.webp',
     },
     {
         id: '6',
         translationKey: 'craneSystems' as any,
         href: '/expertise-areas/crane-systems',
-        image: 'https://fastly.picsum.photos/id/63/367/267.jpg?hmac=v7Io1SRLfeajvMXPM49T9R2ScLVsYEXzclwdxNtABTk',
+        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/maden_or4qrd.webp',
     },
 ];
 

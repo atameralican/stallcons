@@ -31,7 +31,7 @@ const imageItems = [
     id: 1,
     // title: "Mountain Vista",
     // desc: "Serenity above the clouds.",
-    url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80",
+    url: "https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/danismanlik_ntmdyh.webp",
     span: "md:col-span-2 md:row-span-2",
   },
   {
