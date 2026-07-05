@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const imageItems = [
   {
     id: 1,
-    url: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&q=80",
+    url: "https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/tasarim_dgauhb.webp",
     span: "md:col-span-2 md:row-span-2",
   },
   {
