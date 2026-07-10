@@ -15,6 +15,9 @@ import {
   BarChart3,
   FileText,
   HelpCircle,
+  Layers,
+  MessageSquare,
+  Users,
 } from 'lucide-react';
 
 export interface NavigationItem {
@@ -116,6 +119,9 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   BarChart3,
   FileText,
   HelpCircle,
+  Layers,
+  MessageSquare,
+  Users,
 };
 
 const DEFAULT_NAV_ITEMS: NavigationItem[] = [

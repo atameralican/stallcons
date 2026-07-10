@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Briefcase, ShieldCheck, ClipboardCheck, Factory, Package } from 'lucide-react';
+import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Package } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
@@ -21,16 +21,25 @@ import { useTranslations } from 'next-intl';
 type LinkItem = {
   title: string;
   href: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   description?: string;
 };
 
-export function Navbar() {
+export type NavbarActivityAreaLink = {
+  title: string;
+  href: string;
+  description?: string;
+};
+
+type NavbarProps = {
+  activityAreaLinks?: NavbarActivityAreaLink[];
+};
+
+export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
   const t = useTranslations('Navbar');
   const cl = useTranslations('CompanyLinks');
-  const el = useTranslations('ExpertiseLinks');
 
   const companyLinks: LinkItem[] = [
     { title: cl('aboutUs.title'), href: '/company/about-us', description: cl('aboutUs.description'), icon: Users },
@@ -38,14 +47,11 @@ export function Navbar() {
     { title: cl('missionVision.title'), href: '/company/mission-vision', description: cl('missionVision.description'), icon: UserPlusIcon },
   ];
 
-  const expertiseAreasLinks: LinkItem[] = [
-    { title: el('engineeringDesign.title'), href: '/expertise-areas/engineering-design', description: el('engineeringDesign.description'), icon: Users },
-    { title: el('steelConstruction.title'), href: '/expertise-areas/steel-construction', description: el('steelConstruction.description'), icon: LayersIcon },
-    { title: el('consulting.title'), href: '/expertise-areas/consulting', description: el('consulting.description'), icon: Briefcase },
-    { title: el('qualityControl.title'), href: '/expertise-areas/quality-control', description: el('qualityControl.description'), icon: ClipboardCheck },
-    { title: el('defense.title'), href: '/expertise-areas/defense', description: el('defense.description'), icon: ShieldCheck },
-    { title: el('craneSystems.title'), href: '/expertise-areas/crane-systems', description: el('craneSystems.description'), icon: Factory },
-  ];
+  const expertiseAreasLinks: LinkItem[] = activityAreaLinks.map((item) => ({
+    title: item.title,
+    href: item.href,
+    description: item.description,
+  }));
 
   React.useEffect(() => {
     if (open) {
@@ -105,16 +111,18 @@ export function Navbar() {
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent">{t('expertiseAreas')}</NavigationMenuTrigger>
-              <NavigationMenuContent className="bg-zinc-100 dark:bg-zinc-900 p-1 pr-1.5">
-                <ul className="bg-popover grid w-lg grid-cols-2 gap-2 rounded-lg border p-2 shadow">
-                  {expertiseAreasLinks.map((item, i) => (
-                    <li key={i}><ListItem {...item} /></li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+            {expertiseAreasLinks.length > 0 && (
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent">{t('expertiseAreas')}</NavigationMenuTrigger>
+                <NavigationMenuContent className="bg-zinc-100 dark:bg-zinc-900 p-1 pr-1.5">
+                  <ul className="bg-popover grid w-lg grid-cols-2 gap-2 rounded-lg border p-2 shadow">
+                    {expertiseAreasLinks.map((item, i) => (
+                      <li key={i}><ListItem {...item} /></li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            )}
             <NavigationMenuItem>
               <NavigationMenuLink className="px-4" asChild>
                 <Link href="/projects" className="hover:bg-accent rounded-lg p-2">
@@ -166,8 +174,12 @@ export function Navbar() {
 
             <span className="text-sm">{t('corporate')}</span>
             {companyLinks.map((link) => (<ListItem key={link.title} {...link} onClick={() => setOpen(false)} />))}
-            <span className="text-sm">{t('expertiseAreas')}</span>
-            {expertiseAreasLinks.map((link) => (<ListItem key={link.title} {...link} onClick={() => setOpen(false)} />))}
+            {expertiseAreasLinks.length > 0 && (
+              <>
+                <span className="text-sm">{t('expertiseAreas')}</span>
+                {expertiseAreasLinks.map((link) => (<ListItem key={link.title} {...link} onClick={() => setOpen(false)} />))}
+              </>
+            )}
             <span className="text-sm">{t('projects')}</span>
             <ListItem key="projects" title={t('projects')} href="/projects" description="" icon={List} onClick={() => setOpen(false)} />
             <span className="text-sm">{t('products')}</span>
@@ -219,12 +231,14 @@ function ListItem({
       asChild
     >
       <Link href={href as Parameters<typeof Link>[0]['href']}>
-        <div className="bg-background/40 flex aspect-square size-12 items-center justify-center rounded-lg border shadow-sm">
-          <Icon className="text-foreground size-5" />
-        </div>
+        {Icon && (
+          <div className="bg-background/40 flex aspect-square size-12 items-center justify-center rounded-lg border shadow-sm">
+            <Icon className="text-foreground size-5" />
+          </div>
+        )}
         <div className="flex flex-col items-start justify-center">
           <span className="font-medium">{title}</span>
-          <span className="text-muted-foreground text-xs">{description}</span>
+          {description && <span className="text-muted-foreground text-xs">{description}</span>}
         </div>
       </Link>
     </NavigationMenuLink>
@@ -237,9 +251,12 @@ function useScroll(threshold: number) {
     setScrolled(window.scrollY > threshold);
   }, [threshold]);
   React.useEffect(() => {
+    const frame = window.requestAnimationFrame(onScroll);
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, [onScroll]);
-  React.useEffect(() => { onScroll(); }, [onScroll]);
   return scrolled;
 }

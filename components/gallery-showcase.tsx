@@ -3,7 +3,6 @@
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import Image from "next/image";
-import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -11,64 +10,18 @@ export interface GalleryData {
     id: string;
     name: string;
     role: string;
-    href: string;
+    href: Parameters<typeof Link>[0]['href'];
     image: string;
 }
 
-const ITEMS_CONFIG = [
-    {
-        id: '1',
-        translationKey: 'engineeringDesign' as const,
-        href: '/expertise-areas/engineering-design',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/tasarim_dgauhb.webp',
-    },
-    {
-        id: '2',
-        translationKey: 'steelConstruction' as const,
-        href: '/expertise-areas/steel-construction',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/celik_kont_or9lhd.webp'
-    },
-    {
-        id: '3',
-        translationKey: 'consulting' as const,
-        href: '/expertise-areas/consulting',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/danismanlik_ntmdyh.webp',
-    },
-    {
-        id: '4',
-        translationKey: 'qualityControl' as const,
-        href: '/expertise-areas/quality-control',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/kalite_h3yb4n.webp',
-    },
-    {
-        id: '5',
-        translationKey: 'defense' as const,
-        href: '/expertise-areas/defense',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/savunma_z09zsq.webp',
-    },
-    {
-        id: '6',
-        translationKey: 'craneSystems' as any,
-        href: '/expertise-areas/crane-systems',
-        image: 'https://res.cloudinary.com/dstwpqgrz/image/upload/v1783273665/maden_or4qrd.webp',
-    },
-];
-
 interface GalleryShowcaseProps {
-    datas?: GalleryData[];
+    datas: GalleryData[];
 }
 
-export default function GalleryShowcase({ datas: externalDatas }: GalleryShowcaseProps) {
-    const t = useTranslations("ExpertiseLinks");
+export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-    const datas: GalleryData[] = externalDatas || ITEMS_CONFIG.map(item => ({
-        id: item.id,
-        name: t(`${item.translationKey}.title`),
-        role: t(`${item.translationKey}.description`),
-        href: item.href,
-        image: item.image,
-    }));
+    if (datas.length === 0) return null;
 
     // 3-column layout (>= 390px)
     const col1 = datas.filter((_, i) => i % 3 === 0);
@@ -186,11 +139,12 @@ function PhotoCard({
 
     return (
         <Link
-            href={data.href as any}
+            href={data.href}
             className={cn(
-                'overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-opacity duration-400 block',
+                'group overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 block bg-white/20 shadow-sm ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10',
                 className,
-                isDimmed ? 'opacity-60' : 'opacity-100',
+                isActive && 'shadow-lg ring-black/10 dark:ring-white/20',
+                isDimmed ? 'opacity-75' : 'opacity-100',
             )}
             onMouseEnter={() => onHover(data.id)}
             onMouseLeave={() => onHover(null)}
@@ -202,9 +156,13 @@ function PhotoCard({
                 height={500}
                 //width height değişebilir.
                 // fill
-                className="w-full h-full object-cover transition-[filter] duration-500"
+                className="w-full h-full object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.035]"
                 style={{
-                    filter: isActive ? 'grayscale(0) brightness(1)' : 'grayscale(1) brightness(0.77)',
+                    filter: isActive
+                        ? 'saturate(1.08) contrast(1.04) brightness(1.02)'
+                        : isDimmed
+                            ? 'saturate(0.78) contrast(0.92) brightness(0.88)'
+                            : 'saturate(0.86) contrast(0.96) brightness(0.94)',
                 }}
             />
         </Link>
@@ -229,7 +187,7 @@ function DataRow({
 
     return (
         <Link
-            href={data.href as any}
+            href={data.href}
             className={cn(
                 'cursor-pointer transition-opacity duration-300 block',
                 isDimmed ? 'opacity-50' : 'opacity-100',
