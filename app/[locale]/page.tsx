@@ -34,6 +34,50 @@ type HizmetlerResponse = {
   error?: string;
 };
 
+type ActivityAreaTranslation = {
+  id: string;
+  locale: Locale | "es";
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  slug: string;
+};
+
+type ActivityAreaRecord = {
+  id: string;
+  main_photo: string | null;
+  is_active: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+  activity_area_translations: ActivityAreaTranslation[];
+};
+
+type ActivityAreasResponse = {
+  activityAreas?: ActivityAreaRecord[];
+  error?: string;
+};
+
+type PartnerRecord = {
+  id: string;
+  name: string;
+  url: string;
+  is_published: boolean;
+};
+
+type PartnersResponse = {
+  partners?: PartnerRecord[];
+  error?: string;
+};
+
+type HomeActivityArea = {
+  id: string;
+  name: string;
+  role: string;
+  href: string;
+  image: string;
+};
+
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -41,7 +85,8 @@ type Props = {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
-  const [hizmetler, partners] = await Promise.all([
+  const [activityAreas, hizmetler, partners] = await Promise.all([
+    getHomeActivityAreas(activeLocale),
     getHomeHizmetler(activeLocale),
     getHomePartners(),
   ]);
@@ -50,21 +95,23 @@ export default async function Home({ params }: Props) {
     <>
       <HomeHero locale={activeLocale} />
 
-      <div className="min-h-[40vh] mt-5- w-full text-black dark:text-white ">
-        <div className="max-w-7xl mx-auto pt-10 pb-4 px-4 md:px-8 lg:px-10">
-          <h2 className="text-lg md:text-4xl mb-4 max-w-4xl">
-            {activeLocale === "tr" ? "Faaliyetler" : "Activities"}
-          </h2>
-          <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
-            {activeLocale === "tr"
-              ? "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz."
-              : "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise."}
-          </p>
+      {activityAreas.length > 0 && (
+        <div className="min-h-[40vh] mt-5 w-full text-black dark:text-white ">
+          <div className="max-w-7xl mx-auto pt-10 pb-4 px-4 md:px-8 lg:px-10">
+            <h2 className="text-lg md:text-4xl mb-4 max-w-4xl">
+              {activeLocale === "tr" ? "Faaliyetler" : "Activities"}
+            </h2>
+            <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
+              {activeLocale === "tr"
+                ? "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz."
+                : "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise."}
+            </p>
+          </div>
+          <GalleryShowcase datas={activityAreas} />
         </div>
-        <GalleryShowcase />
-      </div>
+      )}
 
-      <div className="min-h-[40vh] mt-5- w-full bg-white dark:bg-neutral-950 text-black dark:text-white">
+      <div className="min-h-[40vh] mt-5 w-full bg-white dark:bg-neutral-950 text-black dark:text-white">
         <div className="max-w-7xl mx-auto pt-20 pb-4 px-4 md:px-8 lg:px-10">
           <h2 className="text-lg md:text-4xl mb-4  max-w-4xl">
             Hizmet Alanlarımız
@@ -83,6 +130,50 @@ export default async function Home({ params }: Props) {
       </div>
     </>
   );
+}
+
+async function getHomeActivityAreas(locale: Locale): Promise<HomeActivityArea[]> {
+  const headerStore = await headers();
+  const host = headerStore.get("host");
+  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+
+  if (!host) return [];
+
+  try {
+    const response = await fetch(`${protocol}://${host}/api/admin/activity-areas`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) return [];
+
+    const result = (await response.json()) as ActivityAreasResponse;
+
+    return (result.activityAreas ?? [])
+      .filter((activityArea) => activityArea.is_active)
+      .map((activityArea) => mapActivityAreaForGallery(activityArea, locale))
+      .filter((activityArea): activityArea is HomeActivityArea => Boolean(activityArea));
+  } catch {
+    return [];
+  }
+}
+
+function mapActivityAreaForGallery(activityArea: ActivityAreaRecord, locale: Locale) {
+  const currentTranslation = activityArea.activity_area_translations.find((item) => item.locale === locale);
+  const fallbackTranslation = activityArea.activity_area_translations.find((item) => item.locale === "tr")
+    ?? activityArea.activity_area_translations.find((item) => item.locale === "en");
+  const translation = currentTranslation ?? fallbackTranslation;
+
+  if (!translation?.title || !translation.slug) return null;
+
+  if (!activityArea.main_photo) return null;
+
+  return {
+    id: activityArea.id,
+    name: translation.title,
+    role: translation.subtitle ?? translation.description ?? "",
+    href: `/expertise-areas/${translation.slug}`,
+    image: activityArea.main_photo,
+  };
 }
 
 async function getHomeHizmetler(locale: Locale) {
@@ -142,8 +233,8 @@ async function getHomePartners() {
 
     if (!response.ok) return [];
 
-    const result = await response.json();
-    return (result.partners ?? []).filter((partner: any) => partner.is_published);
+    const result = (await response.json()) as PartnersResponse;
+    return (result.partners ?? []).filter((partner) => partner.is_published);
   } catch {
     return [];
   }

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useRef, useState, useEffect } from "react"
+import Image from "next/image"
 import {
     motion,
     useScroll,
@@ -72,21 +73,13 @@ const ImageModal = ({
                 onClick={(e) => e.stopPropagation()}
             >
                 {item.url && (
-                    <img
+                    <Image
                         src={item.url}
                         alt={item.title || ""}
+                        width={1200}
+                        height={800}
                         className="w-full max-h-[80vh] object-contain rounded-xl"
                     />
-                )}
-                {(item.title || item.desc) && (
-                    <div className="mt-3 text-center">
-                        {item.title && (
-                            <p className="text-white font-semibold text-lg">{item.title}</p>
-                        )}
-                        {item.desc && (
-                            <p className="text-white/70 text-sm mt-1">{item.desc}</p>
-                        )}
-                    </div>
                 )}
             </motion.div>
             <button
@@ -185,21 +178,19 @@ const ExpertiseImageBentoGallery: React.FC<
                                 aria-label={`View ${item.title}`}
                             >
                                 {item.url && (
-                                    <img
+                                    <Image
                                         src={item.url}
                                         alt={item.title || ""}
+                                        fill
+                                        sizes="(min-width: 768px) 20rem, 15rem"
                                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
                                 )}
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                                <div className="pointer-events-none absolute inset-0 bg-black/25 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100 z-20 scale-90 group-hover:scale-100">
                                     <div className="rounded-full bg-white/20 p-3 backdrop-blur-md border border-white/30 shadow-lg">
                                         <ZoomIn className="text-white w-6 h-6" />
                                     </div>
-                                </div>
-                                <div className="relative z-10 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                                    <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                                    <p className="mt-1 text-sm text-white/80">{item.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -223,11 +214,11 @@ function GalleryDescription({ description }: { description: string }) {
         .filter(Boolean);
     const heading = lines[0];
     const contentLines = lines.slice(1);
-    const introLines = contentLines.filter((line) => !line.startsWith("•") && !line.endsWith(":"));
+    const introLines = contentLines.filter((line) => !isBulletLine(line) && !line.endsWith(":"));
     const subHeading = contentLines.find((line) => line.endsWith(":"));
     const bulletLines = contentLines
-        .filter((line) => line.startsWith("•"))
-        .map((line) => line.replace(/^•\s*/, ""));
+        .filter(isBulletLine)
+        .map((line) => line.replace(/^(•|-)\s*/, ""));
 
     return (
         <div className="mx-auto mt-6 max-w-4xl text-left">
@@ -267,6 +258,10 @@ function GalleryDescription({ description }: { description: string }) {
             )}
         </div>
     )
+}
+
+function isBulletLine(line: string) {
+    return line.startsWith("•") || line.startsWith("- ");
 }
 
 export default ExpertiseImageBentoGallery
