@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import GalleryShowcase from "@/components/gallery-showcase";
 import HoverBrandLogo from "@/components/hover-brand-logo";
 import { Timeline, type TimelineHizmetData } from "@/components/timeline";
@@ -85,6 +86,7 @@ type Props = {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
+  const t = await getTranslations({ locale: activeLocale, namespace: "Pages.home" });
   const [activityAreas, hizmetler, partners] = await Promise.all([
     getHomeActivityAreas(activeLocale),
     getHomeHizmetler(activeLocale),
@@ -99,12 +101,10 @@ export default async function Home({ params }: Props) {
         <div className="min-h-[40vh] mt-5 w-full text-black dark:text-white ">
           <div className="max-w-7xl mx-auto pt-10 pb-4 px-4 md:px-8 lg:px-10">
             <h2 className="text-lg md:text-4xl mb-4 max-w-4xl">
-              {activeLocale === "tr" ? "Faaliyetler" : "Activities"}
+              {t("activitiesTitle")}
             </h2>
             <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
-              {activeLocale === "tr"
-                ? "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz."
-                : "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise."}
+              {t("activitiesDescription")}
             </p>
           </div>
           <GalleryShowcase datas={activityAreas} />
@@ -114,19 +114,21 @@ export default async function Home({ params }: Props) {
       <div className="min-h-[40vh] mt-5 w-full bg-white dark:bg-neutral-950 text-black dark:text-white">
         <div className="max-w-7xl mx-auto pt-20 pb-4 px-4 md:px-8 lg:px-10">
           <h2 className="text-lg md:text-4xl mb-4  max-w-4xl">
-            Hizmet Alanlarımız
+            {t("servicesTitle")}
           </h2>
           <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl">
-            {activeLocale === "tr"
-              ? "Çelik konstrüksiyon, mühendislik, imalat ve montaj süreçlerinde ihtiyaca göre şekillenen profesyonel hizmetler sunuyoruz."
-              : "We provide professional services shaped around your needs across steel construction, engineering, fabrication and assembly processes."}
+            {t("servicesDescription")}
           </p>
         </div>
         <Timeline hizmetler={hizmetler} fallbackImage={noPhoto.src} />
       </div>
 
       <div className="min-h-[20vh] mt-5 ">
-        <HoverBrandLogo partners={partners} />
+        <HoverBrandLogo
+          partners={partners}
+          eyebrow={t("partnersEyebrow")}
+          title={t("partnersTitle")}
+        />
       </div>
     </>
   );

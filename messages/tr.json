@@ -45,10 +45,6 @@
       "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
       "description": "Stallcons tamamlanan ve devam eden projeleri. Endüstriyel yapılar ve çelik konstrüksiyon projelerimiz."
     },
-    "products": {
-      "title": "Ürünler | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons ürünleri. Çelik konstrüksiyon ve ağır sanayi ürünlerimiz."
-    },
     "contact": {
       "title": "İletişim | Stallcons – Çelik Konstrüksiyon",
       "description": "Stallcons ile iletişime geçin. Çelik konstrüksiyon hizmetlerimiz hakkında teklif almak için bize ulaşın."
@@ -63,7 +59,6 @@
     "corporate": "Kurumsal",
     "expertiseAreas": "Faaliyet Alanlarımız",
     "projects": "Projeler",
-    "products": "Ürünler",
     "contact": "İletişim",
     "contactPrompt": "İletişim İçin",
     "contactLink": "Tıklayınız"
@@ -115,6 +110,14 @@
     "privacyPolicy": "Aydınlatma Metni / Gizlilik Politikası"
   },
   "Pages": {
+    "home": {
+      "activitiesTitle": "Faaliyetler",
+      "activitiesDescription": "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz.",
+      "servicesTitle": "Hizmet Alanlarımız",
+      "servicesDescription": "Çelik konstrüksiyon, mühendislik, imalat ve montaj süreçlerinde ihtiyaca göre şekillenen profesyonel hizmetler sunuyoruz.",
+      "partnersEyebrow": "Değerli",
+      "partnersTitle": "İş ortaklarımız"
+    },
     "aboutUs": {
       "title": "Hakkımızda",
       "description": "Çelik konstrüksiyon alanında güvenilir çözüm ortağınız",
@@ -196,13 +199,6 @@
       "title": "Maden Ekipmanları & Çelik Yapıları",
       "description": "Ağır hizmet tipi maden ekipmanları ve altyapı imalatı",
       "galleryDescription": "Ağır Hizmet Tipi Maden Ekipmanları ve Altyapı İmalatı\n\nMaden sahalarında yüksek üretkenlik ve iş güvenliği, ancak doğru mühendislikle üretilmiş çelik yapılarla mümkündür. Stallcons kalitesiyle, en zorlu aşınma ve darbe koşullarına dayanacak şekilde ürettiğimiz maden ekipmanları ve çelik yapı gruplarımız şunlardır:\n\n• Kırıcı, Eleme ve Besleyici Şaseleri: Yoğun titreşim ve dinamik yüklere maruz kalan tesisler için özel statik analizlerle güçlendirilmiş ağır çelik şaseler.\n• Konveyör Galeri ve Bant Sistemleri: Geniş açıklıkları güvenle geçebilen, dış ortam şartlarına ve korozyona dayanıklı çelik konveyör hatları ve destek kuleleri.\n• Silo, Bunker ve Şut (Oluk) İmalatları: Aşındırıcı cevher hareketlerine karşı Hardox ve benzeri aşınma plakası (astar) entegrasyonlu, yüksek hacimli depolama ve transfer üniteleri.\n• Maden Tesisi Yapısal Çeliği: Flotasyon, liç ve zenginleştirme tesisleri için korozyon direnci yüksek, özel boyalı veya galvanizli çok katlı endüstriyel çelik binalar.\n• Standartlara Uygun İzlenebilir Kalite: Aşırı yük altında çalışacak tüm ekipmanlarda %100 malzeme izlenebilirliği (MTC 3.1) ve kaynak birleşimlerinde hassas NDT (Ultrasonik ve Manyetik) test raporlaması."
-    },
-    "products": {
-      "title": "Ürünler",
-      "description": "Geniş ürün yelpazemizi keşfedin",
-      "comingSoon": "Ürünler Sayfası Yakında",
-      "workInProgress": "Ürünler sayfası hazırlanıyor.",
-      "workInProgressDesc": "Bu sayfa için içerik çok yakında eklenecektir. Detaylı bilgi almak için lütfen bizimle iletişime geçin."
     },
     "contact": {
       "title": "İletişim",

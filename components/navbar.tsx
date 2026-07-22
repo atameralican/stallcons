@@ -132,13 +132,6 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink className="px-4" asChild>
-                <Link href="/products" className="hover:bg-accent rounded-lg p-2">
-                  {t('products')}
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className="px-4" asChild>
                 <Link href="/contact" className="hover:bg-accent rounded-lg p-2">
                   {t('contact')}
                 </Link>
@@ -182,8 +175,6 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
             )}
             <span className="text-sm">{t('projects')}</span>
             <ListItem key="projects" title={t('projects')} href="/projects" description="" icon={List} onClick={() => setOpen(false)} />
-            <span className="text-sm">{t('products')}</span>
-            <ListItem key="products" title={t('products')} href="/products" description="" icon={Package} onClick={() => setOpen(false)} />
             <span className="text-sm">{t('contact')}</span>
             <ListItem key="contact" title={t('contact')} href="/contact" description="" icon={MailIcon} onClick={() => setOpen(false)} />
           </div>

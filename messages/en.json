@@ -45,10 +45,6 @@
       "title": "Projects | Stallcons – Steel Construction",
       "description": "Stallcons completed and ongoing projects. Industrial structures and steel construction projects."
     },
-    "products": {
-      "title": "Products | Stallcons – Steel Construction",
-      "description": "Stallcons products. Steel construction and heavy industry products."
-    },
     "contact": {
       "title": "Contact | Stallcons – Steel Construction",
       "description": "Contact Stallcons. Reach out to us for a quote on our steel construction services."
@@ -63,7 +59,6 @@
     "corporate": "Corporate",
     "expertiseAreas": "Expertise Areas",
     "projects": "Projects",
-    "products": "Products",
     "contact": "Contact",
     "contactPrompt": "For Contact",
     "contactLink": "Click Here"
@@ -115,6 +110,14 @@
     "privacyPolicy": "Privacy Policy"
   },
   "Pages": {
+    "home": {
+      "activitiesTitle": "Activities",
+      "activitiesDescription": "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise.",
+      "servicesTitle": "Our Service Areas",
+      "servicesDescription": "We provide professional services shaped around your needs across steel construction, engineering, fabrication and assembly processes.",
+      "partnersEyebrow": "Valued",
+      "partnersTitle": "Business Partners"
+    },
     "aboutUs": {
       "title": "About Us",
       "description": "Your reliable partner in steel construction",
@@ -196,13 +199,6 @@
       "title": "Mining Equipment & Steel Structures",
       "description": "Heavy-duty mining equipment and infrastructure fabrication",
       "galleryDescription": "Heavy-Duty Mining Equipment and Infrastructure Fabrication\n\nHigh productivity and occupational safety in mining sites are only possible with steel structures produced through proper engineering. With Stallcons quality, our mining equipment and steel structure groups manufactured to withstand the harshest abrasion and impact conditions include:\n\n• Crusher, Screening and Feeder Chassis: Heavy steel chassis reinforced with custom static analyses for facilities exposed to intense vibration and dynamic loads.\n• Conveyor Galleries and Belt Systems: Steel conveyor lines and support towers that can safely span long distances while resisting outdoor conditions and corrosion.\n• Silo, Bunker and Chute Fabrications: High-capacity storage and transfer units integrated with Hardox and similar wear plates for abrasive ore movement.\n• Mining Plant Structural Steel: Corrosion-resistant, specially painted or galvanized multi-storey industrial steel buildings for flotation, leaching and enrichment plants.\n• Traceable Quality in Compliance with Standards: 100% material traceability (MTC 3.1) for all equipment operating under extreme loads and precise NDT reporting for welded joints through ultrasonic and magnetic testing."
-    },
-    "products": {
-      "title": "Products",
-      "description": "Discover our range of products",
-      "comingSoon": "Products Page Coming Soon",
-      "workInProgress": "Products page is being prepared.",
-      "workInProgressDesc": "Content for this page will be added soon. Please contact us for detailed information."
     },
     "contact": {
       "title": "Contact",

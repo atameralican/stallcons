@@ -9,7 +9,6 @@ const staticPaths = [
   '/company/about-us',
   '/company/mission-vision',
   '/company/quality',
-  '/products',
   '/projects',
   '/contact',
 ];
