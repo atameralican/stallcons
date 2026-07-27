@@ -109,6 +109,16 @@
     "expertiseAreas": "Expertise Areas",
     "privacyPolicy": "Privacy Policy"
   },
+  "Gallery": {
+    "ariaLabel": "Image gallery",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "closeImageView": "Close image view",
+    "viewImage": "View {title}",
+    "untitledImage": "Untitled image",
+    "imageLoading": "Loading image",
+    "imageLoadError": "Image could not be loaded"
+  },
   "Pages": {
     "home": {
       "activitiesTitle": "Activities",

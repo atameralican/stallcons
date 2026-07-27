@@ -109,6 +109,16 @@
     "expertiseAreas": "Faaliyet Alanlarımız",
     "privacyPolicy": "Aydınlatma Metni / Gizlilik Politikası"
   },
+  "Gallery": {
+    "ariaLabel": "Görsel galerisi",
+    "previousImage": "Önceki görsel",
+    "nextImage": "Sonraki görsel",
+    "closeImageView": "Görsel görünümünü kapat",
+    "viewImage": "{title} görselini aç",
+    "untitledImage": "Başlıksız görsel",
+    "imageLoading": "Görsel yükleniyor",
+    "imageLoadError": "Görsel yüklenemedi"
+  },
   "Pages": {
     "home": {
       "activitiesTitle": "Faaliyetler",
