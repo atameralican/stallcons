@@ -35,6 +35,7 @@ type ActivityAreasResponse = {
   error?: string;
 };
 
+// public sayfalara dil tema menü ve footer ekliyorum
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
 
@@ -67,6 +68,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   );
 }
 
+// menüde gösterilecek faaliyet alanlarını alıyorum
 async function getNavbarActivityAreas(locale: Locale): Promise<NavbarActivityAreaLink[]> {
   const headerStore = await headers();
   const host = headerStore.get("host");

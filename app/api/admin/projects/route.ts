@@ -31,7 +31,7 @@ type ProjectMutationPayload = {
 export async function GET() {
     const supabase = await createClient();
 
-    // public tarafta da kullanıyorum o yüzden admin kontrolü yok
+    // public okuma açık
     const { data, error } = await supabase
         .from("projects")
         .select(`
@@ -73,7 +73,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const supabase = await createClient();
-    // yazma işi admin oturumu ile olsun
+    // yazma için admin gerekli
     const unauthorized = await requireAdmin(supabase);
 
     if (unauthorized) return unauthorized;
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
     const supabase = await createClient();
-    // güncelleme de ekleme ile aynı data yapısını kullanıyor
+    // güncellemede aynı veri yapısı var
     const unauthorized = await requireAdmin(supabase);
 
     if (unauthorized) return unauthorized;
@@ -131,7 +131,7 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
     const supabase = await createClient();
-    // silme işini de route tarafında koruyorum
+    // silme için admin gerekli
     const unauthorized = await requireAdmin(supabase);
 
     if (unauthorized) return unauthorized;
@@ -155,7 +155,7 @@ export async function DELETE(request: Request) {
 }
 
 async function requireAdmin(supabase: Awaited<ReturnType<typeof createClient>>) {
-    // ayrı admin tablosu yok şimdilik giriş yapan admin sayılıyor
+    // giriş yapan kullanıcı admin sayılıyor
     const { data, error } = await supabase.auth.getClaims();
 
     if (error || !data?.claims) {
@@ -170,7 +170,7 @@ async function saveProjectRelations(
     projectId: string,
     payload: ProjectMutationPayload
 ) {
-    // locale varsa güncelle yoksa ekle
+    // çeviriyi ekliyorum ya da güncelliyorum
     const translations = payload.translations.map((translation) => ({
         ...translation,
         project_id: projectId,
@@ -182,7 +182,7 @@ async function saveProjectRelations(
 
     if (translationsError) return translationsError.message;
 
-    // galeri sırası değişebildiği için fotoları temizleyip yeniden yazıyorum
+    // galeri sırasını yeniden yazıyorum
     const { error: deletePhotosError } = await supabase
         .from("project_photos")
         .delete()

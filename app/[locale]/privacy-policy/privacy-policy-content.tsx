@@ -16,6 +16,7 @@ const SECTION_KEYS = [
   "updates",
 ] as const;
 
+// gizlilik metnini seçili dilde hazırlıyorum
 export async function PrivacyPolicyContent({ locale }: Props) {
   const t = await getTranslations({ locale, namespace: "Pages.privacyPolicy" });
 

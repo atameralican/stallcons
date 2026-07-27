@@ -12,24 +12,21 @@ import {
 
 export type BreadcrumbEntry = {
   label: string;
-  href?: string; // href yoksa aktif sayfa (BreadcrumbPage) olarak render edilir
+  href?: string; // link yoksa aktif sayfa
 };
 
 type PageHeaderProps = {
-  /** Sayfa büyük başlığı */
+  /** sayfa başlığı */
   title: string;
-  /** Opsiyonel alt açıklama */
+  /** alt açıklama */
   description?: string;
-  /** Breadcrumb öğeleri — ilk eleman genelde { label: 'Ana Sayfa', href: '/' } */
+  /** sayfa yolu */
   crumbs: BreadcrumbEntry[];
-  /** Arka plan resmi (opsiyonel) */
+  /** arka plan görseli */
   backgroundImage?: string;
 };
 
-/**
- * Tüm iç sayfalarda kullanılacak başlık + breadcrumb bileşeni.
- * Google Search için BreadcrumbList JSON-LD schema otomatik eklenir.
- */
+/** iç sayfa başlığı */
 export function PageHeader({
   title,
   description,
@@ -38,7 +35,7 @@ export function PageHeader({
 }: PageHeaderProps) {
   return (
     <>
-      {/* Banner */}
+      {/* banner */}
       <div className="px-4 sm:px-6 mt-5" >
         <section
           className="relative w-full overflow-hidden flex flex-col items-center justify-center rounded-3xl"
@@ -56,12 +53,12 @@ export function PageHeader({
             className="object-cover object-[center_45%] z-0"
             sizes="100vw"
           />
-          {/* Overlay */}
+          {/* karartma */}
           <div className="absolute inset-0 bg-[#2A3F58]/60 rounded-3xl z-0" />
 
-          {/* İçerik */}
+          {/* içerik */}
           <div className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-14 sm:py-18 gap-4">
-            {/* Breadcrumb — banner içinde */}
+            {/* sayfa yolu */}
             <Breadcrumb>
               <BreadcrumbList className="justify-center text-white/90 sm:gap-2">
                 {crumbs.map((crumb, i) => {
@@ -91,7 +88,7 @@ export function PageHeader({
               </BreadcrumbList>
             </Breadcrumb>
 
-            {/* Başlık */}
+            {/* başlık */}
             <h1
               className="text-white text-4xl sm:text-5xl md:text-6xl text-center leading-none tracking-tight drop-shadow-lg font-bold"
               style={{ textShadow: '0 2px 24px rgba(0,0,0,0.35)' }}
@@ -99,7 +96,7 @@ export function PageHeader({
               {title}
             </h1>
 
-            {/* Açıklama */}
+            {/* açıklama */}
             {description && (
               <p className="text-white/75 text-sm sm:text-base text-center max-w-xl leading-relaxed">
                 {description}

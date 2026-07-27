@@ -1,8 +1,4 @@
-/**
- * Sayfa bazlı BreadcrumbList JSON-LD oluşturur.
- * Next.js metadata.other üzerinden <head>'e inject edilir.
- * Kaynak: https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld
- */
+/** sayfa yolu şemasını hazırlıyorum */
 
 export type BreadcrumbSchemaItem = {
   name: string;

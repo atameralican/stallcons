@@ -50,7 +50,7 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.26 0.005 285);        /* zinc-800 — koyu gri, siyah değil */
+  --foreground: oklch(0.26 0.005 285);        /* koyu gri */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.26 0.005 285);
   --popover: oklch(1 0 0);
@@ -60,7 +60,7 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.26 0.005 285);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.50 0.005 285);  /* zinc-500 benzeri */
+  --muted-foreground: oklch(0.50 0.005 285);  /* soluk metin */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.26 0.005 285);
   --destructive: oklch(0.577 0.245 27.325);
@@ -84,27 +84,27 @@
 }
 
 .dark {
-  /* Zinc/Charcoal — endüstriyel koyu gri, tam siyah değil */
+  /* koyu tema */
   --background: oklch(0.20 0.002 270);
-  /* zinc-900 benzeri */
-  --foreground: oklch(0.965 0.003 285);       /* zinc-100 — açık gri, beyaz değil */
-  /* zinc-100 benzeri */
+  /* ana zemin */
+  --foreground: oklch(0.965 0.003 285);       /* açık metin */
+  /* açık ton */
   --card: oklch(0.24 0.003 270);
-  /* zinc-800 benzeri */
-  --card-foreground: oklch(0.965 0.003 285);   /* zinc-100 */
+  /* kart zemini */
+  --card-foreground: oklch(0.965 0.003 285);   /* kart metni */
   --popover: oklch(0.24 0.003 270);
-  --popover-foreground: oklch(0.965 0.003 285); /* zinc-100 */
-  --primary: oklch(0.965 0.003 285);            /* zinc-100 */
-  /* açık gri — primary eylem */
+  --popover-foreground: oklch(0.965 0.003 285); /* açılır menü metni */
+  --primary: oklch(0.965 0.003 285);            /* ana renk */
+  /* ana eylem */
   --primary-foreground: oklch(0.24 0.003 270);
   --secondary: oklch(0.29 0.003 270);
-  /* zinc-700 benzeri */
-  --secondary-foreground: oklch(0.965 0.003 285); /* zinc-100 */
+  /* ikincil zemin */
+  --secondary-foreground: oklch(0.965 0.003 285); /* ikincil metin */
   --muted: oklch(0.29 0.003 270);
-  --muted-foreground: oklch(0.65 0.003 285);    /* zinc-400 benzeri */
+  --muted-foreground: oklch(0.65 0.003 285);    /* soluk metin */
   --accent: oklch(0.32 0.003 270);
-  /* hover arka planı */
-  --accent-foreground: oklch(0.965 0.003 285);  /* zinc-100 */
+  /* hover zemini */
+  --accent-foreground: oklch(0.965 0.003 285);  /* hover metni */
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 12%);
@@ -115,11 +115,11 @@
   --chart-4: oklch(0.35 0.003 270);
   --chart-5: oklch(0.27 0.003 270);
   --sidebar: oklch(0.24 0.003 270);
-  --sidebar-foreground: oklch(0.965 0.003 285); /* zinc-100 */
+  --sidebar-foreground: oklch(0.965 0.003 285); /* yan menü metni */
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.32 0.003 270);
-  --sidebar-accent-foreground: oklch(0.965 0.003 285); /* zinc-100 */
+  --sidebar-accent-foreground: oklch(0.965 0.003 285); /* yan menü vurgu metni */
   --sidebar-border: oklch(1 0 0 / 9%);
   --sidebar-ring: oklch(0.52 0.003 270);
 }

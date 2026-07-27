@@ -1,8 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { FormEvent, ReactNode, useMemo, useState } from "react";
+import Image from "next/image";
 import { Edit3, ImageIcon, Plus, Save, Trash2, X } from "lucide-react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Input, message as antMessage, Switch, Upload, type UploadProps } from "antd";
@@ -47,6 +46,7 @@ const EMPTY_FORM: PartnerFormState = {
     is_published: true,
 };
 
+// partner liste form logo ve kayıt işlemlerini yönetiyorum
 export function PartnerAdminClient({ initialPartners }: { initialPartners: PartnerRecord[] }) {
     const supabase = useMemo(() => createClient(), []);
     const [messageApi, contextHolder] = antMessage.useMessage();
@@ -81,6 +81,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
         return true;
     }
 
+    // boş partner formunu açıyorum
     function startCreate() {
         setForm(EMPTY_FORM);
         setLogoUploading(false);
@@ -88,6 +89,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
         setMessage(null);
     }
 
+    // seçilen partneri forma aktarıyorum
     function startEdit(partner: PartnerRecord) {
         setForm({
             id: partner.id,
@@ -127,6 +129,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
         folder: getUploadFolder(form),
     });
 
+    // yüklenen logoyu forma aktarıyorum
     const handleLogoChange: UploadProps<UploadResponse>["onChange"] = (info) => {
         const { status, name, response } = info.file;
 
@@ -145,6 +148,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
         }
     };
 
+    // partner kaydını apiye gönderiyorum
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setSaving(true);
@@ -200,6 +204,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
         }
     }
 
+    // onay sonrası partneri siliyorum
     async function deletePartner(partner: PartnerRecord) {
         const name = partner.name;
         const confirmed = window.confirm(`${name} iş ortağını silmek istediğinize emin misiniz?`);
@@ -369,12 +374,17 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
                                     onChange={handleLogoChange}
                                 >
                                     {form.url ? (
-                                        <img
-                                            draggable={false}
-                                            src={form.url}
-                                            alt=""
-                                            className="h-full w-full rounded-lg object-contain p-2"
-                                        />
+                                        <div className="relative h-full w-full">
+                                            <Image
+                                                draggable={false}
+                                                src={form.url}
+                                                alt=""
+                                                fill
+                                                sizes="150px"
+                                                unoptimized={!form.url.startsWith("http")}
+                                                className="rounded-lg object-contain p-2"
+                                            />
+                                        </div>
                                     ) : (
                                         <Button
                                             type="text"
@@ -443,9 +453,11 @@ function PartnerRow({
                 active && "bg-blue-50/70 dark:bg-blue-500/10"
             )}
         >
-            <div className="h-16 w-24 overflow-hidden rounded-xl bg-zinc-100 dark:bg-white/5 flex items-center justify-center p-2 border border-zinc-200 dark:border-white/10">
+            <div className="relative h-16 w-24 overflow-hidden rounded-xl bg-zinc-100 dark:bg-white/5 flex items-center justify-center p-2 border border-zinc-200 dark:border-white/10">
                 {partner.url ? (
-                    <img src={partner.url} alt={partner.name} className="max-h-full max-w-full object-contain" />
+                    <div className="relative w-full h-full">
+                        <Image src={partner.url} alt={partner.name} fill sizes="96px" className="object-contain" />
+                    </div>
                 ) : (
                     <div className="flex h-full w-full items-center justify-center text-zinc-400">
                         <ImageIcon className="h-6 w-6" />

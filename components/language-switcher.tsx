@@ -4,6 +4,7 @@ import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 
+// mevcut sayfayı koruyup dili değiştiriyorum
 export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();

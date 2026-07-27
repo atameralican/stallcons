@@ -12,7 +12,7 @@ type ContactPayload = {
     message?: string;
     locale?: string;
     source_page?: string;
-    company?: string; // honeypot
+    company?: string; // bot alanı
     turnstileToken?: string;
 };
 
@@ -38,8 +38,7 @@ export async function POST(request: Request) {
         const ipAddress = getClientIp(request);
         const userAgent = request.headers.get("user-agent") ?? null;
 
-        // Honeypot doluysa bot kabul ediyoruz.
-        // Bilerek success dönüyoruz ki bot tekrar denemeye çalışmasın.
+        // botlara başarılı cevap dönüyorum
         if (honeypot) {
             return NextResponse.json({
                 success: true,
@@ -135,7 +134,7 @@ export async function POST(request: Request) {
             );
         }
 
-        //mail gönderimi start
+        // mailleri gönderiyorum
         let adminEmailSentAt: string | null = null;
         let customerEmailSentAt: string | null = null;
         let lastEmailError: string | null = null;
@@ -170,7 +169,6 @@ export async function POST(request: Request) {
                 last_email_error: lastEmailError,
             })
             .eq("id", data.id);
-        //mail gönderimi end
 
 
         return NextResponse.json(
@@ -323,7 +321,7 @@ async function verifyTurnstileIfEnabled(
 ): Promise<{ ok: boolean; verified: boolean; message?: string }> {
     const secretKey = process.env.CLOUDFLARE_TURNSTILE_SECRET_KEY;
 
-    // Local geliştirme için boşsa geçiyoruz.
+    // yerelde doğrulamayı geçiyorum
     if (!secretKey) {
         return {
             ok: true,
@@ -373,4 +371,4 @@ async function verifyTurnstileIfEnabled(
 }
 
 
-//mail gönderimi
+// mail içeriği

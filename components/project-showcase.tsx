@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import Image from "next/image"
 import { useState, useRef, useEffect } from "react"
 import { ArrowUpRight } from "lucide-react"
 
@@ -13,6 +14,7 @@ interface Project {
     image: string
 }
 
+// projeleri listeleyip hover görselini takip ediyorum
 export function ProjectShowcase({
     projects,
     fallbackImage,
@@ -27,6 +29,7 @@ export function ProjectShowcase({
     const [containerWidth, setContainerWidth] = useState(1200)
     const containerRef = useRef<HTMLDivElement>(null)
 
+    // imleç hareketini tek frame içinde güncelliyorum
     useEffect(() => {
         if (!containerRef.current) return
         const observer = new ResizeObserver((entries) => {
@@ -95,7 +98,7 @@ export function ProjectShowcase({
     }
 
     const cardWidth = 280
-    const paddingX = 24 // px-6 padding is 24px
+    const paddingX = 24 // yatay boşluk
     const constrainedX = Math.max(
         paddingX,
         Math.min(containerWidth - cardWidth - paddingX, smoothPosition.x + 20)
@@ -118,11 +121,13 @@ export function ProjectShowcase({
             >
                 <div className="relative w-[280px] h-[180px] bg-secondary rounded-xl overflow-hidden">
                     {projects.map((project, index) => (
-                        <img
+                        <Image
                             key={`${project.title}-${index}`}
                             src={project.image || fallbackImage}
-                            alt={project.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
+                            alt=""
+                            fill
+                            sizes="280px"
+                            className="object-cover transition-all duration-500 ease-out"
                             style={{
                                 opacity: hoveredIndex === index ? 1 : 0,
                                 scale: hoveredIndex === index ? 1 : 1.1,
@@ -130,7 +135,7 @@ export function ProjectShowcase({
                             }}
                         />
                     ))}
-                    {/* Subtle gradient overlay */}
+                    {/* hafif karartma */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
                 </div>
             </div>
@@ -150,7 +155,7 @@ export function ProjectShowcase({
                         onMouseLeave={handleMouseLeave}
                     >
                         <div className="relative py-5 border-t border-border transition-all duration-300 ease-out">
-                            {/* Background highlight on hover */}
+                            {/* hover arka planı */}
                             <div
                                 className={`
                   absolute inset-0 -mx-4 px-4 bg-secondary/50 rounded-lg
@@ -161,12 +166,12 @@ export function ProjectShowcase({
 
                             <div className="relative flex items-start justify-between gap-4">
                                 <div className="flex-1 min-w-0">
-                                    {/* Title with animated underline */}
+                                    {/* animasyonlu başlık */}
                                     <div className="inline-flex items-center gap-2">
                                         <h3 className="text-foreground font-medium text-lg tracking-tight">
                                             <span className="relative">
                                                 {project.title}
-                                                {/* Animated underline */}
+                                                {/* alt çizgi */}
                                                 <span
                                                     className={`
                             absolute left-0 -bottom-0.5 h-px bg-foreground
@@ -177,7 +182,7 @@ export function ProjectShowcase({
                                             </span>
                                         </h3>
 
-                                        {/* Arrow that slides in */}
+                                        {/* ok animasyonu */}
                                         <ArrowUpRight
                                             className={`
                         w-4 h-4 text-muted-foreground
@@ -190,7 +195,7 @@ export function ProjectShowcase({
                                         />
                                     </div>
 
-                                    {/* Description with fade effect */}
+                                    {/* açıklama geçişi */}
                                     <p
                                         className={`
                       text-muted-foreground text-sm mt-1 leading-relaxed
@@ -202,7 +207,7 @@ export function ProjectShowcase({
                                     </p>
                                 </div>
 
-                                {/* Weight badge */}
+                                {/* ağırlık bilgisi */}
                                 <span
                                     className={`
                     text-xs font-mono text-muted-foreground tabular-nums
@@ -217,7 +222,7 @@ export function ProjectShowcase({
                     </a>
                 ))}
 
-                {/* Bottom border for last item */}
+                {/* son çizgi */}
                 <div className="border-t border-border" />
             </div>
         </section>

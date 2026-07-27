@@ -15,6 +15,7 @@ const adminNavItems = [
     { id: "products", name: "Ürünler", icon: "BarChart3", href: "/admin/products" },
 ];
 
+// oturumu kontrol edip admin kabuğunu hazırlıyorum
 export default async function AdminPanelLayout({ children }: Props) {
     const supabase = await createClient();
 
@@ -34,10 +35,10 @@ export default async function AdminPanelLayout({ children }: Props) {
             />
 
             <div className="flex-1 flex flex-col min-w-0">
-                {/* Mobile Top Bar */}
+                {/* mobil üst bar */}
                 <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white px-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/50 backdrop-blur-md md:hidden">
                     <div className="flex items-center gap-3">
-                        {/* Space placeholder for the fixed menu button */}
+                        {/* menü butonu boşluğu */}
                         <div className="w-10" />
                         <span className="font-semibold text-zinc-900 dark:text-white">Stallcons Admin</span>
                     </div>

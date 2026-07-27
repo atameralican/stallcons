@@ -18,8 +18,7 @@ export async function createClient() {
                             cookieStore.set(name, value, options);
                         });
                     } catch {
-                        // Server Component içinde set cookie çalışmazsa sorun değil.
-                        // Proxy oturumu yenileyecek.
+                        // cookieyi proxy yeniliyor
                     }
                 },
             },

@@ -1,8 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { FormEvent, ReactNode, useMemo, useState } from "react";
+import Image from "next/image";
 import { Edit3, ImageIcon, Plus, Save, Star, Trash2, X } from "lucide-react";
 import { InboxOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Input, message as antMessage, Switch, Upload, type UploadFile, type UploadProps } from "antd";
@@ -88,6 +87,7 @@ const EMPTY_FORM: ProjectFormState = {
     photos: [],
 };
 
+// proje liste form galeri ve kayıt işlemlerini yönetiyorum
 export function ProjectAdminClient({ initialProjects }: { initialProjects: ProjectRecord[] }) {
     const supabase = useMemo(() => createClient(), []);
     const [messageApi, contextHolder] = antMessage.useMessage();
@@ -104,7 +104,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
     const publishedCount = projects.filter((project) => project.is_published).length;
 
     async function refreshProjects() {
-        // kayıttan sonra listeyi tekrar çekiyorum state şaşmasın
+        // listeyi yeniden alıyorum
         const response = await fetch("/api/admin/projects", { cache: "no-store" });
         const result = (await response.json()) as ProjectsResponse;
 
@@ -117,7 +117,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
     }
 
     async function ensureAdmin() {
-        // asıl kontrol api route'ta burada erken uyarı veriyorum
+        // oturumu erkenden kontrol ediyorum
         const { data, error } = await supabase.auth.getClaims();
 
         if (error || !data?.claims) {
@@ -128,6 +128,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         return true;
     }
 
+    // boş proje formunu açıyorum
     function startCreate() {
         setForm(EMPTY_FORM);
         setGalleryFileList([]);
@@ -136,11 +137,12 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         setMessage(null);
     }
 
+    // seçilen projeyi forma aktarıyorum
     function startEdit(project: ProjectRecord) {
         const tr = project.project_translations.find((item) => item.locale === "tr");
         const en = project.project_translations.find((item) => item.locale === "en");
 
-        // ant upload kendi formatını istediği için urlleri dönüştürüyorum
+        // urlleri upload formatına çeviriyorum
         const photos = project.project_photos.map((photo) => ({
             url: photo.url,
             alt: photo.alt ?? "",
@@ -198,7 +200,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
     function updateGalleryPhotos(urls: string[]) {
         setForm((current) => ({
             ...current,
-            // alt metni kullanıcı girmiyor kayıtta başlıktan veriyorum
+            // alt metni başlıktan alıyorum
             photos: urls.map((url, index) => ({
                 url,
                 alt: "",
@@ -223,10 +225,11 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
     };
 
     const uploadData = () => ({
-        // cloudinary klasörü burada belirleniyor
+        // cloudinary klasörünü belirliyorum
         folder: getUploadFolder(form),
     });
 
+    // yüklenen galeri görsellerini sırayla tutuyorum
     const handleGalleryChange: UploadProps<UploadResponse>["onChange"] = (info) => {
         const nextFileList = info.fileList.slice(-24);
         const { status, name, response } = info.file;
@@ -259,6 +262,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         }
     };
 
+    // proje ve çevirileri tek istekte kaydediyorum
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setSaving(true);
@@ -267,7 +271,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         const trTitle = form.translations.tr.title.trim();
         const enTitle = form.translations.en.title.trim();
         const slug = (form.slug.trim() || slugify(trTitle || enTitle)).toLowerCase();
-        // galeri alt alanı yok en varsa onu yoksa tr başlığı kullanıyorum
+        // galeri alt metnini başlıktan alıyorum
         const photoAlt = enTitle || trTitle;
         const photos = form.photos
             .map((photo, index) => ({
@@ -304,7 +308,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
 
             if (!isAdmin) return;
 
-            // db yazma işi clientta değil projects api route'a gidiyor
+            // kaydı apiye gönderiyorum
             const response = await fetch("/api/admin/projects", {
                 method: form.id ? "PUT" : "POST",
                 headers: {
@@ -344,6 +348,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         }
     }
 
+    // onay sonrası projeyi siliyorum
     async function deleteProject(project: ProjectRecord) {
         const title = getProjectTitle(project);
         const confirmed = window.confirm(`${title} projesini silmek istediğine emin misin?`);
@@ -361,7 +366,7 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
         }
 
         try {
-            // silme de direkt supabase'e değil api route'a gidiyor
+            // silme işlemini apiye gönderiyorum
             const response = await fetch("/api/admin/projects", {
                 method: "DELETE",
                 headers: {
@@ -571,12 +576,17 @@ export function ProjectAdminClient({ initialProjects }: { initialProjects: Proje
                                     onChange={handleCoverChange}
                                 >
                                     {form.main_photo ? (
-                                        <img
-                                            draggable={false}
-                                            src={form.main_photo}
-                                            alt=""
-                                            className="h-full w-full rounded-lg object-cover"
-                                        />
+                                        <div className="relative h-full w-full">
+                                            <Image
+                                                draggable={false}
+                                                src={form.main_photo}
+                                                alt=""
+                                                fill
+                                                sizes="150px"
+                                                unoptimized={!form.main_photo.startsWith("http")}
+                                                className="rounded-lg object-cover"
+                                            />
+                                        </div>
                                     ) : (
                                         <Button
                                             type="text"
@@ -677,9 +687,15 @@ function ProjectRow({
                 active && "bg-blue-50/70 dark:bg-blue-500/10"
             )}
         >
-            <div className="h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
+            <div className="relative h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
                 {photo ? (
-                    <img src={photo} alt="" className="h-full w-full object-cover" />
+                    <Image
+                        src={photo}
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) calc(100vw - 3rem), 88px"
+                        className="object-cover"
+                    />
                 ) : (
                     <div className="flex h-full w-full items-center justify-center text-zinc-400">
                         <ImageIcon className="h-6 w-6" />

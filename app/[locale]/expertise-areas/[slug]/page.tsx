@@ -65,6 +65,7 @@ const PHOTO_SPANS = [
   "",
 ];
 
+// faaliyet alanının metasını kayıttan hazırlıyorum
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
@@ -91,6 +92,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+// slug ile bulunan faaliyet alanını galeride gösteriyorum
 export default async function ActivityAreaDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
@@ -125,6 +127,7 @@ export default async function ActivityAreaDetailPage({ params }: Props) {
   );
 }
 
+// slug ve dile göre doğru kaydı buluyorum
 async function getActivityAreaBySlug(locale: Locale, slug: string) {
   const activityAreas = await getActivityAreas();
   const matchedArea = activityAreas.find((activityArea) =>

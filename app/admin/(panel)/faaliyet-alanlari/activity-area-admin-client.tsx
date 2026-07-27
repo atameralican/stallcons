@@ -1,8 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { FormEvent, ReactNode, useMemo, useState } from "react";
+import Image from "next/image";
 import { Edit3, ImageIcon, Plus, Save, Trash2, X } from "lucide-react";
 import { InboxOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import {
@@ -91,6 +90,7 @@ const EMPTY_FORM: ActivityAreaFormState = {
     photos: [],
 };
 
+// faaliyet alanı liste form çeviri ve galerisini yönetiyorum
 export function ActivityAreaAdminClient({
     initialActivityAreas,
 }: {
@@ -132,6 +132,7 @@ export function ActivityAreaAdminClient({
         return true;
     }
 
+    // boş faaliyet formunu açıyorum
     function startCreate() {
         setForm(EMPTY_FORM);
         setGalleryFileList([]);
@@ -140,6 +141,7 @@ export function ActivityAreaAdminClient({
         setMessage(null);
     }
 
+    // seçilen kaydı forma aktarıyorum
     function startEdit(activityArea: ActivityAreaRecord) {
         const tr = activityArea.activity_area_translations.find((item) => item.locale === "tr");
         const en = activityArea.activity_area_translations.find((item) => item.locale === "en");
@@ -250,6 +252,7 @@ export function ActivityAreaAdminClient({
         }
     };
 
+    // yüklenen galeri görsellerini sırayla tutuyorum
     const handleGalleryChange: UploadProps<UploadResponse>["onChange"] = (info) => {
         const nextFileList = info.fileList.slice(-24);
         const { status, name, response } = info.file;
@@ -264,6 +267,7 @@ export function ActivityAreaAdminClient({
         }
     };
 
+    // faaliyet alanı ve çevirileri kaydediyorum
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setSaving(true);
@@ -344,6 +348,7 @@ export function ActivityAreaAdminClient({
         }
     }
 
+    // onay sonrası faaliyet alanını siliyorum
     async function deleteActivityArea(activityArea: ActivityAreaRecord) {
         const title = getActivityAreaTitle(activityArea);
         const confirmed = window.confirm(`${title} faaliyet alanını silmek istediğine emin misin?`);
@@ -560,12 +565,17 @@ export function ActivityAreaAdminClient({
                                     onChange={handleMainPhotoChange}
                                 >
                                     {form.main_photo ? (
-                                        <img
-                                            draggable={false}
-                                            src={form.main_photo}
-                                            alt=""
-                                            className="h-full w-full rounded-lg object-cover"
-                                        />
+                                        <div className="relative h-full w-full">
+                                            <Image
+                                                draggable={false}
+                                                src={form.main_photo}
+                                                alt=""
+                                                fill
+                                                sizes="150px"
+                                                unoptimized={!form.main_photo.startsWith("http")}
+                                                className="rounded-lg object-cover"
+                                            />
+                                        </div>
                                     ) : (
                                         <Button
                                             type="text"
@@ -639,9 +649,15 @@ function ActivityAreaRow({
                 active && "bg-blue-50/70 dark:bg-blue-500/10"
             )}
         >
-            <div className="h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
+            <div className="relative h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
                 {photo ? (
-                    <img src={photo} alt="" className="h-full w-full object-cover" />
+                    <Image
+                        src={photo}
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) calc(100vw - 3rem), 88px"
+                        className="object-cover"
+                    />
                 ) : (
                     <div className="flex h-full w-full items-center justify-center text-zinc-400">
                         <ImageIcon className="h-6 w-6" />
