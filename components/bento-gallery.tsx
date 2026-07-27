@@ -87,6 +87,21 @@ const reducedModalImageVariants: Variants = {
     center: { opacity: 1 },
     exit: { opacity: 0 },
 }
+//scrolla göre yazı gelmesi
+const descriptionItemVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 24,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+        },
+    },
+}
 
 function hasImageUrl(item: ImageItem): item is GalleryImageItem {
     return typeof item.url === "string" && item.url.trim().length > 0
@@ -777,6 +792,7 @@ const ExpertiseImageBentoGallery: React.FC<
 
 // açıklamayı okunabilir parçalara ayırıyorum
 function GalleryDescription({ description }: { description: string }) {
+    const reducedMotion = useReducedMotion()
     const lines = description
         .split("\n")
         .map((line) => line.trim())
@@ -792,42 +808,87 @@ function GalleryDescription({ description }: { description: string }) {
         .map((line) => line.replace(BULLET_REMOVE_PATTERN, ""))
 
     return (
-        <div className="mx-auto mt-6 max-w-4xl text-left">
+        <motion.div
+            className="mx-auto mt-6 max-w-4xl text-left"
+        >
             {heading && (
-                <h2 className="text-center text-2xl font-semibold leading-tight text-foreground sm:text-3xl">
+                <motion.h2
+                    className="text-center text-2xl font-semibold leading-tight text-foreground sm:text-3xl"
+                    initial={reducedMotion ? false : "hidden"}
+                    whileInView={reducedMotion ? undefined : "visible"}
+                    viewport={{ once: true, amount: 0.35 }}
+                    variants={reducedMotion ? undefined : descriptionItemVariants}
+                >
                     {heading}
-                </h2>
+                </motion.h2>
             )}
 
             {introLines.length > 0 && (
-                <div className="mx-auto mt-5 max-w-3xl space-y-4 text-center text-base leading-8 text-muted-foreground sm:text-lg">
-                    {introLines.map((line) => (
-                        <p key={line}>{line}</p>
+                <motion.div
+                    className="mx-auto mt-5 max-w-3xl space-y-4 text-center text-base leading-8 text-muted-foreground sm:text-lg"
+                >
+                    {introLines.map((line, index) => (
+                        <motion.p
+                            key={line}
+                            initial={reducedMotion ? false : "hidden"}
+                            whileInView={reducedMotion ? undefined : "visible"}
+                            viewport={{ once: true, amount: 0.35 }}
+                            variants={reducedMotion ? undefined : descriptionItemVariants}
+                            transition={reducedMotion ? undefined : {
+                                delay: Math.min(index * 0.1, 0.3),
+                                duration: 0.6,
+                                ease: [0.16, 1, 0.3, 1],
+                            }}
+                        >
+                            {line}
+                        </motion.p>
                     ))}
-                </div>
+                </motion.div>
             )}
 
             {(subHeading || bulletLines.length > 0) && (
-                <div className="mx-auto mt-8 max-w-3xl text-left">
+                <motion.div
+                    className="mx-auto mt-8 max-w-3xl text-left"
+                >
                     {subHeading && (
-                        <h3 className="text-base font-semibold text-foreground sm:text-lg">
+                        <motion.h3
+                            className="text-base font-semibold text-foreground sm:text-lg"
+                            initial={reducedMotion ? false : "hidden"}
+                            whileInView={reducedMotion ? undefined : "visible"}
+                            viewport={{ once: true, amount: 0.35 }}
+                            variants={reducedMotion ? undefined : descriptionItemVariants}
+                        >
                             {subHeading}
-                        </h3>
+                        </motion.h3>
                     )}
 
                     {bulletLines.length > 0 && (
-                        <ul className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground sm:text-base">
-                            {bulletLines.map((line) => (
-                                <li key={line} className="flex gap-3">
+                        <motion.ul
+                            className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground sm:text-base"
+                        >
+                            {bulletLines.map((line, index) => (
+                                <motion.li
+                                    key={line}
+                                    className="flex gap-3"
+                                    initial={reducedMotion ? false : "hidden"}
+                                    whileInView={reducedMotion ? undefined : "visible"}
+                                    viewport={{ once: true, amount: 0.35 }}
+                                    variants={reducedMotion ? undefined : descriptionItemVariants}
+                                    transition={reducedMotion ? undefined : {
+                                        delay: Math.min(index * 0.08, 0.24),
+                                        duration: 0.6,
+                                        ease: [0.16, 1, 0.3, 1],
+                                    }}
+                                >
                                     <span className="mt-2 h-2 w-2 flex-none rounded-full bg-foreground/70" />
                                     <span>{line}</span>
-                                </li>
+                                </motion.li>
                             ))}
-                        </ul>
+                        </motion.ul>
                     )}
-                </div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
     )
 }
 
