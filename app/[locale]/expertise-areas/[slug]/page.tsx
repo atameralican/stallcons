@@ -57,12 +57,12 @@ type Props = {
 };
 
 const PHOTO_SPANS = [
-  "md:col-span-2 md:row-span-2",
-  "md:row-span-1",
-  "md:row-span-1",
   "md:row-span-2",
-  "md:row-span-1",
-  "md:col-span-2 md:row-span-1",
+  "",
+  "",
+  "md:col-span-2",
+  "",
+  "",
 ];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

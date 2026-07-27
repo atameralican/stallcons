@@ -93,7 +93,6 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     async function refreshHizmetler() {
 
         const response = await fetch("/api/admin/hizmetler", { cache: "no-store" });
-        console.log(response)
         const result = (await response.json()) as HizmetResponse;
 
         if (!response.ok) {

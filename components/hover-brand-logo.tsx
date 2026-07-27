@@ -12,9 +12,11 @@ type HomePartner = {
 
 type HoverBrandLogoProps = {
     partners: HomePartner[];
+    eyebrow: string;
+    title: string;
 };
 
-export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
+export default function HoverBrandLogo({ partners, eyebrow, title }: HoverBrandLogoProps) {
     const [hoveredId, setHoveredId] = useState<string | null>(null);
 
     if (!partners || partners.length === 0) {
@@ -28,14 +30,14 @@ export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
             {/* Left: text */}
             <div className="flex-shrink-0 w-full md:w-auto text-center md:text-left">
                 <p className="text-sm sm:text-base text-muted-foreground font-medium mb-0 tracking-tight">
-                    Değerli
+                    {eyebrow}
                 </p>
                 <div className="relative">
                     <p
                         aria-hidden
                         className="text-3xl lg:text-3xl font-bold tracking-tight whitespace-nowrap opacity-0 pointer-events-none select-none leading-none sm:leading-tight"
                     >
-                        iş ortaklarımız
+                        {title}
                     </p>
                     <div className="absolute inset-0 overflow-hidden">
                         <AnimatePresence mode="wait">
@@ -47,7 +49,7 @@ export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
                                 transition={{ duration: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
                                 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-none sm:leading-tight tracking-tight whitespace-nowrap"
                             >
-                                {activeBrand?.name ?? 'iş ortaklarımız'}
+                                {activeBrand?.name ?? title}
                             </motion.p>
                         </AnimatePresence>
                     </div>
@@ -89,4 +91,3 @@ export default function HoverBrandLogo({ partners }: HoverBrandLogoProps) {
         </div>
     );
 }
-
