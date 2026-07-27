@@ -83,6 +83,7 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+// ana sayfa verilerini paralel alıp bölümlere dağıtıyorum
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const activeLocale: Locale = locale === "en" ? "en" : "tr";
@@ -120,7 +121,11 @@ export default async function Home({ params }: Props) {
             {t("servicesDescription")}
           </p>
         </div>
-        <Timeline hizmetler={hizmetler} fallbackImage={noPhoto.src} />
+        <Timeline
+          hizmetler={hizmetler}
+          fallbackImage={noPhoto.src}
+          locale={activeLocale}
+        />
       </div>
 
       <div className="min-h-[20vh] mt-5 ">
@@ -134,6 +139,7 @@ export default async function Home({ params }: Props) {
   );
 }
 
+// aktif faaliyet alanlarını galeriye hazırlıyorum
 async function getHomeActivityAreas(locale: Locale): Promise<HomeActivityArea[]> {
   const headerStore = await headers();
   const host = headerStore.get("host");
@@ -178,6 +184,7 @@ function mapActivityAreaForGallery(activityArea: ActivityAreaRecord, locale: Loc
   };
 }
 
+// yayınlanan hizmetleri timeline için alıyorum
 async function getHomeHizmetler(locale: Locale) {
   const headerStore = await headers();
   const host = headerStore.get("host");
@@ -186,7 +193,7 @@ async function getHomeHizmetler(locale: Locale) {
   if (!host) return [];
 
   try {
-    // hizmet alanları server tarafında admin services routeundan geliyor
+    // hizmetleri sunucuda alıyorum
     const response = await fetch(`${protocol}://${host}/api/admin/hizmetler`, {
       cache: "no-store",
     });
@@ -200,7 +207,7 @@ async function getHomeHizmetler(locale: Locale) {
       .map((hizmet) => mapHizmetForTimeline(hizmet, locale))
       .filter((hizmet): hizmet is TimelineHizmetData => Boolean(hizmet));
   } catch {
-    // hata olursa sayfa patlamasın boş kalsın
+    // hata olursa boş dönüyorum
     return [];
   }
 }
@@ -221,6 +228,7 @@ function mapHizmetForTimeline(hizmet: HizmetRecord, locale: Locale) {
   };
 }
 
+// yayınlanan partnerleri alıyorum
 async function getHomePartners() {
   const headerStore = await headers();
   const host = headerStore.get("host");

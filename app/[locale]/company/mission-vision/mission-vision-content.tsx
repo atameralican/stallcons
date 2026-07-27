@@ -13,6 +13,7 @@ function fade(delay = 0, reduced: boolean | null) {
   } as const;
 }
 
+// misyon vizyon ve ilkeleri gösteriyorum
 export function MissionVisionContent() {
   const t = useTranslations("Pages.missionVision");
   const reduced = useReducedMotion();
@@ -25,7 +26,7 @@ export function MissionVisionContent() {
 
   return (
     <>
-      {/* ── Mission ────────────────────────────────────────────── */}
+      {/* misyon */}
       <section className="bg-zinc-200 py-20 dark:bg-zinc-800 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20 items-start">
@@ -47,7 +48,7 @@ export function MissionVisionContent() {
         </div>
       </section>
 
-      {/* ── Vision ─────────────────────────────────────────────── */}
+      {/* vizyon */}
       <section className="bg-zinc-800 dark:bg-zinc-200  py-20 text-background lg:py-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-20 items-start">
@@ -69,7 +70,7 @@ export function MissionVisionContent() {
         </div>
       </section>
 
-      {/* ── Principles ─────────────────────────────────────────── */}
+      {/* ilkeler */}
       <section className="bg-zinc-200 py-20 dark:bg-zinc-800 lg:py-32">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.h2

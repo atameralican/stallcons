@@ -10,7 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 
 import React from "react";
-// --- Reveal yüksekliği artık dinamik hesaplanacak ---
+// yüksekliği içerikten alıyorum
 
 const container: Variants = {
     hidden: { opacity: 0 },
@@ -25,15 +25,16 @@ const item: Variants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
+// yüksekliği ölçülen açılır footer
 export default function Footer() {
     const t = useTranslations("Navbar");
-    const [footerHeight, setFooterHeight] = React.useState(350); // Varsayılan başlangıç yüksekliği
+    const [footerHeight, setFooterHeight] = React.useState(350); // başlangıç yüksekliği
     const footerRef = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
         if (!footerRef.current) return;
         const observer = new ResizeObserver((entries) => {
-            for (let entry of entries) {
+            for (const entry of entries) {
                 setFooterHeight(entry.target.getBoundingClientRect().height);
             }
         });
@@ -62,10 +63,10 @@ export default function Footer() {
                 clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)",
             }}
         >
-            {/* Parallax reveal sahnesi */}
+            {/* açılan footer alanı */}
             <div className="relative -top-[100vh]" style={{ height: `calc(100vh + ${REVEAL})` }}>
                 <div className="sticky" style={{ top: `calc(100vh - ${REVEAL})` }}>
-                    {/* İçerik tam REVEAL yüksekliğinde, dibe yaslı */}
+                    {/* içeriği alta yaslıyorum */}
                     <motion.footer
                         initial="hidden"
                         whileInView="visible"
@@ -76,27 +77,20 @@ export default function Footer() {
                     >
                         <div ref={footerRef} className="w-full flex flex-col">
                             <div className="mx-auto w-full max-w-7xl px-4 md:px-12 pb-2">
-                                {/* ÜST: 3 kolonlu bar */}
+                                {/* üst alan */}
                                 <motion.div
                                     variants={item}
                                     className="grid grid-cols-3 items-start gap-4 pt-10"
                                 >
-                                    {/* SOL — Copyright */}
+                                    {/* telif alanı */}
                                     <p className="text-sm leading-relaxed text-muted-foreground">
                                         ©2026 stallcons.
                                         <br />
                                         All rights reserved.
                                     </p>
 
-                                    {/* ORTA — Marka + sosyal + nav */}
+                                    {/* orta alan */}
                                     <div className="flex flex-col items-center gap-2">
-                                        {/* <span className="text-xl font-bold tracking-tight text-foreground">
-                                        stallcons.com
-                                    </span>
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                        Steel Construction
-                                    </span> */}
-
                                         <div className="mt-1 flex gap-4">
                                             {socialLinks.map((link) => (
                                                 <Link
@@ -125,7 +119,7 @@ export default function Footer() {
                                         </nav>
                                     </div>
 
-                                    {/* SAĞ — Yapımcı */}
+                                    {/* yapımcı alanı */}
                                     <div className="flex flex-col items-end gap-2 text-right">
                                         <Link
                                             href="https://www.linkedin.com/in/alican-atamer/"
@@ -158,13 +152,13 @@ export default function Footer() {
                                     </div>
                                 </motion.div>
 
-                                {/* ÇİZGİ */}
+                                {/* ayırıcı */}
                                 <motion.div
                                     variants={item}
                                     className="mt-6 mb-2 h-px w-full bg-gradient-to-r from-transparent via-border to-transparent"
                                 />
 
-                                {/* ALT: Dev STALLCONS — zemin */}
+                                {/* alt marka alanı */}
                                 <motion.div
                                     variants={item}
                                     aria-hidden="true"

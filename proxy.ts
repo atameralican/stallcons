@@ -8,21 +8,15 @@ const handleI18nRouting = createMiddleware(routing);
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    /**
-     * Admin panel çok dilli olmayacak.
-     */
+    // admin dil yönlendirmesine girmiyor
     if (pathname.startsWith("/admin")) {
         return await updateSession(request, NextResponse.next({ request }));
     }
 
-    /**
-     * Public site tarafında next-intl çalışır:
-     */
+    // public tarafta dil yönlendirmesi çalışıyor
     const response = handleI18nRouting(request);
 
-    /**
-     * next-intl response'unu bozmadan Supabase cookie'lerini ekliyoruz.
-     */
+    // oturum cookielerini ekliyorum
     return await updateSession(request, response);
 }
 

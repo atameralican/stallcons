@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { LinkedInLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { createClient } from "@/lib/supabase/server";
 
+// oturum varsa panele yoksa giriş formuna yönlendiriyorum
 export default async function AdminLoginPage() {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getClaims();
@@ -14,18 +15,18 @@ export default async function AdminLoginPage() {
 
     return (
         <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-white">
-            {/* Background glow */}
+            {/* arka plan ışığı */}
             <div className="pointer-events-none absolute inset-0">
                 <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-blue-500/20 blur-[110px]" />
                 <div className="absolute bottom-0 right-0 h-[360px] w-[360px] rounded-full bg-zinc-500/10 blur-[100px]" />
             </div>
 
-            {/* Grid pattern */}
+            {/* ızgara deseni */}
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:56px_56px] opacity-20" />
 
             <section className="relative z-10 flex min-h-screen items-center justify-center px-4 py-10">
                 <div className="grid w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-2xl backdrop-blur-xl lg:grid-cols-[1.05fr_0.95fr]">
-                    {/* Left side */}
+                    {/* tanıtım alanı */}
                     <div className="hidden flex-col justify-between border-r border-white/10 bg-white/[0.03] p-10 lg:flex">
                         <div>
                             <div className="mb-8 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300">
@@ -72,7 +73,7 @@ export default async function AdminLoginPage() {
                         </div>
                     </div>
 
-                    {/* Login card */}
+                    {/* giriş kartı */}
                     <div className="flex items-center justify-center p-6 sm:p-10">
                         <div className="w-full max-w-md">
                             <div className="mb-8 text-center lg:text-left">

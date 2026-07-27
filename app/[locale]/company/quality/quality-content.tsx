@@ -13,6 +13,7 @@ function fade(delay = 0, reduced: boolean | null) {
   } as const;
 }
 
+// kalite yaklaşımını ve başlıklarını gösteriyorum
 export function QualityContent() {
   const t = useTranslations("Pages.quality");
   const reduced = useReducedMotion();
@@ -26,7 +27,7 @@ export function QualityContent() {
 
   return (
     <>
-      {/* ── Intro ──────────────────────────────────────────────── */}
+      {/* giriş */}
       <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="max-w-3xl">
@@ -52,7 +53,7 @@ export function QualityContent() {
         </div>
       </section>
 
-      {/* ── Pillars ────────────────────────────────────────────── */}
+      {/* kalite başlıkları */}
       <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.h2

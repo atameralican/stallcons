@@ -20,11 +20,13 @@ const MESSAGES: Record<string, string[]> = {
     ],
 };
 
+// ana sayfadaki hareketli giriş alanı
 export function HomeHero({ locale }: { locale: string }) {
     const msgs = MESSAGES[locale] ?? MESSAGES.tr;
     const [msgIdx, setMsgIdx] = useState(0);
     const next = useCallback(() => setMsgIdx((i) => (i + 1) % msgs.length), [msgs.length]);
 
+    // mesajı belli aralıklarla değiştiriyorum
     useEffect(() => {
         const id = setInterval(next, 12000);
         return () => clearInterval(id);

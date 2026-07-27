@@ -34,6 +34,7 @@ type ProjectsResponse = {
   projects?: ProjectRecord[];
 };
 
+// projeler sayfasının dil bazlı metasını hazırlıyorum
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata.projects" });
@@ -50,11 +51,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+// yayınlanan projeleri liste componentine gönderiyorum
 export default async function Page({ params }: Props) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Pages.projects" });
   const b = await getTranslations({ locale, namespace: "Breadcrumb" });
-  // public listede aynı servisi kullanıyorum sadece yayında olanlar gelsin
+  // sadece yayınlananları gösteriyorum
   const projects = await getProjects(locale);
 
 
@@ -94,7 +96,7 @@ async function getProjects(locale: string) {
 
   const { projects = [] } = (await response.json()) as ProjectsResponse;
   const activeLocale = locale === "en" ? "en" : "tr";
-  // seçili dilde içerik yoksa diğer dile düşmesi için
+  // çeviri yoksa diğer dile geçiyorum
   const fallbackLocale = activeLocale === "en" ? "tr" : "en";
 
   return projects
@@ -103,7 +105,7 @@ async function getProjects(locale: string) {
       const translation =
         project.project_translations.find((item) => item.locale === activeLocale) ??
         project.project_translations.find((item) => item.locale === fallbackLocale);
-      // kapak yoksa ilk foto kullanılması için
+      // kapak yoksa ilk fotoğrafı alıyorum
       const image =
         project.main_photo ??
         [...(project.project_photos ?? [])].sort((a, b) => a.sort_order - b.sort_order)[0]?.url ??

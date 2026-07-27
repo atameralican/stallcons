@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home, Package } from 'lucide-react';
+import { List, LucideIcon, MailIcon, LayersIcon, UserPlusIcon, Users, Home } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { LanguageSwitcher } from '@/components/language-switcher';
@@ -35,6 +35,7 @@ type NavbarProps = {
   activityAreaLinks?: NavbarActivityAreaLink[];
 };
 
+// public menüyü dil ve faaliyet verisiyle hazırlıyorum
 export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10);
@@ -69,7 +70,7 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
       })}
     >
       <nav className="flex justify-between h-20 mx-auto items-center px-4 max-w-screen-2xl">
-        {/* LOGO */}
+        {/* logo */}
         <Link href="/" className="flex-shrink-0 flex flex-col items-center group" onClick={() => setOpen(false)}>
           <div className="flex items-end gap-0.5 leading-none select-none">
             <span className="relative font-black text-2xl tracking-tight text-[#1E50A0] dark:text-blue-400 lowercase">
@@ -83,7 +84,7 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
 
 
 
-        {/* DESKTOP MENU */}
+        {/* masaüstü menü */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -141,7 +142,7 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
         </NavigationMenu>
 
 
-        {/* SAĞ TARAF */}
+        {/* sağ alan */}
         <div className="flex items-center gap-1">
           <LanguageSwitcher />
           <ThemeToggle />
@@ -159,7 +160,7 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
         </div>
       </nav>
 
-      {/* MOBILE MENU */}
+      {/* mobil menü */}
       <MobileMenu open={open} className="flex flex-col overflow-y-auto scrollbar-hide pb-6">
         <NavigationMenu className="max-w-full h-auto">
           <div className="flex w-full h-full flex-col justify-start gap-y-2">
@@ -186,6 +187,7 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
 
 type MobileMenuProps = React.ComponentProps<'div'> & { open: boolean };
 
+// mobil menüyü body içine taşıyorum
 function MobileMenu({ open, children, className, ...props }: MobileMenuProps) {
   if (!open || typeof window === 'undefined') return null;
   return createPortal(
@@ -236,6 +238,7 @@ function ListItem({
   );
 }
 
+// scroll sonrası navbar görünümünü değiştiriyorum
 function useScroll(threshold: number) {
   const [scrolled, setScrolled] = React.useState(false);
   const onScroll = React.useCallback(() => {

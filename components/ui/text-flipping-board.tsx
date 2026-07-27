@@ -39,7 +39,7 @@ const CELL_TEXT_STYLE: React.CSSProperties = {
   lineHeight: 1,
 };
 
-// ── Individual Split-Flap Character ───────────────────────────────────
+// tek harf hücresi
 
 const FlapCell = React.memo(function FlapCell({
   target,
@@ -134,7 +134,7 @@ const FlapCell = React.memo(function FlapCell({
 
   return (
     <div className="flex aspect-3/6 flex-col overflow-hidden rounded-[2px] border border-neutral-300 md:rounded-[3px] md:border-2 dark:border-black">
-      {/* Flap content area */}
+      {/* harf alanı */}
       <div className="relative flex-1 perspective-dramatic transform-3d">
         <div className="absolute inset-0 z-40 hidden flex-row items-center justify-center md:flex">
           <div className="h-1/2 w-px rounded-tr-sm rounded-br-sm bg-neutral-300 dark:bg-black" />
@@ -142,7 +142,7 @@ const FlapCell = React.memo(function FlapCell({
           <div className="h-1/2 w-px rounded-tl-sm rounded-bl-sm bg-neutral-300 dark:bg-black" />
         </div>
 
-        {/* Static top – new character top half */}
+        {/* yeni harfin üstü */}
         <div
           className={cn(
             "absolute inset-x-0 top-0 h-[calc(50%-0.5px)] overflow-hidden rounded-t-[3px]",
@@ -157,7 +157,7 @@ const FlapCell = React.memo(function FlapCell({
           </div>
         </div>
 
-        {/* Static bottom – new character bottom half */}
+        {/* yeni harfin altı */}
         <div
           className={cn(
             "absolute inset-x-0 bottom-0 h-[calc(50%-0.5px)] overflow-hidden rounded-b-[3px]",
@@ -181,7 +181,7 @@ const FlapCell = React.memo(function FlapCell({
           )}
         </div>
 
-        {/* Flipping top flap – old character top half, drops down */}
+        {/* eski harfin üst kapağı */}
         {flipId > 0 && (
           <motion.div
             key={flipId}
@@ -211,7 +211,7 @@ const FlapCell = React.memo(function FlapCell({
           </motion.div>
         )}
 
-        {/* Flipping bottom flap – new character bottom half, rises up */}
+        {/* yeni harfin alt kapağı */}
         {flipId > 0 && (
           <motion.div
             key={`b${flipId}`}
@@ -245,11 +245,11 @@ const FlapCell = React.memo(function FlapCell({
           </motion.div>
         )}
 
-        {/* Split line */}
+        {/* orta çizgi */}
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-20 h-px -translate-y-[0.5px] bg-neutral-400/50 dark:bg-black/50" />
       </div>
 
-      {/* Bottom stripes – decorative, outside the flap area */}
+      {/* alt çizgiler */}
       <div className="h-2 w-full bg-[repeating-linear-gradient(to_bottom,currentColor_0,currentColor_1px,transparent_1px,transparent_0.15rem)] mask-t-from-50% text-neutral-400 opacity-20 md:h-4 md:bg-[repeating-linear-gradient(to_bottom,currentColor_0,currentColor_1px,transparent_1px,transparent_0.2rem)] dark:text-black dark:opacity-100" />
     </div>
   );
@@ -261,7 +261,7 @@ const FlapCell = React.memo(function FlapCell({
     prevProps.flipDuration === nextProps.flipDuration,
 );
 
-// ── Color Tile ────────────────────────────────────────────────────────
+// renk hücresi
 
 const COLOR_MAP: Record<string, string> = {
   "{R}": "#D32F2F",
@@ -282,7 +282,7 @@ const ColorCell = React.memo(function ColorCell({ color }: { color: string }) {
   );
 });
 
-// ── Row Parser ────────────────────────────────────────────────────────
+// satır ayrıştırma
 
 type ParsedCell =
   | { type: "char"; value: string }
@@ -306,7 +306,7 @@ function parseRow(row: string): ParsedCell[] {
   return cells;
 }
 
-// ── Word Wrap ─────────────────────────────────────────────────────────
+// metni satıra bölüyorum
 
 function wrapParagraph(paragraph: string, maxCols: number): string[] {
   const lines: string[] = [];
@@ -345,13 +345,13 @@ function wrapText(input: string, maxCols: number): string[] {
     );
 }
 
-// ── Main TextFlippingBoard Component ──────────────────────────────────
+// ana pano
 
 export interface TextFlippingBoardProps {
   rows?: string[];
   text?: string;
   className?: string;
-  /** Total animation duration in seconds. Defaults to ~1.2s. */
+  /** animasyon süresi */
   duration?: number;
 }
 

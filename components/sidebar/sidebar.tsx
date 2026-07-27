@@ -21,89 +21,36 @@ import {
 } from 'lucide-react';
 
 export interface NavigationItem {
-  /**
-   * TR: Menü öğesinin benzersiz kimliği (ID)
-   * EN: Unique identifier for the menu item (ID)
-   */
+  /** menü kimliği */
   id: string;
-  /**
-   * TR: Menüde gösterilecek olan metin / başlık
-   * EN: Text / title to be displayed in the menu
-   */
+  /** menü başlığı */
   name: string;
-  /**
-   * TR: Menü öğesinin solunda gösterilecek ikon. Dizi (string) veya React bileşeni olabilir.
-   * EN: Icon to display on the left. Can be a string key or a React component.
-   */
+  /** menü ikonu */
   icon: string | React.ComponentType<{ className?: string }>;
-  /**
-   * TR: Tıklandığında yönlendirilecek hedef URL adresi
-   * EN: Target URL destination when clicked
-   */
+  /** hedef adres */
   href: string;
-  /**
-   * TR: İsteğe bağlı olarak menü öğesinin sağ tarafında gösterilecek sayı veya metin rozeti
-   * EN: Optional number or text badge to show on the right of the menu item
-   */
+  /** menü rozeti */
   badge?: string;
 }
 
 export interface SidebarProps {
-  /**
-   * TR: Sidebar ana div'ine eklenecek ek Tailwind / CSS sınıfları
-   * EN: Additional Tailwind / CSS classes to append to the sidebar main div
-   */
+  /** ek sınıflar */
   className?: string;
-  /**
-   * TR: Menüde listelenecek olan navigasyon elemanlarının dizisi.
-   * EN: Array of navigation items to list in the menu.
-   * @default [ { id: "dashboard", name: "Dashboard", icon: "Home", href: "/admin" } ]
-   */
+  /** menü elemanları */
   items?: NavigationItem[];
-  /**
-   * TR: Logo alanında gösterilecek olan tek karakterlik marka harfi/logosu
-   * EN: Single character brand logo/letter to display in the header
-   * @default "A"
-   */
+  /** marka simgesi */
   brandLogoChar?: React.ReactNode;
-  /**
-   * TR: Logo alanındaki ana marka adı
-   * EN: Main brand title in the header area
-   * @default "Admin"
-   */
+  /** marka adı */
   brandTitle?: string;
-  /**
-   * TR: Logo alanındaki alt başlık
-   * EN: Subtitle in the header area
-   * @default "Management Panel"
-   */
+  /** marka alt başlığı */
   brandSubtitle?: string;
-  /**
-   * TR: Alt kısımdaki profil kartında gösterilecek olan kullanıcı adı.
-   * EN: User display name shown in the bottom profile card.
-   * TR: Boş bırakılırsa Supabase oturumundaki e-postadan veya varsayılan değerden türetilir.
-   * EN: If omitted, derived from the active Supabase session email or default value.
-   */
+  /** profil adı */
   profileName?: string;
-  /**
-   * TR: Alt kısımdaki profil kartında gösterilecek olan e-posta / alt bilgi.
-   * EN: User email / subtitle shown in the bottom profile card.
-   * TR: Boş bırakılırsa Supabase oturumundan çekilir veya varsayılan değer kullanılır.
-   * EN: If omitted, loaded from the active Supabase session or default value.
-   */
+  /** profil alt bilgisi */
   profileSubtitle?: string;
-  /**
-   * TR: Çıkış yap butonuna basıldığında tetiklenecek olan fonksiyon.
-   * EN: Callback function triggered when the logout button is clicked.
-   * TR: Boş bırakılırsa varsayılan olarak Supabase oturumunu kapatıp ana sayfaya yönlendirir.
-   * EN: If omitted, signs out from Supabase and redirects to home page by default.
-   */
+  /** çıkış işlemi */
   onLogout?: () => void | Promise<void>;
-  /**
-   * TR: Çıkış yap butonunun gösterilip gösterilmeyeceğini belirler.
-   * EN: Controls the visibility of the logout button.
-   * @default true
-   */
+  /** çıkış butonu görünümü */
   showLogout?: boolean;
 }
 
@@ -128,6 +75,7 @@ const DEFAULT_NAV_ITEMS: NavigationItem[] = [
   { id: "dashboard", name: "Dashboard", icon: "Home", href: "/admin" },
 ];
 
+// admin menü profil ve çıkış alanını yönetiyorum
 export function Sidebar({
   className = "",
   items,
@@ -146,8 +94,7 @@ export function Sidebar({
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   
-  // TR: Supabase'den çekilen yedek kullanıcı e-postası
-  // EN: Backup user email loaded from Supabase
+  // yedek kullanıcı epostası
   const [supabaseUserEmail, setSupabaseUserEmail] = useState("");
 
   useEffect(() => {
@@ -164,8 +111,7 @@ export function Sidebar({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // TR: Dışarıdan profil bilgileri girilmemişse varsayılan olarak Supabase oturumunu kontrol et
-  // EN: If no profile info is passed, check the active Supabase session by default
+  // profil yoksa oturumu kontrol ediyorum
   useEffect(() => {
     if (!profileName || !profileSubtitle) {
       const fetchUser = async () => {
@@ -174,9 +120,8 @@ export function Sidebar({
           if (user?.email) {
             setSupabaseUserEmail(user.email);
           }
-        } catch (e) {
-          // TR: Supabase bulunamazsa veya hata alırsa sessizce geç (diğer projelerde esneklik sağlamak için)
-          // EN: Silent catch if Supabase is missing/errored (provides flexibility in other codebases)
+        } catch {
+          // hata olursa varsayılan bilgi kalıyor
         }
       };
       fetchUser();
@@ -191,21 +136,19 @@ export function Sidebar({
       await onLogout();
       return;
     }
-    // TR: Varsayılan olarak Supabase oturumunu kapatma ve yönlendirme
-    // EN: Default Supabase sign out and redirection
+    // varsayılan çıkış işlemi
     try {
       await defaultSupabase.auth.signOut({
         scope: "local",
       });
       router.replace("/");
       router.refresh();
-    } catch (e) {
-      console.warn("Logout failed: default Supabase client was not configured or signout failed.", e);
+    } catch {
+      return;
     }
   };
 
-  // TR: Nihai profil bilgileri (Prop varsa öncelikli, yoksa Supabase, o da yoksa varsayılanlar)
-  // EN: Final profile details (Prop has priority, then Supabase, then fallbacks)
+  // profil bilgilerini hazırlıyorum
   const finalEmail = profileSubtitle ?? (supabaseUserEmail || "admin@example.com");
   const finalName = profileName ?? (supabaseUserEmail ? supabaseUserEmail.split('@')[0] : "Admin User");
   const avatarChar = finalName ? finalName.charAt(0).toUpperCase() : "A";
@@ -214,7 +157,7 @@ export function Sidebar({
 
   return (
     <>
-      {/* Mobile hamburger button */}
+      {/* mobil menü butonu */}
       <button
         onClick={toggleSidebar}
         className="fixed top-6 left-6 z-50 p-3 rounded-lg bg-sidebar shadow-md border border-sidebar-border md:hidden hover:bg-sidebar-accent transition-all duration-200"
@@ -226,7 +169,7 @@ export function Sidebar({
         }
       </button>
 
-      {/* Mobile overlay */}
+      {/* mobil arka plan */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 md:hidden transition-opacity duration-300"
@@ -234,7 +177,7 @@ export function Sidebar({
         />
       )}
 
-      {/* Sidebar Container */}
+      {/* yan menü */}
       <div
         className={`
           fixed top-0 left-0 h-screen bg-sidebar border-r border-sidebar-border z-40 transition-all duration-300 ease-in-out flex flex-col
@@ -244,7 +187,7 @@ export function Sidebar({
           ${className}
         `}
       >
-        {/* Brand Header */}
+        {/* marka alanı */}
         <div className="flex items-center justify-between p-5 border-b border-sidebar-border bg-sidebar-accent/40">
           {!isCollapsed && (
             <div className="flex items-center space-x-2.5">
@@ -271,7 +214,7 @@ export function Sidebar({
           </button>
         </div>
 
-        {/* Navigation Section */}
+        {/* menü bağlantıları */}
         <nav className="flex-1 px-3 py-4 overflow-y-auto">
           <ul className="space-y-1">
             {navItems.map((item) => {
@@ -352,9 +295,9 @@ export function Sidebar({
           </ul>
         </nav>
 
-        {/* Bottom Profile and Action Section */}
+        {/* alt profil alanı */}
         <div className="mt-auto border-t border-sidebar-border">
-          {/* Profile Section */}
+          {/* profil */}
           <div className={`border-b border-sidebar-border bg-sidebar-accent/20 ${isCollapsed ? 'py-3 px-2' : 'p-3'}`}>
             {!isCollapsed ? (
               <div className="flex items-center px-3 py-2 rounded-md bg-sidebar hover:bg-sidebar-accent transition-colors duration-200">
@@ -379,7 +322,7 @@ export function Sidebar({
             )}
           </div>
 
-          {/* Logout Button */}
+          {/* çıkış butonu */}
           {showLogout && (
             <div className="p-3">
               <button

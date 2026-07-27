@@ -57,9 +57,10 @@ const INITIAL_FORM = {
     phone: "",
     subject: "",
     message: "",
-    company: "", // honeypot
+    company: "", // bot alanı
 };
 
+// formu doğrulayıp iletişim apisine gönderiyorum
 export function ContactForm({ locale, labels }: ContactFormProps) {
     const [form, setForm] = useState(INITIAL_FORM);
     const [turnstileToken, setTurnstileToken] = useState("");

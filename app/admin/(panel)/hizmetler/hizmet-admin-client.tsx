@@ -1,10 +1,9 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { FormEvent, ReactNode, useMemo, useState } from "react";
-import { Edit3, ImageIcon, Plus, Save, Star, Trash2, X } from "lucide-react";
-import { InboxOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import Image from "next/image";
+import { Edit3, ImageIcon, Plus, Save, Trash2, X } from "lucide-react";
+import { InboxOutlined } from "@ant-design/icons";
 import { Button, Input, message as antMessage, Switch, Upload, type UploadFile, type UploadProps } from "antd";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -39,12 +38,6 @@ export type HizmetRecord = {
 
 type HizmetFormState = {
     id?: string;
-    // slug: string;
-    // main_photo: string;
-    // year: string;
-    // weight_tons: string;
-    // sort_order: string;
-    // is_favorite: boolean;
     is_published: boolean;
     translations: Record<Locale, { title: string; description: string }>;
     photos: Array<{ url: string; alt: string; sort_order: number }>;
@@ -76,6 +69,7 @@ const EMPTY_FORM: HizmetFormState = {
     photos: [],
 };
 
+// hizmet liste form çeviri ve galerisini yönetiyorum
 export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: HizmetRecord[] }) {
     const supabase = useMemo(() => createClient(), []);
     const [messageApi, contextHolder] = antMessage.useMessage();
@@ -83,7 +77,6 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     const [form, setForm] = useState<HizmetFormState>(EMPTY_FORM);
     const [isFormOpen, setIsFormOpen] = useState(initialHizmetler.length === 0);
     const [saving, setSaving] = useState(false);
-    const [coverUploading, setCoverUploading] = useState(false);
     const [galleryFileList, setGalleryFileList] = useState<ImageUploadFile[]>([]);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -103,7 +96,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     }
 
     async function ensureAdmin() {
-        // asıl kontrol api route'ta burada erken uyarı veriyorum
+        // oturumu erkenden kontrol ediyorum
         const { data, error } = await supabase.auth.getClaims();
 
         if (error || !data?.claims) {
@@ -114,6 +107,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
         return true;
     }
 
+    // boş hizmet formunu açıyorum
     function startCreate() {
         setForm(EMPTY_FORM);
         setGalleryFileList([]);
@@ -121,11 +115,12 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
         setMessage(null);
     }
 
+    // seçilen hizmeti forma aktarıyorum
     function startEdit(hizmet: HizmetRecord) {
         const tr = hizmet.hizmet_translations.find((item) => item.locale === "tr");
         const en = hizmet.hizmet_translations.find((item) => item.locale === "en");
 
-        // ant upload kendi formatını istediği için urlleri dönüştürüyorum
+        // urlleri upload formatına çeviriyorum
         const photos = hizmet.hizmet_photos.map((photo) => ({
             url: photo.url,
             alt: photo.alt ?? "",
@@ -148,7 +143,6 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
             photos,
         });
         setGalleryFileList(toUploadFileList(photos.map((photo) => photo.url)));
-        setCoverUploading(false);
         setIsFormOpen(true);
         setMessage(null);
     }
@@ -156,7 +150,6 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     function cancelForm() {
         setForm(EMPTY_FORM);
         setGalleryFileList([]);
-        setCoverUploading(false);
         setIsFormOpen(false);
         setMessage(null);
     }
@@ -177,7 +170,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     function updateGalleryPhotos(urls: string[]) {
         setForm((current) => ({
             ...current,
-            // alt metni kullanıcı girmiyor kayıtta başlıktan veriyorum
+            // alt metni başlıktan alıyorum
             photos: urls.map((url, index) => ({
                 url,
                 alt: "",
@@ -202,10 +195,11 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
     };
 
     const uploadData = () => ({
-        // cloudinary klasörü burada belirleniyor
+        // cloudinary klasörünü belirliyorum
         folder: getUploadFolder(form),
     });
 
+    // yüklenen galeri görsellerini sırayla tutuyorum
     const handleGalleryChange: UploadProps<UploadResponse>["onChange"] = (info) => {
         const nextFileList = info.fileList.slice(-24);
         const { status, name, response } = info.file;
@@ -222,6 +216,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
 
 
 
+    // hizmet ve çevirileri kaydediyorum
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setSaving(true);
@@ -229,7 +224,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
 
         const trTitle = form.translations.tr.title.trim();
         const enTitle = form.translations.en.title.trim();
-        // galeri alt alanı yok en varsa onu yoksa tr başlığı kullanıyorum
+        // galeri alt metnini başlıktan alıyorum
         const photoAlt = enTitle || trTitle;
         const photos = form.photos
             .map((photo, index) => ({
@@ -254,7 +249,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
 
             if (!isAdmin) return;
 
-            // db yazma işi clientta değil hizmetler api route'a gidiyor
+            // kaydı apiye gönderiyorum
             const response = await fetch("/api/admin/hizmetler", {
                 method: form.id ? "PUT" : "POST",
                 headers: {
@@ -294,6 +289,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
         }
     }
 
+    // onay sonrası hizmeti siliyorum
     async function deleteHizmet(hizmet: HizmetRecord) {
         const title = getHizmetTitle(hizmet);
         const confirmed = window.confirm(`${title} hizmetini silmek istediğine emin misin?`);
@@ -311,7 +307,7 @@ export function HizmetAdminClient({ initialHizmetler }: { initialHizmetler: Hizm
         }
 
         try {
-            // silme de direkt supabase'e değil api route'a gidiyor
+            // silme işlemini apiye gönderiyorum
             const response = await fetch("/api/admin/hizmetler", {
                 method: "DELETE",
                 headers: {
@@ -544,9 +540,15 @@ function HizmetRow({
                 active && "bg-blue-50/70 dark:bg-blue-500/10"
             )}
         >
-            <div className="h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
+            <div className="relative h-24 overflow-hidden rounded-2xl bg-zinc-100 dark:bg-white/10 md:h-20">
                 {photo ? (
-                    <img src={photo} alt="" className="h-full w-full object-cover" />
+                    <Image
+                        src={photo}
+                        alt=""
+                        fill
+                        sizes="(max-width: 767px) calc(100vw - 3rem), 88px"
+                        className="object-cover"
+                    />
                 ) : (
                     <div className="flex h-full w-full items-center justify-center text-zinc-400">
                         <ImageIcon className="h-6 w-6" />

@@ -9,7 +9,7 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 export async function POST(request: Request) {
     const supabase = await createClient();
-    // upload admin panelinden geliyor oturumu burada kontrol ediyorum
+    // admin oturumunu kontrol ediyorum
     const { data, error } = await supabase.auth.getClaims();
 
     if (error || !data?.claims) {
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         !process.env.CLOUDINARY_API_KEY ||
         !process.env.CLOUDINARY_API_SECRET
     ) {
-        // cloudinary bilgileri client tarafına gitmesin diye burada kontrol ediyorum
+        // cloudinary bilgilerini sunucuda tutuyorum
         return NextResponse.json(
             { error: "Cloudinary ortam değişkenleri eksik." },
             { status: 500 }
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     const formData = await request.formData();
     const file = formData.get("file");
-    // panelden gelen klasör adını direkt kullanmıyorum
+    // klasör adını temizliyorum
     const folder = sanitizeFolder(formData.get("folder"));
 
     if (!(file instanceof File)) {
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
     try {
         const buffer = Buffer.from(await file.arrayBuffer());
-        // cloudinary stream istediği için buffer'a çeviriyorum
+        // dosyayı buffera çeviriyorum
         const result = await uploadBuffer(buffer, folder);
 
         return NextResponse.json({
@@ -107,7 +107,7 @@ function uploadBuffer(buffer: Buffer, folder: string) {
 function sanitizeFolder(value: FormDataEntryValue | null) {
     const folder = typeof value === "string" ? value : "projects";
 
-    // klasör yolu bozulmasın diye güvenli karakterleri bırakıyorum
+    // klasör yolunu güvenli tutuyorum
     return folder
         .split("/")
         .map((part) => part.toLowerCase().replace(/[^a-z0-9-_]/g, "-").replace(/-+/g, "-"))

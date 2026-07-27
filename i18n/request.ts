@@ -2,10 +2,10 @@ import { getRequestConfig } from 'next-intl/server';
 import { routing } from './routing';
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  // Middleware tarafından belirlenen locale'i al
+  // aktif dili alıyorum
   let locale = await requestLocale;
 
-  // Geçersiz bir locale gelirse varsayılana dön
+  // geçersiz dilde varsayılana dönüyorum
   if (!locale || !routing.locales.includes(locale as 'tr' | 'en')) {
     locale = routing.defaultLocale;
   }

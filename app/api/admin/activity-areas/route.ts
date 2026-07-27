@@ -28,7 +28,7 @@ type ActivityAreaMutationPayload = {
 export async function GET() {
     const supabase = await createClient();
 
-    // Public taraf da bu datayi kullanacak; yazma islemleri asagida korunuyor.
+    // public taraf da bu veriyi kullanıyor
     const { data, error } = await supabase
         .from("activity_areas")
         .select(`

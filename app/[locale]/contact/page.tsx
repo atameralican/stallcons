@@ -41,7 +41,7 @@ export default async function Page({ params }: Props) {
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid items-start gap-12 lg:grid-cols-3 lg:gap-16">
-            {/* Sol — İletişim Bilgileri */}
+            {/* iletişim bilgileri */}
             <div className="flex flex-col gap-8 pt-4 lg:col-span-1">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3">
@@ -115,7 +115,7 @@ export default async function Page({ params }: Props) {
               </address>
             </div>
 
-            {/* Sağ — İletişim Formu */}
+            {/* iletişim formu */}
             <ContactForm
               locale={locale}
               labels={{

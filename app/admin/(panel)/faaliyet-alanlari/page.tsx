@@ -9,6 +9,7 @@ type ActivityAreasResponse = {
     error?: string;
 };
 
+// ilk faaliyet listesini sunucuda alıp client ekrana veriyorum
 export default async function ActivityAreasAdmin() {
     const { activityAreas, error } = await getActivityAreas();
 

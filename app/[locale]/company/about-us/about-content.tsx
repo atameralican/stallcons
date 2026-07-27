@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 
+// hakkımızda içeriğini hareketli bölümlerle gösteriyorum
 export function AboutContent() {
   const t = useTranslations("Pages.aboutUs");
   const reduced = useReducedMotion();
@@ -18,7 +20,7 @@ export function AboutContent() {
 
   return (
     <>
-      {/* ── Story ──────────────────────────────────────────────── */}
+      {/* hikaye */}
       <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
@@ -59,10 +61,12 @@ export function AboutContent() {
                   },
                 })}
             >
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=900&auto=format&fit=crop"
                 alt={t("storyImageAlt")}
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1023px) calc(100vw - 2rem), 608px"
               />
             </motion.div>
           </div>
@@ -70,7 +74,7 @@ export function AboutContent() {
       </section>
 
 
-      {/* ── Values ─────────────────────────────────────────────── */}
+      {/* değerler */}
       <section className="bg-zinc-200 py-16 dark:bg-zinc-800 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <motion.h2

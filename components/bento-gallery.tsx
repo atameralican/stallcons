@@ -48,7 +48,7 @@ const DEFAULT_MODAL_DIMENSIONS: ImageDimensions = {
     height: 1200,
 }
 
-// Galerinin hissini değiştirmek istersen temel değerler burada.
+// galeri ayarları
 const MODAL_IMAGE_LONG_EDGE = 1600
 const MODAL_IMAGE_QUALITY = 85
 const SWIPE_DISTANCE_THRESHOLD = 60
@@ -114,8 +114,7 @@ function getVisibleFocusableElements(container: HTMLElement) {
     )
 }
 
-// Panelden girilen metinlerde farklı kesme işaretleri ve harf biçimleri olabiliyor.
-// Karşılaştırma yaparken bunları aynı kabul ediyoruz, ekranda görünen metin değişmiyor.
+// metni karşılaştırma için sadeleştiriyorum
 function normalizeTextForComparison(value: string) {
     return value
         .normalize("NFKC")
@@ -776,6 +775,7 @@ const ExpertiseImageBentoGallery: React.FC<
     )
 }
 
+// açıklamayı okunabilir parçalara ayırıyorum
 function GalleryDescription({ description }: { description: string }) {
     const lines = description
         .split("\n")

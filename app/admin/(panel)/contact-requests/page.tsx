@@ -9,6 +9,7 @@ type ContactRequestsResponse = {
     error?: string;
 };
 
+// son talepleri sunucuda alıp client ekrana veriyorum
 export default async function ContactRequestsAdmin() {
     const { requests, error } = await getContactRequests();
 

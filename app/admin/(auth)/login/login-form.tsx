@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
+// supabase ile admin oturumu açıyorum
 export default function LoginForm() {
     const router = useRouter();
     const supabase = createClient();

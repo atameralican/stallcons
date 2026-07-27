@@ -75,6 +75,7 @@ const STATUS_OPTIONS: Array<{ value: ContactStatus; label: string }> = [
     { value: "archived", label: "Arşiv" },
 ];
 
+// gelen talepleri filtreleyip detay ve durum işlemlerini yönetiyorum
 export function ContactRequestsAdminClient({
     initialRequests,
 }: {
@@ -137,6 +138,7 @@ export function ContactRequestsAdminClient({
         });
     }, [requests, searchText, statusFilter]);
 
+    // talep listesini yeniden alıyorum
     async function refreshRequests() {
         setRefreshing(true);
         setMessage(null);
@@ -194,6 +196,7 @@ export function ContactRequestsAdminClient({
         setMessage(null);
     }
 
+    // durum ve not değişikliklerini kaydediyorum
     async function updateRequest(
         request: ContactRequestRecord,
         payload: {
@@ -251,6 +254,7 @@ export function ContactRequestsAdminClient({
         }
     }
 
+    // onay sonrası talebi siliyorum
     async function deleteRequest(request: ContactRequestRecord) {
         const isAdmin = await ensureAdmin();
 

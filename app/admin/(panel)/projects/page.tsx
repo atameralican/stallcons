@@ -6,8 +6,9 @@ type ProjectsResponse = {
     error?: string;
 };
 
+// ilk proje listesini sunucuda alıp client ekrana veriyorum
 export default async function ProjectAdmin() {
-    // sayfa sadece ekranı hazırlıyor data api route üzerinden geliyor
+    // veriyi api üzerinden alıyorum
     const { projects, error } = await getProjects();
 
     return (
@@ -41,7 +42,7 @@ async function getProjects() {
     const headerStore = await headers();
     const host = headerStore.get("host");
     const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-    // admin sayfasında cookie gidiyor api oturumu okuyabilsin
+    // oturum cookiesini apiye gönderiyorum
     const cookie = headerStore.get("cookie") ?? "";
 
     if (!host) {
