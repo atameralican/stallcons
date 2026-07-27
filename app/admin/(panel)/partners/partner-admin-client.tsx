@@ -174,7 +174,7 @@ export function PartnerAdminClient({ initialPartners }: { initialPartners: Partn
                 },
                 body: JSON.stringify({
                     id: form.id,
-                    partner: partnerPayload,
+                    ...partnerPayload,
                 }),
             });
             const result = (await response.json()) as PartnerMutationResponse;
