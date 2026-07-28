@@ -49,6 +49,7 @@ export function PageHeader({
             alt=""
             fill
             preload
+            fetchPriority="high"
             className="z-0 scale-150 object-cover object-[center_45%] sm:scale-100"
             sizes="(max-width: 639px) calc(100vw - 32px), calc(100vw - 48px)"
           />

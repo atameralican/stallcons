@@ -28,7 +28,6 @@ export const metadata: Metadata = {
   description:
     "Stallcons | Tasarım, imalat, montaj ve mühendislik alanlarında profesyonel çelik konstrüksiyon çözümleri.",
   applicationName: "Stallcons",
-  manifest: "/manifest.webmanifest",
 };
 
 const organizationJsonLd = {
