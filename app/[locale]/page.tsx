@@ -1,10 +1,14 @@
-import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import GalleryShowcase from "@/components/gallery-showcase";
 import HoverBrandLogo from "@/components/hover-brand-logo";
 import { Timeline, type TimelineHizmetData } from "@/components/timeline";
 import noPhoto from "@/app/assets/no-photo.webp";
 import { HomeHero } from "@/components/home-hero";
+import {
+  getActivityAreasData,
+  getHizmetlerData,
+  getPartnersData,
+} from "@/lib/data/content";
 
 type Locale = "tr" | "en";
 
@@ -30,11 +34,6 @@ type HizmetRecord = {
   hizmet_photos: HizmetPhoto[];
 };
 
-type HizmetlerResponse = {
-  hizmetler?: HizmetRecord[];
-  error?: string;
-};
-
 type ActivityAreaTranslation = {
   id: string;
   locale: Locale | "es";
@@ -52,23 +51,6 @@ type ActivityAreaRecord = {
   created_at: string;
   updated_at: string;
   activity_area_translations: ActivityAreaTranslation[];
-};
-
-type ActivityAreasResponse = {
-  activityAreas?: ActivityAreaRecord[];
-  error?: string;
-};
-
-type PartnerRecord = {
-  id: string;
-  name: string;
-  url: string;
-  is_published: boolean;
-};
-
-type PartnersResponse = {
-  partners?: PartnerRecord[];
-  error?: string;
 };
 
 type HomeActivityArea = {
@@ -141,28 +123,13 @@ export default async function Home({ params }: Props) {
 
 // aktif faaliyet alanlarını galeriye hazırlıyorum
 async function getHomeActivityAreas(locale: Locale): Promise<HomeActivityArea[]> {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+  const { data, error } = await getActivityAreasData();
+  if (error) return [];
 
-  if (!host) return [];
-
-  try {
-    const response = await fetch(`${protocol}://${host}/api/admin/activity-areas`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) return [];
-
-    const result = (await response.json()) as ActivityAreasResponse;
-
-    return (result.activityAreas ?? [])
-      .filter((activityArea) => activityArea.is_active)
-      .map((activityArea) => mapActivityAreaForGallery(activityArea, locale))
-      .filter((activityArea): activityArea is HomeActivityArea => Boolean(activityArea));
-  } catch {
-    return [];
-  }
+  return data
+    .filter((activityArea) => activityArea.is_active)
+    .map((activityArea) => mapActivityAreaForGallery(activityArea, locale))
+    .filter((activityArea): activityArea is HomeActivityArea => Boolean(activityArea));
 }
 
 function mapActivityAreaForGallery(activityArea: ActivityAreaRecord, locale: Locale) {
@@ -186,30 +153,13 @@ function mapActivityAreaForGallery(activityArea: ActivityAreaRecord, locale: Loc
 
 // yayınlanan hizmetleri timeline için alıyorum
 async function getHomeHizmetler(locale: Locale) {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+  const { data, error } = await getHizmetlerData();
+  if (error) return [];
 
-  if (!host) return [];
-
-  try {
-    // hizmetleri sunucuda alıyorum
-    const response = await fetch(`${protocol}://${host}/api/admin/hizmetler`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) return [];
-
-    const result = (await response.json()) as HizmetlerResponse;
-
-    return (result.hizmetler ?? [])
-      .filter((hizmet) => hizmet.is_published)
-      .map((hizmet) => mapHizmetForTimeline(hizmet, locale))
-      .filter((hizmet): hizmet is TimelineHizmetData => Boolean(hizmet));
-  } catch {
-    // hata olursa boş dönüyorum
-    return [];
-  }
+  return data
+    .filter((hizmet) => hizmet.is_published)
+    .map((hizmet) => mapHizmetForTimeline(hizmet, locale))
+    .filter((hizmet): hizmet is TimelineHizmetData => Boolean(hizmet));
 }
 
 function mapHizmetForTimeline(hizmet: HizmetRecord, locale: Locale) {
@@ -230,22 +180,6 @@ function mapHizmetForTimeline(hizmet: HizmetRecord, locale: Locale) {
 
 // yayınlanan partnerleri alıyorum
 async function getHomePartners() {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-
-  if (!host) return [];
-
-  try {
-    const response = await fetch(`${protocol}://${host}/api/admin/partners`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) return [];
-
-    const result = (await response.json()) as PartnersResponse;
-    return (result.partners ?? []).filter((partner) => partner.is_published);
-  } catch {
-    return [];
-  }
+  const { data, error } = await getPartnersData();
+  return error ? [] : data.filter((partner) => partner.is_published);
 }

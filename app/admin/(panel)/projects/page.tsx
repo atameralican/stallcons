@@ -1,15 +1,9 @@
-import { headers } from "next/headers";
-import { ProjectAdminClient, type ProjectRecord } from "./project-admin-client";
-
-type ProjectsResponse = {
-    projects?: ProjectRecord[];
-    error?: string;
-};
+import { getProjectsData } from "@/lib/data/content";
+import { ProjectAdminClient } from "./project-admin-client";
 
 // ilk proje listesini sunucuda alıp client ekrana veriyorum
 export default async function ProjectAdmin() {
-    // veriyi api üzerinden alıyorum
-    const { projects, error } = await getProjects();
+    const { data: projects, error } = await getProjectsData();
 
     return (
         <main className="min-h-screen bg-zinc-100 p-6 text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -36,29 +30,4 @@ export default async function ProjectAdmin() {
             </div>
         </main>
     );
-}
-
-async function getProjects() {
-    const headerStore = await headers();
-    const host = headerStore.get("host");
-    const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-    // oturum cookiesini apiye gönderiyorum
-    const cookie = headerStore.get("cookie") ?? "";
-
-    if (!host) {
-        return { projects: [] as ProjectRecord[], error: "Host bilgisi alınamadı." };
-    }
-
-    const response = await fetch(`${protocol}://${host}/api/admin/projects`, {
-        cache: "no-store",
-        headers: {
-            cookie,
-        },
-    });
-    const result = (await response.json()) as ProjectsResponse;
-
-    return {
-        projects: result.projects ?? [],
-        error: response.ok ? undefined : result.error ?? "Projeler alınamadı.",
-    };
 }

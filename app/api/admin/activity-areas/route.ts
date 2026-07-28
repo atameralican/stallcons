@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { getActivityAreasData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
-import type { ActivityAreaRecord } from "@/app/admin/(panel)/faaliyet-alanlari/activity-area-admin-client";
 
 type Locale = "tr" | "en";
 
@@ -26,43 +26,13 @@ type ActivityAreaMutationPayload = {
 };
 
 export async function GET() {
-    const supabase = await createClient();
-
-    // public taraf da bu veriyi kullanıyor
-    const { data, error } = await supabase
-        .from("activity_areas")
-        .select(`
-            id,
-            main_photo,
-            is_active,
-            sort_order,
-            created_at,
-            updated_at,
-            activity_area_translations (
-                id,
-                locale,
-                title,
-                subtitle,
-                description,
-                slug,
-                created_at
-            ),
-            activity_area_photos (
-                id,
-                photo_url,
-                sort_order,
-                created_at
-            )
-        `)
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: false })
-        .order("sort_order", { foreignTable: "activity_area_photos", ascending: true });
+    const { data: activityAreas, error } = await getActivityAreasData();
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
     }
 
-    return NextResponse.json({ activityAreas: (data ?? []) as ActivityAreaRecord[] });
+    return NextResponse.json({ activityAreas });
 }
 
 export async function POST(request: Request) {

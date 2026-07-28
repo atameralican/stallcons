@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import ExpertiseImageBentoGallery from "@/components/bento-gallery";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
+import { getActivityAreasData } from "@/lib/data/content";
 
 type Locale = "tr" | "en";
 
@@ -32,11 +32,6 @@ type ActivityAreaRecord = {
   updated_at: string;
   activity_area_translations: ActivityAreaTranslation[];
   activity_area_photos: ActivityAreaPhoto[];
-};
-
-type ActivityAreasResponse = {
-  activityAreas?: ActivityAreaRecord[];
-  error?: string;
 };
 
 type ActivityAreaPageData = {
@@ -142,25 +137,8 @@ async function getActivityAreaBySlug(locale: Locale, slug: string) {
 }
 
 async function getActivityAreas() {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-
-  if (!host) return [] as ActivityAreaRecord[];
-
-  try {
-    const response = await fetch(`${protocol}://${host}/api/admin/activity-areas`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) return [];
-
-    const result = (await response.json()) as ActivityAreasResponse;
-
-    return result.activityAreas ?? [];
-  } catch {
-    return [];
-  }
+  const { data, error } = await getActivityAreasData();
+  return error ? [] as ActivityAreaRecord[] : data;
 }
 
 function mapActivityAreaForPage(activityArea: ActivityAreaRecord, locale: Locale, slug: string): ActivityAreaPageData | null {

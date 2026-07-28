@@ -1,5 +1,6 @@
 import React from 'react';
-import Image from 'next/image';
+import Image, { type ImageProps } from 'next/image';
+import bannerImage from '@/public/banner-bg.webp';
 import { Link } from '@/i18n/navigation';
 import {
   Breadcrumb,
@@ -23,7 +24,7 @@ type PageHeaderProps = {
   /** sayfa yolu */
   crumbs: BreadcrumbEntry[];
   /** arka plan görseli */
-  backgroundImage?: string;
+  backgroundImage?: ImageProps['src'];
 };
 
 /** iç sayfa başlığı */
@@ -31,27 +32,25 @@ export function PageHeader({
   title,
   description,
   crumbs,
-  backgroundImage = '/banner-bg.png',
+  backgroundImage = bannerImage,
 }: PageHeaderProps) {
   return (
     <>
       {/* banner */}
       <div className="px-4 sm:px-6 mt-5" >
         <section
-          className="relative w-full overflow-hidden flex flex-col items-center justify-center rounded-3xl"
+          className="relative flex min-h-[260px] w-full flex-col items-center justify-center overflow-hidden rounded-3xl sm:min-h-[340px]"
           style={{
-            minHeight: '340px',
             marginTop: '24px',
           }}
         >
           <Image
             src={backgroundImage}
-            alt={title ?? "Stallcons"}
+            alt=""
             fill
-            priority
-            fetchPriority="high"
-            className="object-cover object-[center_45%] z-0"
-            sizes="100vw"
+            preload
+            className="z-0 scale-150 object-cover object-[center_45%] sm:scale-100"
+            sizes="(max-width: 639px) calc(100vw - 32px), calc(100vw - 48px)"
           />
           {/* karartma */}
           <div className="absolute inset-0 bg-[#2A3F58]/60 rounded-3xl z-0" />

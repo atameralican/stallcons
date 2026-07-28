@@ -1,17 +1,11 @@
-import { headers } from "next/headers";
+import { getActivityAreasData } from "@/lib/data/content";
 import {
     ActivityAreaAdminClient,
-    type ActivityAreaRecord,
 } from "./activity-area-admin-client";
-
-type ActivityAreasResponse = {
-    activityAreas?: ActivityAreaRecord[];
-    error?: string;
-};
 
 // ilk faaliyet listesini sunucuda alıp client ekrana veriyorum
 export default async function ActivityAreasAdmin() {
-    const { activityAreas, error } = await getActivityAreas();
+    const { data: activityAreas, error } = await getActivityAreasData();
 
     return (
         <main className="min-h-screen bg-zinc-100 p-6 text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -38,33 +32,4 @@ export default async function ActivityAreasAdmin() {
             </div>
         </main>
     );
-}
-
-async function getActivityAreas() {
-    const headerStore = await headers();
-    const host = headerStore.get("host");
-    const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-    const cookie = headerStore.get("cookie") ?? "";
-
-    if (!host) {
-        return {
-            activityAreas: [] as ActivityAreaRecord[],
-            error: "Host bilgisi alınamadı.",
-        };
-    }
-
-    const response = await fetch(`${protocol}://${host}/api/admin/activity-areas`, {
-        cache: "no-store",
-        headers: {
-            cookie,
-        },
-    });
-    const result = (await response.json()) as ActivityAreasResponse;
-
-    return {
-        activityAreas: result.activityAreas ?? [],
-        error: response.ok
-            ? undefined
-            : result.error ?? "Faaliyet alanları alınamadı.",
-    };
 }

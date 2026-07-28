@@ -44,7 +44,8 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
                         <PhotoCard
                             key={data.id}
                             data={data}
-                            className="w-[140px] h-[150px]"
+                            className="w-[140px]"
+                            sizes="140px"
                             hoveredId={hoveredId}
                             onHover={setHoveredId}
                         />
@@ -55,7 +56,8 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
                         <PhotoCard
                             key={data.id}
                             data={data}
-                            className="w-[140px] h-[150px]"
+                            className="w-[140px]"
+                            sizes="140px"
                             hoveredId={hoveredId}
                             onHover={setHoveredId}
                         />
@@ -71,7 +73,8 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
                         <PhotoCard
                             key={data.id}
                             data={data}
-                            className="w-[110px] h-[120px] sm:w-[130px] sm:h-[140px] md:w-[155px] md:h-[165px]"
+                            className="w-[110px] sm:w-[130px] md:w-[155px]"
+                            sizes="(max-width: 639px) 110px, (max-width: 767px) 130px, 155px"
                             hoveredId={hoveredId}
                             onHover={setHoveredId}
                         />
@@ -84,7 +87,8 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
                         <PhotoCard
                             key={data.id}
                             data={data}
-                            className="w-[122px] h-[132px] sm:w-[145px] sm:h-[155px] md:w-[172px] md:h-[182px]"
+                            className="w-[122px] sm:w-[145px] md:w-[172px]"
+                            sizes="(max-width: 639px) 122px, (max-width: 767px) 145px, 172px"
                             hoveredId={hoveredId}
                             onHover={setHoveredId}
                         />
@@ -97,7 +101,8 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
                         <PhotoCard
                             key={data.id}
                             data={data}
-                            className="w-[115px] h-[125px] sm:w-[136px] sm:h-[146px] md:w-[162px] md:h-[172px]"
+                            className="w-[115px] sm:w-[136px] md:w-[162px]"
+                            sizes="(max-width: 639px) 115px, (max-width: 767px) 136px, 162px"
                             hoveredId={hoveredId}
                             onHover={setHoveredId}
                         />
@@ -125,11 +130,13 @@ export default function GalleryShowcase({ datas }: GalleryShowcaseProps) {
 function PhotoCard({
     data,
     className,
+    sizes,
     hoveredId,
     onHover,
 }: {
     data: GalleryData;
     className: string;
+    sizes: string;
     hoveredId: string | null;
     onHover: (id: string | null) => void;
 }) {
@@ -140,7 +147,7 @@ function PhotoCard({
         <Link
             href={data.href}
             className={cn(
-                'group overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 block bg-white/20 shadow-sm ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10',
+                'group relative aspect-[14/15] overflow-hidden rounded-xl cursor-pointer flex-shrink-0 transition-all duration-500 block bg-white/20 shadow-sm ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10',
                 className,
                 isActive && 'shadow-lg ring-black/10 dark:ring-white/20',
                 isDimmed ? 'opacity-75' : 'opacity-100',
@@ -151,9 +158,9 @@ function PhotoCard({
             <Image
                 src={data.image}
                 alt={data.name}
-                width={500}
-                height={500}
-                className="w-full h-full object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.035]"
+                fill
+                sizes={sizes}
+                className="object-cover transition-[filter,transform] duration-500 group-hover:scale-[1.035]"
                 style={{
                     filter: isActive
                         ? 'saturate(1.08) contrast(1.04) brightness(1.02)'

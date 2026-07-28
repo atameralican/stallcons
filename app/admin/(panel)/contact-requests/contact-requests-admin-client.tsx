@@ -13,7 +13,11 @@ import {
     Trash2,
     User,
 } from "lucide-react";
-import { Button, Input, Popconfirm, Select, message as antMessage } from "antd";
+import Button from "antd/es/button";
+import Input from "antd/es/input";
+import antMessage from "antd/es/message";
+import Popconfirm from "antd/es/popconfirm";
+import Select from "antd/es/select";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
