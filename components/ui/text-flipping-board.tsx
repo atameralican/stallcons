@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-const FLAP_CHARS = " ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789!@#$()-+&=;:'\"%,./?°";
+const FLAP_CHARS = " ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZ0123456789!@#$()-+&=;:'\"%,./?°";
 const BOARD_ROWS = 5;
 const BOARD_COLS = 22;
 

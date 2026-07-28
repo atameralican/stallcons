@@ -20,9 +20,25 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
-  title: "Stallcons – Çelik Konstrüksiyon",
+  metadataBase: new URL("https://stallcons.com"),
+  title: {
+    default: "Stallcons – Çelik Konstrüksiyon",
+    template: "%s | Stallcons",
+  },
   description:
     "Stallcons | Tasarım, imalat, montaj ve mühendislik alanlarında profesyonel çelik konstrüksiyon çözümleri.",
+  applicationName: "Stallcons",
+  manifest: "/manifest.webmanifest",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Stallcons",
+  url: "https://stallcons.com",
+  logo: "https://stallcons.com/brand/stallcons-organization-logo-512.png",
+  email: "info@stallcons.com",
+  sameAs: ["https://www.linkedin.com/company/stallcons"],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -38,6 +54,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       )}
     >
       <body className="min-h-full">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {children}
         <Analytics />
       </body>

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
@@ -72,14 +73,14 @@ export function Navbar({ activityAreaLinks = [] }: NavbarProps) {
       <nav className="flex justify-between h-20 mx-auto items-center px-4 max-w-screen-2xl">
         {/* logo */}
         <Link href="/" className="flex-shrink-0 flex flex-col items-center group" onClick={() => setOpen(false)}>
-          <div className="flex items-end gap-0.5 leading-none select-none">
-            <span className="relative font-black text-2xl tracking-tight text-[#1E50A0] dark:text-blue-400 lowercase">
-              stallcons
-            </span>
-          </div>
-          <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-500 dark:text-slate-300 mt-0.5">
-            STEEL CONSTRUCTION
-          </span>
+          <Image
+            src="/brand/stallcons-logo-horizontal-blue.png"
+            alt="Stallcons Steel Construction"
+            width={2400}
+            height={800}
+            sizes="138px"
+            className="h-auto w-[138px] select-none dark:brightness-0 dark:invert"
+          />
         </Link>
 
 
