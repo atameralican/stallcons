@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { getHizmetlerData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
-import type { HizmetRecord } from "@/app/admin/(panel)/hizmetler/hizmet-admin-client";
 
 type Locale = "tr" | "en";
 
@@ -23,37 +23,11 @@ type HizmetMutationPayload = {
 };
 
 export async function GET() {
-    const supabase = await createClient();
-
-    // public okuma açık
-    const { data, error } = await supabase
-        .from("hizmetler")
-        .select(`
-            id,
-            is_published,
-            created_at,
-            updated_at,
-            hizmet_translations (
-                id,
-                locale,
-                title,
-                description
-            ),
-            hizmet_photos (
-                id,
-                url,
-                alt,
-                sort_order,
-                created_at
-            )
-        `)
-        .order("created_at", { ascending: false })
-        .order("sort_order", { foreignTable: "hizmet_photos", ascending: true });
+    const { data: hizmetler, error } = await getHizmetlerData();
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
     }
-    const hizmetler = (data ?? []) as HizmetRecord[];
 
     return NextResponse.json({ hizmetler });
 }

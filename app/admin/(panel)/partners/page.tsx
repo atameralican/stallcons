@@ -1,15 +1,9 @@
-import { headers } from "next/headers";
-import { PartnerAdminClient, type PartnerRecord } from "./partner-admin-client";
-
-type PartnersResponse = {
-    partners?: PartnerRecord[];
-    error?: string;
-};
+import { getPartnersData } from "@/lib/data/content";
+import { PartnerAdminClient } from "./partner-admin-client";
 
 // ilk partner listesini sunucuda alıp client ekrana veriyorum
 export default async function PartnerAdmin() {
-    // veriyi api üzerinden alıyorum
-    const { partners, error } = await getPartners();
+    const { data: partners, error } = await getPartnersData();
 
     return (
         <main className="min-h-screen bg-zinc-100 p-6 text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -36,29 +30,4 @@ export default async function PartnerAdmin() {
             </div>
         </main>
     );
-}
-
-async function getPartners() {
-    const headerStore = await headers();
-    const host = headerStore.get("host");
-    const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-    // oturum cookiesini apiye gönderiyorum
-    const cookie = headerStore.get("cookie") ?? "";
-
-    if (!host) {
-        return { partners: [] as PartnerRecord[], error: "Host bilgisi alınamadı." };
-    }
-
-    const response = await fetch(`${protocol}://${host}/api/admin/partners`, {
-        cache: "no-store",
-        headers: {
-            cookie,
-        },
-    });
-    const result = (await response.json()) as PartnersResponse;
-
-    return {
-        partners: result.partners ?? [],
-        error: response.ok ? undefined : result.error ?? "İş ortakları alınamadı.",
-    };
 }

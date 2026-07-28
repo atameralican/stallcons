@@ -1,15 +1,9 @@
-import { headers } from "next/headers";
-import { HizmetAdminClient, type HizmetRecord } from "./hizmet-admin-client";
-
-type HizmetResponse = {
-    hizmetler?: HizmetRecord[];
-    error?: string;
-};
+import { getHizmetlerData } from "@/lib/data/content";
+import { HizmetAdminClient } from "./hizmet-admin-client";
 
 // ilk hizmet listesini sunucuda alıp client ekrana veriyorum
 export default async function HizmetAdmin() {
-    // veriyi api üzerinden alıyorum
-    const { hizmetler, error } = await getHizmet();
+    const { data: hizmetler, error } = await getHizmetlerData();
 
     return (
         <main className="min-h-screen bg-zinc-100 p-6 text-zinc-950 dark:bg-zinc-950 dark:text-white">
@@ -36,29 +30,4 @@ export default async function HizmetAdmin() {
             </div>
         </main>
     );
-}
-
-async function getHizmet() {
-    const headerStore = await headers();
-    const host = headerStore.get("host");
-    const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-    // oturum cookiesini apiye gönderiyorum
-    const cookie = headerStore.get("cookie") ?? "";
-
-    if (!host) {
-        return { hizmetler: [] as HizmetRecord[], error: "Host bilgisi alınamadı." };
-    }
-
-    const response = await fetch(`${protocol}://${host}/api/admin/hizmetler`, {
-        cache: "no-store",
-        headers: {
-            cookie,
-        },
-    });
-    const result = (await response.json()) as HizmetResponse;
-
-    return {
-        hizmetler: result.hizmetler ?? [],
-        error: response.ok ? undefined : result.error ?? "Hizmetler alınamadı.",
-    };
 }

@@ -39,6 +39,10 @@ const CELL_TEXT_STYLE: React.CSSProperties = {
   lineHeight: 1,
 };
 
+function normalizeFlapChar(value: string) {
+  return FLAP_CHARS.includes(value.toUpperCase()) ? value.toUpperCase() : " ";
+}
+
 // tek harf hücresi
 
 const FlapCell = React.memo(function FlapCell({
@@ -52,13 +56,14 @@ const FlapCell = React.memo(function FlapCell({
   stepMs: number;
   flipDuration: number;
 }) {
-  const [current, setCurrent] = useState(" ");
-  const [prev, setPrev] = useState(" ");
+  const initialCharacter = normalizeFlapChar(target);
+  const [current, setCurrent] = useState(initialCharacter);
+  const [prev, setPrev] = useState(initialCharacter);
   const [flipId, setFlipId] = useState(0);
   const [accent, setAccent] = useState<AccentColor | null>(null);
   const [prevAccent, setPrevAccent] = useState<AccentColor | null>(null);
-  const curRef = useRef(" ");
-  const tgtRef = useRef<string | null>(null);
+  const curRef = useRef(initialCharacter);
+  const tgtRef = useRef<string | null>(initialCharacter);
   const accentRef = useRef<AccentColor | null>(null);
   const startTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stepTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -69,9 +74,8 @@ const FlapCell = React.memo(function FlapCell({
     startTimer.current = null;
     stepTimer.current = null;
 
-    const normalized = FLAP_CHARS.includes(target.toUpperCase())
-      ? target.toUpperCase()
-      : " ";
+    const normalized = normalizeFlapChar(target);
+
     if (normalized === tgtRef.current) return;
     tgtRef.current = normalized;
 
@@ -261,6 +265,33 @@ const FlapCell = React.memo(function FlapCell({
     prevProps.flipDuration === nextProps.flipDuration,
 );
 
+// ilk yüklemede timersız hücre gösteriyorum
+function StaticFlapCell({ target }: { target: string }) {
+  const character = normalizeFlapChar(target);
+  const show = character === " " ? "\u00A0" : character;
+  const textClass =
+    "absolute inset-x-0 flex select-none items-center justify-center font-mono font-bold tracking-wide text-neutral-800 dark:text-white";
+
+  return (
+    <div className="flex aspect-3/6 flex-col overflow-hidden rounded-[2px] border border-neutral-300 md:rounded-[3px] md:border-2 dark:border-black">
+      <div className="relative flex-1">
+        <div className="absolute inset-x-0 top-0 h-[calc(50%-0.5px)] overflow-hidden rounded-t-[3px] bg-neutral-200/80 dark:bg-neutral-900">
+          <div className={cn(textClass, "top-0 h-[200%]")} style={CELL_TEXT_STYLE}>
+            {show}
+          </div>
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-[calc(50%-0.5px)] overflow-hidden rounded-b-[3px] bg-neutral-200/80 dark:bg-neutral-900">
+          <div className={cn(textClass, "bottom-0 h-[200%]")} style={CELL_TEXT_STYLE}>
+            {show}
+          </div>
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px -translate-y-[0.5px] bg-neutral-400/50 dark:bg-black/50" />
+      </div>
+      <div className="h-2 w-full bg-[repeating-linear-gradient(to_bottom,currentColor_0,currentColor_1px,transparent_1px,transparent_0.15rem)] mask-t-from-50% text-neutral-400 opacity-20 md:h-4 md:bg-[repeating-linear-gradient(to_bottom,currentColor_0,currentColor_1px,transparent_1px,transparent_0.2rem)] dark:text-black dark:opacity-100" />
+    </div>
+  );
+}
+
 // renk hücresi
 
 const COLOR_MAP: Record<string, string> = {
@@ -353,6 +384,8 @@ export interface TextFlippingBoardProps {
   className?: string;
   /** animasyon süresi */
   duration?: number;
+  /** harf geçişlerini çalıştırır */
+  animate?: boolean;
 }
 
 export function TextFlippingBoard({
@@ -360,6 +393,7 @@ export function TextFlippingBoard({
   text,
   className,
   duration = BASE_TOTAL_S,
+  animate = true,
 }: TextFlippingBoardProps) {
   const scale = duration / BASE_TOTAL_S;
   const colDelay = BASE_COL_DELAY * scale;
@@ -422,7 +456,7 @@ export function TextFlippingBoard({
           row.map((cell, c) =>
             cell.type === "color" ? (
               <ColorCell key={`${r}-${c}`} color={cell.hex} />
-            ) : (
+            ) : animate ? (
               <FlapCell
                 key={`${r}-${c}`}
                 target={cell.value}
@@ -430,6 +464,8 @@ export function TextFlippingBoard({
                 stepMs={stepMs}
                 flipDuration={flipDur}
               />
+            ) : (
+              <StaticFlapCell key={`${r}-${c}`} target={cell.value} />
             ),
           ),
         )}

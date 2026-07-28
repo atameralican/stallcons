@@ -3,8 +3,13 @@
 import { FormEvent, ReactNode, useMemo, useState } from "react";
 import Image from "next/image";
 import { Edit3, ImageIcon, Plus, Save, Trash2, X } from "lucide-react";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Input, message as antMessage, Switch, Upload, type UploadProps } from "antd";
+import LoadingOutlined from "@ant-design/icons/LoadingOutlined";
+import PlusOutlined from "@ant-design/icons/PlusOutlined";
+import Button from "antd/es/button";
+import Input from "antd/es/input";
+import antMessage from "antd/es/message";
+import Switch from "antd/es/switch";
+import Upload, { type UploadProps } from "antd/es/upload";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 

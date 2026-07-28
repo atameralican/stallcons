@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { getProjectsData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
-import type { ProjectRecord } from "@/app/admin/(panel)/projects/project-admin-client";
 
 type Locale = "tr" | "en";
 
@@ -29,44 +29,11 @@ type ProjectMutationPayload = {
 };
 
 export async function GET() {
-    const supabase = await createClient();
-
-    // public okuma açık
-    const { data, error } = await supabase
-        .from("projects")
-        .select(`
-            id,
-            slug,
-            main_photo,
-            year,
-            weight_tons,
-            sort_order,
-            is_favorite,
-            is_published,
-            created_at,
-            updated_at,
-            project_translations (
-                id,
-                locale,
-                title,
-                description
-            ),
-            project_photos (
-                id,
-                url,
-                alt,
-                sort_order,
-                created_at
-            )
-        `)
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: false });
+    const { data: projects, error } = await getProjectsData();
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
     }
-
-    const projects = (data ?? []) as ProjectRecord[];
 
     return NextResponse.json({ projects });
 }

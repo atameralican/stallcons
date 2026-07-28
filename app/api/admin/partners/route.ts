@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { getPartnersData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
-import { PartnerRecord } from "@/app/admin/(panel)/partners/partner-admin-client";
 
 
 
@@ -14,20 +14,11 @@ type PartnerMutationPayload = {
 };
 
 export async function GET() {
-    const supabase = await createClient();
-
-    // public okuma açık
-    const { data, error } = await supabase
-        .from("partners")
-        .select('*')
-        .order("sort_order", { ascending: true })
-        .order("created_at", { ascending: false });
+    const { data: partners, error } = await getPartnersData();
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error }, { status: 500 });
     }
-
-    const partners = (data ?? []) as PartnerRecord[];
 
     return NextResponse.json({ partners });
 }

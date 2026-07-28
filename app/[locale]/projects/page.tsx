@@ -1,38 +1,14 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
 import { buildBreadcrumbJsonLd } from "@/lib/seo";
 import { ProjectShowcase } from "@/components/project-showcase";
 import noPhoto from "@/app/assets/no-photo.webp";
+import { getProjectsData } from "@/lib/data/content";
 
 type Props = { params: Promise<{ locale: string }> };
 
 type Locale = "tr" | "en";
-
-type ProjectTranslation = {
-  locale: Locale;
-  title: string;
-  description: string | null;
-};
-
-type ProjectPhoto = {
-  url: string;
-  sort_order: number;
-};
-
-type ProjectRecord = {
-  slug: string;
-  main_photo: string | null;
-  weight_tons: number | null;
-  is_published: boolean;
-  project_translations: ProjectTranslation[];
-  project_photos: ProjectPhoto[];
-};
-
-type ProjectsResponse = {
-  projects?: ProjectRecord[];
-};
 
 // projeler sayfasının dil bazlı metasını hazırlıyorum
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -82,19 +58,8 @@ export default async function Page({ params }: Props) {
 }
 
 async function getProjects(locale: string) {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
-
-  if (!host) return [];
-
-  const response = await fetch(`${protocol}://${host}/api/admin/projects`, {
-    cache: "no-store",
-  });
-
-  if (!response.ok) return [];
-
-  const { projects = [] } = (await response.json()) as ProjectsResponse;
+  const { data: projects, error } = await getProjectsData();
+  if (error) return [];
   const activeLocale = locale === "en" ? "en" : "tr";
   // çeviri yoksa diğer dile geçiyorum
   const fallbackLocale = activeLocale === "en" ? "tr" : "en";

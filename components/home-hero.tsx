@@ -1,22 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "motion/react";
 import { TextFlippingBoard } from "@/components/ui/text-flipping-board";
 
 const MESSAGES: Record<string, string[]> = {
     tr: [
         "STALLCONS\nSTEEL REDEFINED\nÇELİĞİN YENİ STANDARDI",
-        "COMING SOON\nPRECISION IN STEEL\nYAKINDA HİZMETİNİZDE",
-        "BUILT FOR STRENGTH\nDESIGNED FOR TOMORROW\nGELECEK İÇİN TASARLANDI",
-        "MODERN STEEL\nTIMELESS STRUCTURES\nMODERN ÇELİK YAPILAR",
-        "STALLCONS\nENGINEERING TRUST\nMÜHENDİSLİK & GÜVEN",
+        "AĞIR SANAYİ\nMADEN EKİPMANLARI\nAĞIR HİZMET ÇELİK YAPILARI",
+        "SAVUNMA SANAYİ\nMAKSİMUM GÜVENLİK\nZIRHLI ÇELİK ÇÖZÜMLERİ",
+        "KUSURSUZ TASARIM\nHASSAS ÜRETİM\nHATASIZ MÜHENDİSLİK",
+        "KÜRESEL STANDARTLAR\nSERTİFİKALI ÜRETİM\nULUSLARARASI KALİTE",
     ],
     en: [
-        "STALLCONS\nSTEEL REDEFINED\nTHE NEW STANDARD IN STEEL",
-        "COMING SOON\nPRECISION IN STEEL\nSERVING YOU SOON",
-        "BUILT FOR STRENGTH\nDESIGNED FOR TOMORROW\nENGINEERED FOR THE FUTURE",
-        "MODERN STEEL\nTIMELESS STRUCTURES\nMODERN STEEL STRUCTURES",
-        "STALLCONS\nENGINEERING TRUST\nENGINEERING & CONFIDENCE",
+        "STALLCONS\nINNOVATIVE DESIGN\nTHE NEW STANDARD IN STEEL",
+        "HEAVY INDUSTRY\nMINING EQUIPMENT\nHEAVY DUTY STEEL STRUCTURES",
+        "DEFENSE STRUCTURES\nMAXIMUM SECURITY\nARMORED STEEL SOLUTIONS",
+        "FLAWLESS DESIGN\nPRECISION MANUFACTURING\nZERO DEFECT FABRICATION",
+        "GLOBAL STANDARDS\nCERTIFIED PRODUCTION\nENGINEERING TRUST",
     ],
 };
 
@@ -24,17 +25,105 @@ const MESSAGES: Record<string, string[]> = {
 export function HomeHero({ locale }: { locale: string }) {
     const msgs = MESSAGES[locale] ?? MESSAGES.tr;
     const [msgIdx, setMsgIdx] = useState(0);
+    const [animationReady, setAnimationReady] = useState(false);
+    const [heroVisible, setHeroVisible] = useState(true);
+    const [pageVisible, setPageVisible] = useState(true);
+    const heroRef = useRef<HTMLDivElement>(null);
+    const startedRef = useRef(false);
+    const reducedMotion = useReducedMotion();
     const next = useCallback(() => setMsgIdx((i) => (i + 1) % msgs.length), [msgs.length]);
 
-    // mesajı belli aralıklarla değiştiriyorum
+    // hero ekrandan çıkınca animasyonu durduruyorum
     useEffect(() => {
-        const id = setInterval(next, 12000);
-        return () => clearInterval(id);
-    }, [next]);
+        if (!heroRef.current) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setHeroVisible(entry.isIntersecting),
+            { threshold: 0.1 },
+        );
+
+        observer.observe(heroRef.current);
+        return () => observer.disconnect();
+    }, []);
+
+    // sekme arka plandaysa sayacı durduruyorum
+    useEffect(() => {
+        const updateVisibility = () => setPageVisible(!document.hidden);
+
+        updateVisibility();
+        document.addEventListener("visibilitychange", updateVisibility);
+        return () => document.removeEventListener("visibilitychange", updateVisibility);
+    }, []);
+
+    // ilk mesajı statik tutup yükleme sonrası animasyonu hazırlıyorum
+    useEffect(() => {
+        if (reducedMotion) return;
+
+        let delayId: number | undefined;
+        let idleId: number | undefined;
+        let cancelled = false;
+
+        const prepareAnimation = () => {
+            const idleWindow = window as Window & {
+                requestIdleCallback?: (
+                    callback: () => void,
+                    options?: { timeout: number },
+                ) => number;
+                cancelIdleCallback?: (id: number) => void;
+            };
+            const startDelay = () => {
+                delayId = window.setTimeout(() => {
+                    if (!cancelled) setAnimationReady(true);
+                }, 3000);
+            };
+
+            if (idleWindow.requestIdleCallback) {
+                idleId = idleWindow.requestIdleCallback(startDelay, { timeout: 2000 });
+            } else {
+                startDelay();
+            }
+        };
+
+        if (document.readyState === "complete") {
+            prepareAnimation();
+        } else {
+            window.addEventListener("load", prepareAnimation, { once: true });
+        }
+
+        return () => {
+            cancelled = true;
+            window.removeEventListener("load", prepareAnimation);
+            if (delayId !== undefined) window.clearTimeout(delayId);
+
+            const idleWindow = window as Window & {
+                cancelIdleCallback?: (id: number) => void;
+            };
+            if (idleId !== undefined) idleWindow.cancelIdleCallback?.(idleId);
+        };
+    }, [reducedMotion]);
+
+    // hazır olduğunda ikinci mesaja geçip normal aralığı başlatıyorum
+    useEffect(() => {
+        if (!animationReady || reducedMotion || !heroVisible || !pageVisible) return;
+
+        if (!startedRef.current) {
+            startedRef.current = true;
+            next();
+        }
+
+        const id = window.setInterval(next, 12000);
+        return () => window.clearInterval(id);
+    }, [animationReady, heroVisible, next, pageVisible, reducedMotion]);
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center px-4 py-10-">
-            <TextFlippingBoard text={msgs[msgIdx]} />
+        <div
+            ref={heroRef}
+            className="flex min-h-screen flex-col items-center justify-center px-4 py-10-"
+        >
+            <TextFlippingBoard
+                text={msgs[msgIdx]}
+                animate={animationReady && !reducedMotion}
+            />
             <div className="mt-10 flex flex-col items-center text-center">
                 <h1 className="select-none text-[16vw] font-black uppercase tracking-[-0.08em] leading-none sm:text-[12vw] lg:text-[10rem]">
                     STALLCONS

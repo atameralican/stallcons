@@ -6,7 +6,7 @@ import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import Footer from "@/components/footer";
-import { headers } from "next/headers";
+import { getActivityAreasData } from "@/lib/data/content";
 
 type Props = {
   children: React.ReactNode;
@@ -28,11 +28,6 @@ type ActivityAreaRecord = {
   is_active: boolean;
   sort_order: number;
   activity_area_translations: ActivityAreaTranslation[];
-};
-
-type ActivityAreasResponse = {
-  activityAreas?: ActivityAreaRecord[];
-  error?: string;
 };
 
 // public sayfalara dil tema menü ve footer ekliyorum
@@ -70,29 +65,14 @@ export default async function LocaleLayout({ children, params }: Props) {
 
 // menüde gösterilecek faaliyet alanlarını alıyorum
 async function getNavbarActivityAreas(locale: Locale): Promise<NavbarActivityAreaLink[]> {
-  const headerStore = await headers();
-  const host = headerStore.get("host");
-  const protocol = headerStore.get("x-forwarded-proto") ?? "http";
+  const { data, error } = await getActivityAreasData();
+  if (error) return [];
 
-  if (!host) return [];
-
-  try {
-    const response = await fetch(`${protocol}://${host}/api/admin/activity-areas`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) return [];
-
-    const result = (await response.json()) as ActivityAreasResponse;
-
-    return (result.activityAreas ?? [])
-      .filter((activityArea) => activityArea.is_active)
-      .sort((a, b) => a.sort_order - b.sort_order)
-      .map((activityArea) => mapActivityAreaForNavbar(activityArea, locale))
-      .filter((activityArea): activityArea is NavbarActivityAreaLink => Boolean(activityArea));
-  } catch {
-    return [];
-  }
+  return data
+    .filter((activityArea) => activityArea.is_active)
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((activityArea) => mapActivityAreaForNavbar(activityArea, locale))
+    .filter((activityArea): activityArea is NavbarActivityAreaLink => Boolean(activityArea));
 }
 
 function mapActivityAreaForNavbar(activityArea: ActivityAreaRecord, locale: Locale): NavbarActivityAreaLink | null {
