@@ -2,20 +2,20 @@
   "Metadata": {
     "siteName": "Stallcons – Steel Construction",
     "home": {
-      "title": "Stallcons – Steel Construction",
-      "description": "Stallcons | Professional steel construction solutions in design, manufacturing, assembly and engineering."
+      "title": "Structural Steel Engineering, Fabrication and Erection",
+      "description": "Stallcons provides structural steel engineering, fabrication, international delivery, and on-site erection solutions from its production base in Ankara."
     },
     "aboutUs": {
-      "title": "About Us | Stallcons – Steel Construction",
-      "description": "Learn more about Stallcons. Professional engineering and construction services with years of experience in steel construction."
+      "title": "About Us",
+      "description": "Learn how Stallcons supports projects in Türkiye and international markets with structural engineering, steel fabrication, delivery, erection, and consulting."
     },
     "quality": {
-      "title": "Quality | Stallcons – Steel Construction",
-      "description": "Stallcons quality standards and certifications. Steel construction services at international standards."
+      "title": "Quality Approach",
+      "description": "Explore the Stallcons quality approach to structural steel projects, including material tracking, weld inspection, non-destructive testing, and documentation."
     },
     "missionVision": {
-      "title": "Mission & Vision | Stallcons – Steel Construction",
-      "description": "Stallcons mission and vision. We aim to be a leader in sustainable steel construction solutions."
+      "title": "Mission and Vision",
+      "description": "Discover the Stallcons mission and vision for structural engineering, dependable fabrication, international project delivery, and lasting business partnerships."
     },
     "steelConstruction": {
       "title": "Steel Construction | Stallcons – Expertise Areas",
@@ -42,15 +42,15 @@
       "description": "Stallcons mining equipment and steel structures: Heavy-duty mining infrastructure and industrial steel fabrication."
     },
     "projects": {
-      "title": "Projects | Stallcons – Steel Construction",
-      "description": "Stallcons completed and ongoing projects. Industrial structures and steel construction projects."
+      "title": "Structural Steel Projects",
+      "description": "Explore Stallcons structural steel project references for industrial facilities, production areas, and custom structures delivered for a range of requirements."
     },
     "contact": {
-      "title": "Contact | Stallcons – Steel Construction",
-      "description": "Contact Stallcons. Reach out to us for a quote on our steel construction services."
+      "title": "Contact and Request a Quote",
+      "description": "Contact Stallcons to discuss structural steel engineering, fabrication, international delivery, erection, consulting, or a tailored project quotation."
     },
     "privacyPolicy": {
-      "title": "Privacy Policy | Stallcons",
+      "title": "Privacy Policy",
       "description": "Stallcons privacy policy regarding the processing, retention, transfer and rights related to personal data."
     }
   },
@@ -120,6 +120,13 @@
     "imageLoadError": "Image could not be loaded"
   },
   "Pages": {
+    "activityDetail": {
+      "nextStepTitle": "Plan the next step for your project",
+      "nextStepDescription": "Review related project work or contact our team to discuss structural engineering, fabrication, international delivery, and on-site erection requirements.",
+      "projectsLink": "View our projects",
+      "contactLink": "Request a project consultation",
+      "relatedLabel": "Related expertise areas"
+    },
     "home": {
       "activitiesTitle": "Activities",
       "activitiesDescription": "With our broad experience, we are your reliable partner in industrial facilities, construction projects, automation systems and energy solutions. We manage your projects from start to finish with years of expertise.",
@@ -133,7 +140,7 @@
       "description": "Your reliable partner in steel construction",
       "storyHeading": "The Team That Turns Steel Into Structure",
       "storyBody1": "Stallcons is an Ankara-based steel construction firm. From structural design and fabrication to on-site installation and technical consulting, we manage every phase under one roof. We hold engineering precision, on-time delivery, and long-term reliability as non-negotiables on every project.",
-      "storyBody2": "We serve across industrial facilities, defense structures, aviation hangars, mining equipment, and steel structures. With production aligned to international standards and an experienced engineering team, we are present at every stage of your project.",
+      "storyBody2": "We provide engineering and structural steel solutions for industrial facilities, production buildings, warehouses, logistics centers, mining facilities, and defense projects. For work in Türkiye and abroad, the scope can include drafting, consulting, delivery, and on-site erection.",
       "storyImageAlt": "Stallcons engineering team in the field",
       "valuesHeading": "Why Stallcons?",
       "value1Title": "Engineering First",
@@ -141,23 +148,23 @@
       "value2Title": "End-to-End Ownership",
       "value2Desc": "One team manages the full scope, from design to installation. No coordination gaps, no lost contacts. The same team with the same accountability at every stage of your project.",
       "value3Title": "International Standards",
-      "value3Desc": "Manufacturing in compliance with EN and ISO norms, with documented quality control throughout. Every weld is traceable, every component tested. Work without documentation does not ship."
+      "value3Desc": "We address design, material, welding, inspection, and documentation requirements according to each contract and technical specification. Applicable standards and inspection scope are defined at the start of the project."
     },
     "quality": {
       "title": "Quality",
-      "description": "Production and quality assurance at international standards",
+      "description": "A quality control approach planned around project requirements",
       "introHeading": "Quality Starts at the Drawing Board, Not at Delivery",
-      "introBody1": "We review every project's technical specification against EN 1090 and ISO 3834 requirements. From material receipt to the final weld on site, measurement, testing, and verification take place at every critical point.",
-      "introBody2": "Our quality control team works inside the production process, not separate from it. Every welding procedure is approved, every material certified, every component traceable. Work without documentation does not ship.",
+      "introBody1": "Before work begins, we review the technical specification, acceptance criteria, and required turnover documents. Measurement, testing, and verification steps from material receipt through site erection are defined in the project inspection plan.",
+      "introBody2": "Welding procedures, material documentation, traceability, and examination requirements are evaluated separately for each project. Independent inspection providers are coordinated when the contract calls for third-party testing or review.",
       "pillarsHeading": "Our Quality Approach",
-      "pillar1Title": "Welded Structures — EN 1090",
-      "pillar1Desc": "Certified production under execution classes EXC 2 and EXC 3. Compliance with EN 1090 across the design, fabrication, and assembly of welded steel structures is documented and independently verified.",
-      "pillar2Title": "Weld Quality — ISO 3834",
-      "pillar2Desc": "Production under approved welding procedure specifications (WPS/pWPS), certified welders, and welding coordinator supervision. The full set of quality requirements for fusion welding of metallic materials is met.",
+      "pillar1Title": "Project Standards and Acceptance Criteria",
+      "pillar1Desc": "Design and fabrication standards, execution classes, and acceptance criteria are established from the client specification and contract documents, then incorporated into the inspection plan.",
+      "pillar2Title": "Welding Documentation",
+      "pillar2Desc": "Welding procedures, personnel qualifications, and inspection records are reviewed to the extent required by the project. Missing items and additional verification needs are identified before fabrication.",
       "pillar3Title": "Material Traceability",
-      "pillar3Desc": "Certificate checks and heat number tracking for every incoming steel profile and plate. A complete traceability record from raw material to delivery is accessible at every project stage.",
+      "pillar3Desc": "Material documents and heat number records are checked according to the traceability level required by the project specification and linked to the applicable turnover documentation.",
       "pillar4Title": "Non-Destructive Testing",
-      "pillar4Desc": "Visual examination (VT), ultrasonic testing (UT), and radiographic testing (RT) on critical joints. Independent third-party audits and internal quality records are maintained in parallel."
+      "pillar4Desc": "VT, UT, MT, PT, or RT methods are planned only where required by the project specification and its acceptance criteria. Independent providers can be coordinated when third-party examination is required."
     },
     "missionVision": {
       "title": "Mission & Vision",
@@ -178,7 +185,9 @@
     },
     "projects": {
       "title": "Projects",
-      "description": "Our completed and ongoing steel construction projects"
+      "description": "Our completed and ongoing steel construction projects",
+      "allProjects": "All Projects",
+      "emptyProjects": "No projects have been published yet."
     },
     "contact": {
       "title": "Contact",

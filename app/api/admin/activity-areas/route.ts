@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 
 import { getActivityAreasData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
+import { submitIndexNow } from "@/lib/indexnow";
 
 type Locale = "tr" | "en";
 
@@ -64,6 +65,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: saveError }, { status: 500 });
     }
 
+    after(() => submitIndexNow(getActivityPaths(payload)));
+
     return NextResponse.json({ id: data.id }, { status: 201 });
 }
 
@@ -100,6 +103,8 @@ export async function PUT(request: Request) {
         return NextResponse.json({ error: saveError }, { status: 500 });
     }
 
+    after(() => submitIndexNow(getActivityPaths(payload)));
+
     return NextResponse.json({ id: payload.id });
 }
 
@@ -115,6 +120,11 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ error: "Faaliyet alanı id zorunludur." }, { status: 400 });
     }
 
+    const { data: translations } = await supabase
+        .from("activity_area_translations")
+        .select("locale, slug")
+        .eq("activity_area_id", id);
+
     const { error } = await supabase
         .from("activity_areas")
         .delete()
@@ -124,7 +134,19 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    after(() => submitIndexNow(
+        ["/tr", "/en", ...(translations ?? [])
+            .filter((translation) => translation.locale === "tr" || translation.locale === "en")
+            .map((translation) => `/${translation.locale}/expertise-areas/${translation.slug}`)],
+    ));
+
     return NextResponse.json({ id });
+}
+
+function getActivityPaths(payload: ActivityAreaMutationPayload) {
+    return ["/tr", "/en", ...payload.translations.map(
+        (translation) => `/${translation.locale}/expertise-areas/${translation.slug}`,
+    )];
 }
 
 async function requireAdmin(supabase: Awaited<ReturnType<typeof createClient>>) {

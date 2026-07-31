@@ -18,9 +18,13 @@ interface Project {
 export function ProjectShowcase({
     projects,
     fallbackImage,
+    heading,
+    emptyMessage,
 }: {
     projects: Project[]
     fallbackImage: string
+    heading: string
+    emptyMessage: string
 }) {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -106,7 +110,9 @@ export function ProjectShowcase({
 
     return (
         <section ref={containerRef} onMouseMove={handleMouseMove} className="relative w-full max-w-7xl mx-auto px-6 py-16">
-            <h2 className="text-muted-foreground text-sm- font-medium- tracking-wide uppercase mb-8">Tüm Projeler</h2>
+            <h2 className="text-muted-foreground text-sm- font-medium- tracking-wide uppercase mb-8">
+                {heading}
+            </h2>
 
             <div
                 className="pointer-events-none absolute z-50 overflow-hidden rounded-xl shadow-2xl"
@@ -143,7 +149,7 @@ export function ProjectShowcase({
             <div className="space-y-0">
                 {projects.length === 0 && (
                     <div className="border-t border-border py-8 text-sm text-muted-foreground">
-                        Henüz yayınlanmış proje bulunmuyor.
+                        {emptyMessage}
                     </div>
                 )}
                 {projects.map((project, index) => (

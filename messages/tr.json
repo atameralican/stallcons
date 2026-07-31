@@ -2,20 +2,20 @@
   "Metadata": {
     "siteName": "Stallcons – Çelik Konstrüksiyon",
     "home": {
-      "title": "Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons | Tasarım, imalat, montaj ve mühendislik alanlarında profesyonel çelik konstrüksiyon çözümleri."
+      "title": "Çelik Konstrüksiyon, Mühendislik ve Montaj",
+      "description": "Ankara merkezli Stallcons; çelik konstrüksiyon, yapısal mühendislik, imalat, yurt dışı sevkiyat ve sahada montaj çözümleri sunar."
     },
     "aboutUs": {
-      "title": "Hakkımızda | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons hakkında daha fazla bilgi edinin. Çelik konstrüksiyon alanında yılların deneyimiyle profesyonel hizmetler."
+      "title": "Hakkımızda",
+      "description": "Stallcons’un Ankara’dan Türkiye ve yurt dışındaki projelere sunduğu çelik yapı mühendisliği, imalat, sevkiyat, montaj ve danışmanlık yaklaşımını tanıyın."
     },
     "quality": {
-      "title": "Kalite | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons kalite standartları ve sertifikaları. Uluslararası standartlarda çelik konstrüksiyon hizmetleri."
+      "title": "Kalite Yaklaşımımız",
+      "description": "Stallcons’un çelik yapı projelerinde malzeme takibi, kaynak kontrolleri, tahribatsız muayene ve dokümantasyon odaklı kalite yaklaşımını inceleyin."
     },
     "missionVision": {
-      "title": "Misyon & Vizyon | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons misyonu ve vizyonu. Sürdürülebilir çelik konstrüksiyon çözümleriyle sektörün öncüsü olmayı hedefliyoruz."
+      "title": "Misyon ve Vizyon",
+      "description": "Stallcons’un çelik yapı mühendisliği, güvenilir üretim, uluslararası proje teslimi ve uzun vadeli iş ortaklığı odağındaki misyon ve vizyonunu keşfedin."
     },
     "steelConstruction": {
       "title": "Çelik Konstrüksiyon | Stallcons – Faaliyet Alanları",
@@ -42,15 +42,15 @@
       "description": "Stallcons maden ekipmanları ve çelik yapıları: Ağır hizmet tipi maden altyapısı ve endüstriyel çelik imalatları."
     },
     "projects": {
-      "title": "Projeler | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons tamamlanan ve devam eden projeleri. Endüstriyel yapılar ve çelik konstrüksiyon projelerimiz."
+      "title": "Çelik Konstrüksiyon Projeleri",
+      "description": "Stallcons’un endüstriyel tesisler, üretim alanları ve özel yapılar için gerçekleştirdiği çelik konstrüksiyon proje referanslarını inceleyin."
     },
     "contact": {
-      "title": "İletişim | Stallcons – Çelik Konstrüksiyon",
-      "description": "Stallcons ile iletişime geçin. Çelik konstrüksiyon hizmetlerimiz hakkında teklif almak için bize ulaşın."
+      "title": "İletişim ve Teklif",
+      "description": "Çelik konstrüksiyon, mühendislik, imalat, yurt dışı sevkiyat veya montaj projeniz için Stallcons ile iletişime geçin ve teklif talebinizi iletin."
     },
     "privacyPolicy": {
-      "title": "Aydınlatma Metni / Gizlilik Politikası | Stallcons",
+      "title": "Aydınlatma Metni ve Gizlilik Politikası",
       "description": "Stallcons kişisel verilerin işlenmesi, saklanması, aktarılması ve ilgili kişi haklarına ilişkin aydınlatma metni."
     }
   },
@@ -120,6 +120,13 @@
     "imageLoadError": "Görsel yüklenemedi"
   },
   "Pages": {
+    "activityDetail": {
+      "nextStepTitle": "Projeniz için sonraki adım",
+      "nextStepDescription": "Benzer uygulamalarımızı inceleyebilir veya mühendislik, imalat, yurt dışı sevkiyat ve sahada montaj ihtiyaçlarınız için ekibimizle iletişime geçebilirsiniz.",
+      "projectsLink": "Projeleri inceleyin",
+      "contactLink": "Teklif görüşmesi başlatın",
+      "relatedLabel": "İlgili faaliyet alanları"
+    },
     "home": {
       "activitiesTitle": "Faaliyetler",
       "activitiesDescription": "Kapsamlı deneyimimizle endüstriyel tesisler, inşaat projeleri, otomasyon sistemleri ve enerji çözümlerinde güvenilir partneriniziz. Yıllara dayanan uzmanlığımızla projelerinizi baştan sona yönetiyoruz.",
@@ -133,7 +140,7 @@
       "description": "Çelik konstrüksiyon alanında güvenilir çözüm ortağınız",
       "storyHeading": "Çeliği Projeden Yapıya Taşıyan Ekip",
       "storyBody1": "Stallcons, Ankara merkezli bir çelik konstrüksiyon firmasıdır. Statik tasarımdan imalata, sahada montajdan teknik danışmanlığa kadar tüm süreçleri tek çatı altında yönetiyoruz. Her projede mühendislik titizliğini, zamanında teslimatı ve uzun vadeli güveni ön planda tutuyoruz.",
-      "storyBody2": "Endüstriyel tesislerden savunma yapılarına, havacılık hangarlarından maden ekipmanları ve çelik yapılarına kadar geniş bir yelpazede hizmet veriyoruz. Uluslararası standartlara uygun üretim anlayışımız ve deneyimli mühendis kadromuzla projelerinizin her aşamasında yanınızdayız.",
+      "storyBody2": "Endüstriyel tesisler, üretim alanları, depolar, lojistik merkezleri, maden tesisleri ve savunma projeleri için mühendislik ve çelik yapı çözümleri sunuyoruz. Türkiye ve yurt dışındaki projelerde çizim, danışmanlık, sevkiyat ve sahada montaj ihtiyaçlarına göre kapsam oluşturuyoruz.",
       "storyImageAlt": "Stallcons mühendislik ekibi sahada",
       "valuesHeading": "Neden Stallcons?",
       "value1Title": "Mühendislik Önce Gelir",
@@ -141,23 +148,23 @@
       "value2Title": "Uçtan Uca Sorumluluk",
       "value2Desc": "Tasarımdan sahaya kadar tüm süreci tek ekip yönetir. Koordinasyon kopukluğu olmaz, muhatap kaybolmaz. Projenizin her aşamasında aynı ekip, aynı hesap verebilirlik.",
       "value3Title": "Uluslararası Standart",
-      "value3Desc": "EN ve ISO normlarına uygun imalat, belgelenmiş kalite kontrol süreci. Her kaynak dikişi izlenebilir, her bileşen test edilmiş. Belge olmayan iş teslim edilmez."
+      "value3Desc": "Her projenin tasarım, malzeme, kaynak, muayene ve dokümantasyon gerekliliklerini sözleşme ve teknik şartnameye göre ele alıyoruz. Uygulanacak standart ve kontrol kapsamı proje başında açıkça belirlenir."
     },
     "quality": {
       "title": "Kalite",
-      "description": "Uluslararası standartlarda üretim ve kalite güvencesi",
+      "description": "Proje şartlarına göre planlanan kalite kontrol yaklaşımı",
       "introHeading": "Kalite Teslimatta Değil, Tasarım Masasında Başlar",
-      "introBody1": "Her projenin teknik şartnamesini EN 1090 ve ISO 3834 gereklilikleri çerçevesinde inceliyoruz. Malzeme kabulünden sahada son montaj kaynağına kadar kritik her noktada ölçüm, test ve doğrulama yapılır.",
-      "introBody2": "Kalite kontrol ekibimiz üretim sürecinin dışında değil, içinde çalışır. Her kaynak prosedürü onaylı, her malzeme sertifikalı, her bileşen izlenebilir. Belge olmayan iş teslim edilmez.",
+      "introBody1": "Her projenin teknik şartnamesini, kabul kriterlerini ve teslim dokümanlarını işe başlamadan önce inceliyoruz. Malzeme kabulünden saha montajına kadar gerekli ölçüm, test ve doğrulama adımları proje kontrol planında tanımlanır.",
+      "introBody2": "Kaynak prosedürü, malzeme belgesi, izlenebilirlik ve muayene gereklilikleri her proje için ayrı değerlendirilir. Bağımsız denetim veya özel test gerektiğinde ilgili kuruluşlarla koordinasyon sağlanır.",
       "pillarsHeading": "Kalite Anlayışımız",
-      "pillar1Title": "Kaynaklı Yapı — EN 1090",
-      "pillar1Desc": "EXC 2 ve EXC 3 yürütme sınıfları kapsamında sertifikalı üretim. Kaynaklı çelik yapıların tasarım, imalat ve montaj aşamalarında EN 1090 normuna uygunluk belgelenmiş ve bağımsız denetimle doğrulanmış.",
-      "pillar2Title": "Kaynak Kalitesi — ISO 3834",
-      "pillar2Desc": "Onaylı kaynak prosedürleri (WPS/pWPS), sertifikalı kaynakçılar ve kaynak koordinatörü gözetiminde üretim. Metalik malzemelerin füzyon kaynağında kapsamlı kalite gerekliliklerinin tamamı karşılanmış.",
+      "pillar1Title": "Proje Standardı ve Kabul Kriterleri",
+      "pillar1Desc": "Uygulanacak tasarım ve imalat standardı, yürütme sınıfı ve kabul kriterleri müşteri şartnamesi ile sözleşme dokümanlarına göre belirlenir ve kontrol planına aktarılır.",
+      "pillar2Title": "Kaynak Dokümantasyonu",
+      "pillar2Desc": "Kaynak prosedürleri, personel yeterlilikleri ve kontrol kayıtları projenin gerektirdiği kapsamda incelenir. Eksik veya ek doğrulama gerektiren noktalar üretim öncesinde belirlenir.",
       "pillar3Title": "Malzeme İzlenebilirliği",
-      "pillar3Desc": "Gelen her çelik profil ve levha için sertifika kontrolü ve ısı numarası takibi yapılır. Hammaddeden teslimata uzanan tam izlenebilirlik kaydı projenin her aşamasında erişilebilir.",
+      "pillar3Desc": "Malzeme belgeleri ve ısı numarası kayıtları, proje şartnamesinde talep edilen izlenebilirlik seviyesine göre kontrol edilir ve teslim dokümantasyonunda ilişkilendirilir.",
       "pillar4Title": "Tahribatsız Muayene",
-      "pillar4Desc": "Kritik birleşimlerde görsel muayene (VT), ultrasonik test (UT) ve radyografik test (RT) uygulaması. Bağımsız üçüncü taraf denetimleri ile iç kalite kayıtları eşzamanlı tutulur."
+      "pillar4Desc": "VT, UT, MT, PT veya RT gibi muayene yöntemleri yalnızca proje şartnamesinde tanımlanan birleşimlere ve kabul kriterlerine göre planlanır; gerektiğinde bağımsız kuruluşlarla koordinasyon sağlanır."
     },
     "missionVision": {
       "title": "Misyon & Vizyon",
@@ -178,7 +185,9 @@
     },
     "projects": {
       "title": "Projeler",
-      "description": "Tamamlanan ve devam eden çelik konstrüksiyon projelerimiz"
+      "description": "Tamamlanan ve devam eden çelik konstrüksiyon projelerimiz",
+      "allProjects": "Tüm Projeler",
+      "emptyProjects": "Henüz yayınlanmış proje bulunmuyor."
     },
     "contact": {
       "title": "İletişim",

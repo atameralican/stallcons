@@ -8,16 +8,16 @@ const MESSAGES: Record<string, string[]> = {
     tr: [
         "STALLCONS\nSTEEL REDEFINED\nÇELİĞİN YENİ STANDARDI",
         "AĞIR SANAYİ\nMADEN EKİPMANLARI\nAĞIR HİZMET ÇELİK YAPILARI",
-        "SAVUNMA SANAYİ\nMAKSİMUM GÜVENLİK\nZIRHLI ÇELİK ÇÖZÜMLERİ",
-        "KUSURSUZ TASARIM\nHASSAS ÜRETİM\nHATASIZ MÜHENDİSLİK",
-        "KÜRESEL STANDARTLAR\nSERTİFİKALI ÜRETİM\nULUSLARARASI KALİTE",
+        "SAVUNMA SANAYİ\nTEKNİK KOORDİNASYON\nÇELİK YAPI ÇÖZÜMLERİ",
+        "UYGULANABİLİR TASARIM\nHASSAS ÜRETİM\nSAHA ODAKLI MÜHENDİSLİK",
+        "PROJE STANDARTLARI\nKONTROLLÜ ÜRETİM\nDOKÜMANTE EDİLEN SÜREÇ",
     ],
     en: [
         "STALLCONS\nINNOVATIVE DESIGN\nTHE NEW STANDARD IN STEEL",
         "HEAVY INDUSTRY\nMINING EQUIPMENT\nHEAVY DUTY STEEL STRUCTURES",
-        "DEFENSE STRUCTURES\nMAXIMUM SECURITY\nARMORED STEEL SOLUTIONS",
-        "FLAWLESS DESIGN\nPRECISION MANUFACTURING\nZERO DEFECT FABRICATION",
-        "GLOBAL STANDARDS\nCERTIFIED PRODUCTION\nENGINEERING TRUST",
+        "DEFENSE PROJECTS\nTECHNICAL COORDINATION\nSTRUCTURAL STEEL SOLUTIONS",
+        "BUILDABLE DESIGN\nPRECISION FABRICATION\nSITE-FOCUSED ENGINEERING",
+        "PROJECT STANDARDS\nCONTROLLED FABRICATION\nDOCUMENTED PROCESSES",
     ],
 };
 
@@ -131,8 +131,8 @@ export function HomeHero({ locale }: { locale: string }) {
                 <div className="mt-2 h-[2px] w-32 bg-neutral-700" />
                 <p className="mt-5 max-w-xl text-sm leading-relaxed text-neutral-400 sm:text-base">
                     {locale === "tr"
-                        ? "Yakında profesyonel çelik konstrüksiyon hizmetlerimizle hizmetinizdeyiz."
-                        : "Professional steel construction services, coming soon."}
+                        ? "Çeliği projeden sahaya taşıyan mühendislik, imalat ve montaj çözümleri."
+                        : "Engineering, fabrication and installation solutions that bring steel structures from design to site."}
                 </p>
             </div>
         </div>
