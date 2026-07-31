@@ -1,17 +1,14 @@
-import { MetadataRoute } from 'next';
-
-const BASE_URL = 'https://stallcons.com';
+import type { MetadataRoute } from "next";
+import { BASE_URL } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
+      userAgent: "*",
+      allow: "/",
       disallow: [
-        '/admin',
-        '/*/admin',
-        '/api',
-        '/*/api',
+        "/api",
+        "/*/api",
       ],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,

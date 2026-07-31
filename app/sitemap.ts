@@ -1,57 +1,55 @@
-import { MetadataRoute } from 'next';
-import { createClient } from '@supabase/supabase-js';
+import type { MetadataRoute } from "next";
+import { createClient } from "@supabase/supabase-js";
+import { BASE_URL, type PublicLocale } from "@/lib/seo";
 
-const BASE_URL = 'https://stallcons.com';
-const locales = ['tr', 'en'];
+export const dynamic = "force-dynamic";
 
-const staticPaths = [
-  '',
-  '/company/about-us',
-  '/company/mission-vision',
-  '/company/quality',
-  '/projects',
-  '/contact',
-];
+const LOCALES: PublicLocale[] = ["tr", "en"];
+
+const STATIC_PATHS = [
+  "",
+  "/company/about-us",
+  "/company/mission-vision",
+  "/company/quality",
+  "/projects",
+  "/contact",
+  "/privacy-policy",
+] as const;
+
+type SitemapTranslation = {
+  locale: string;
+  slug: string;
+};
 
 type SitemapActivityArea = {
-  activity_area_translations: Array<{
-    locale: string;
-    slug: string;
-  }>;
+  id: string;
+  updated_at: string | null;
+  activity_area_translations: SitemapTranslation[];
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const sitemapEntries: MetadataRoute.Sitemap = [];
+  const staticEntries = STATIC_PATHS.flatMap((path) =>
+    LOCALES.map((locale) => createStaticEntry(locale, path)),
+  );
 
-  for (const path of staticPaths) {
-    for (const locale of locales) {
-      sitemapEntries.push(createSitemapEntry(locale, path));
-    }
-  }
-
-  return [...sitemapEntries, ...(await getActivityAreaSitemapEntries())];
+  return [...staticEntries, ...(await getActivityAreaEntries())];
 }
 
-function createSitemapEntry(
-  locale: string,
-  path: string,
-  alternates: Record<string, string> = {
-    tr: `${BASE_URL}/tr${path}`,
-    en: `${BASE_URL}/en${path}`,
-  }
-) {
+function createStaticEntry(
+  locale: PublicLocale,
+  path: (typeof STATIC_PATHS)[number],
+): MetadataRoute.Sitemap[number] {
+  const languageUrls = createLanguageUrls(path, path);
+
   return {
     url: `${BASE_URL}/${locale}${path}`,
-    lastModified: new Date(),
-    changeFrequency: path === '' ? 'weekly' : 'monthly',
-    priority: path === '' ? 1.0 : 0.8,
     alternates: {
-      languages: alternates,
+      languages: languageUrls,
     },
-  } satisfies MetadataRoute.Sitemap[number];
+  };
 }
 
-async function getActivityAreaSitemapEntries() {
+async function getActivityAreaEntries(): Promise<MetadataRoute.Sitemap> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
@@ -65,40 +63,75 @@ async function getActivityAreaSitemapEntries() {
   });
 
   const { data, error } = await supabase
-    .from('activity_areas')
+    .from("activity_areas")
     .select(`
+      id,
+      updated_at,
       activity_area_translations (
         locale,
         slug
       )
     `)
-    .eq('is_active', true)
-    .order('sort_order', { ascending: true });
+    .eq("is_active", true)
+    .order("sort_order", { ascending: true });
 
   if (error || !data) return [];
 
-  const entries: MetadataRoute.Sitemap = [];
+  return (data as SitemapActivityArea[]).flatMap(createActivityAreaEntries);
+}
 
-  for (const activityArea of data as SitemapActivityArea[]) {
-    const translations = activityArea.activity_area_translations ?? [];
-    const trSlug = translations.find((translation) => translation.locale === 'tr')?.slug;
-    const enSlug = translations.find((translation) => translation.locale === 'en')?.slug;
-    const alternatePaths = {
-      tr: trSlug ? `${BASE_URL}/tr/expertise-areas/${trSlug}` : undefined,
-      en: enSlug ? `${BASE_URL}/en/expertise-areas/${enSlug}` : undefined,
-    };
-    const languages = Object.fromEntries(
-      Object.entries(alternatePaths).filter((entry): entry is [string, string] => Boolean(entry[1]))
-    );
+function createActivityAreaEntries(
+  activityArea: SitemapActivityArea,
+): MetadataRoute.Sitemap {
+  const translations = activityArea.activity_area_translations ?? [];
+  const trTranslation = getTranslation(translations, "tr");
+  const enTranslation = getTranslation(translations, "en");
 
-    if (trSlug) {
-      entries.push(createSitemapEntry('tr', `/expertise-areas/${trSlug}`, languages));
-    }
+  if (!trTranslation && !enTranslation) return [];
 
-    if (enSlug) {
-      entries.push(createSitemapEntry('en', `/expertise-areas/${enSlug}`, languages));
-    }
-  }
+  const languageUrls = createLanguageUrls(
+    trTranslation ? `/expertise-areas/${trTranslation.slug}` : undefined,
+    enTranslation ? `/expertise-areas/${enTranslation.slug}` : undefined,
+  );
 
-  return entries;
+  return LOCALES.flatMap((locale) => {
+    const translation = locale === "tr" ? trTranslation : enTranslation;
+    if (!translation) return [];
+
+    return [{
+      url: `${BASE_URL}/${locale}/expertise-areas/${translation.slug}`,
+      lastModified: getLastModified(activityArea.updated_at),
+      alternates: {
+        languages: languageUrls,
+      },
+    } satisfies MetadataRoute.Sitemap[number]];
+  });
+}
+
+function getTranslation(
+  translations: SitemapTranslation[],
+  locale: PublicLocale,
+) {
+  return translations.find(
+    (translation) => translation.locale === locale && translation.slug.trim(),
+  );
+}
+
+function createLanguageUrls(trPath?: string, enPath?: string) {
+  const languages: Record<string, string> = {};
+
+  if (trPath !== undefined) languages.tr = `${BASE_URL}/tr${trPath}`;
+  if (enPath !== undefined) languages.en = `${BASE_URL}/en${enPath}`;
+
+  const defaultUrl = languages.tr ?? languages.en;
+  if (defaultUrl) languages["x-default"] = defaultUrl;
+
+  return languages;
+}
+
+function getLastModified(updatedAt: string | null) {
+  if (!updatedAt) return undefined;
+
+  const lastModified = new Date(updatedAt);
+  return Number.isNaN(lastModified.getTime()) ? undefined : lastModified;
 }

@@ -27,6 +27,7 @@ import {
 type ImageItem = {
     id: number | string
     title?: string | null
+    alt?: string | null
     desc?: string | null
     url?: string | null
     span: string
@@ -494,7 +495,7 @@ const ImageModal = ({
                                 )}
                                 <Image
                                     src={item.url}
-                                    alt={item.title ?? ""}
+                                    alt={item.alt ?? ""}
                                     fill
                                     sizes="(min-width: 1280px) 1152px, (min-width: 640px) calc(100vw - 9rem), calc(100vw - 2rem)"
                                     quality={MODAL_IMAGE_QUALITY}
@@ -757,7 +758,7 @@ const ExpertiseImageBentoGallery: React.FC<
                                     {hasImageUrl(item) && (
                                         <Image
                                             src={item.url}
-                                            alt={item.title ?? ""}
+                                            alt={item.alt ?? ""}
                                             fill
                                             sizes="(min-width: 768px) 20rem, 15rem"
                                             className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
@@ -897,7 +898,12 @@ function isBulletLine(line: string) {
 }
 
 function isSubheadingLine(line: string) {
-    return normalizeTextForComparison(line).endsWith(":")
+    const normalizedLine = normalizeTextForComparison(line)
+    const wordCount = normalizedLine.split(/\s+/).length
+
+    return normalizedLine.endsWith(":")
+        && normalizedLine.length <= 90
+        && wordCount <= 12
 }
 
 export default ExpertiseImageBentoGallery

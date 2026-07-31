@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import ExpertiseImageBentoGallery from "@/components/bento-gallery";
 import { PageHeader } from "@/components/page-header";
-import { buildBreadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  buildBreadcrumbJsonLd,
+  buildLocalizedAlternates,
+  buildServiceJsonLd,
+  buildSocialMetadata,
+  type PublicLocale,
+} from "@/lib/seo";
+import { getActivitySeo } from "@/lib/activity-seo";
+import { getVerifiedActivityDescription } from "@/lib/activity-content";
 import { getActivityAreasData } from "@/lib/data/content";
 
 type Locale = "tr" | "en";
@@ -26,6 +36,7 @@ type ActivityAreaPhoto = {
 
 type ActivityAreaRecord = {
   id: string;
+  main_photo: string | null;
   is_active: boolean;
   sort_order: number;
   created_at: string;
@@ -38,12 +49,22 @@ type ActivityAreaPageData = {
   title: string;
   subtitle: string;
   description: string;
+  seoTitle: string;
+  seoDescription: string;
+  socialImage?: string;
+  slug: string;
+  localizedPaths: Partial<Record<Locale, string>>;
   imageItems: Array<{
     id: string;
     url: string;
     title: string | null;
+    alt: string;
     desc: string | null;
     span: string;
+  }>;
+  relatedAreas: Array<{
+    title: string;
+    href: string;
   }>;
 };
 
@@ -63,7 +84,7 @@ const PHOTO_SPANS = [
 // faaliyet alanının metasını kayıttan hazırlıyorum
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  const activeLocale: Locale = locale === "en" ? "en" : "tr";
+  const activeLocale: PublicLocale = locale === "en" ? "en" : "tr";
   const activityArea = await getActivityAreaBySlug(activeLocale, slug);
 
   if (!activityArea) {
@@ -72,18 +93,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const b = await getTranslations({ locale: activeLocale, namespace: "Breadcrumb" });
-
   return {
-    title: activityArea.title,
-    description: activityArea.subtitle,
-    other: {
-      "application/ld+json": buildBreadcrumbJsonLd([
-        { name: b("home"), href: "/" },
-        { name: b("expertiseAreas") },
-        { name: activityArea.title },
-      ]),
-    },
+    title: activityArea.seoTitle,
+    description: activityArea.seoDescription,
+    alternates: buildLocalizedAlternates(
+      activeLocale,
+      `/expertise-areas/${activityArea.slug}`,
+      activityArea.localizedPaths,
+    ),
+    ...buildSocialMetadata({
+      locale: activeLocale,
+      path: `/expertise-areas/${activityArea.slug}`,
+      title: activityArea.seoTitle,
+      description: activityArea.seoDescription,
+      image: activityArea.socialImage,
+      imageAlt: activeLocale === "tr"
+        ? `${activityArea.title} faaliyet alanı görseli`
+        : `${activityArea.title} service area image`,
+    }),
   };
 }
 
@@ -98,9 +125,25 @@ export default async function ActivityAreaDetailPage({ params }: Props) {
   }
 
   const b = await getTranslations({ locale: activeLocale, namespace: "Breadcrumb" });
+  const t = await getTranslations({ locale: activeLocale, namespace: "Pages.activityDetail" });
 
   return (
     <>
+      <JsonLd
+        data={buildBreadcrumbJsonLd(activeLocale, [
+          { name: b("home"), href: "/" },
+          { name: b("expertiseAreas") },
+          { name: activityArea.title },
+        ])}
+      />
+      <JsonLd
+        data={buildServiceJsonLd({
+          locale: activeLocale,
+          path: `/expertise-areas/${activityArea.slug}`,
+          name: activityArea.title,
+          description: activityArea.seoDescription,
+        })}
+      />
       <PageHeader
         title={activityArea.title}
         description={activityArea.subtitle}
@@ -118,6 +161,44 @@ export default async function ActivityAreaDetailPage({ params }: Props) {
           />
         )}
       </div>
+      <section className="mx-auto mt-12 max-w-5xl px-4 md:px-6">
+        <div className="rounded-3xl border border-black/10 bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04] md:p-8">
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+            {t("nextStepTitle")}
+          </h2>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-muted-foreground">
+            {t("nextStepDescription")}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href={`/${activeLocale}/projects`}
+              className="rounded-full bg-[#1E50A0] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#173f80]"
+            >
+              {t("projectsLink")}
+            </Link>
+            <Link
+              href={`/${activeLocale}/contact`}
+              className="rounded-full border border-black/15 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+            >
+              {t("contactLink")}
+            </Link>
+          </div>
+          {activityArea.relatedAreas.length > 0 && (
+            <nav className="mt-8 border-t border-black/10 pt-6 dark:border-white/10" aria-label={t("relatedLabel")}>
+              <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                {t("relatedLabel")}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                {activityArea.relatedAreas.map((area) => (
+                  <Link key={area.href} href={`/${activeLocale}${area.href}`} className="font-medium text-[#1E50A0] underline-offset-4 hover:underline dark:text-blue-400">
+                    {area.title}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          )}
+        </div>
+      </section>
     </>
   );
 }
@@ -127,13 +208,13 @@ async function getActivityAreaBySlug(locale: Locale, slug: string) {
   const activityAreas = await getActivityAreas();
   const matchedArea = activityAreas.find((activityArea) =>
     activityArea.activity_area_translations.some((translation) =>
-      translation.slug === slug && (translation.locale === locale || translation.locale === "tr" || translation.locale === "en")
+      translation.locale === locale && translation.slug === slug
     )
   );
 
   if (!matchedArea?.is_active) return null;
 
-  return mapActivityAreaForPage(matchedArea, locale, slug);
+  return mapActivityAreaForPage(matchedArea, activityAreas, locale, slug);
 }
 
 async function getActivityAreas() {
@@ -141,12 +222,10 @@ async function getActivityAreas() {
   return error ? [] as ActivityAreaRecord[] : data;
 }
 
-function mapActivityAreaForPage(activityArea: ActivityAreaRecord, locale: Locale, slug: string): ActivityAreaPageData | null {
-  const matchedTranslation = activityArea.activity_area_translations.find((item) => item.slug === slug);
-  const currentTranslation = activityArea.activity_area_translations.find((item) => item.locale === locale);
-  const fallbackTranslation = activityArea.activity_area_translations.find((item) => item.locale === "tr")
-    ?? activityArea.activity_area_translations.find((item) => item.locale === "en");
-  const translation = currentTranslation ?? matchedTranslation ?? fallbackTranslation;
+function mapActivityAreaForPage(activityArea: ActivityAreaRecord, activityAreas: ActivityAreaRecord[], locale: Locale, slug: string): ActivityAreaPageData | null {
+  const translation = activityArea.activity_area_translations.find(
+    (item) => item.locale === locale && item.slug === slug,
+  );
 
   if (!translation?.title || !translation.slug) return null;
 
@@ -155,15 +234,59 @@ function mapActivityAreaForPage(activityArea: ActivityAreaRecord, locale: Locale
   const imageItems = sortedPhotos.map((photo, index) => ({
     id: photo.id,
     url: photo.photo_url,
-    title: translation.title,
+    title: locale === "tr"
+      ? `${translation.title} galeri görseli ${index + 1}`
+      : `${translation.title} gallery image ${index + 1}`,
+    alt: "",
     desc: translation.subtitle,
     span: PHOTO_SPANS[index % PHOTO_SPANS.length],
   }));
+  const seo = getActivitySeo(
+    locale,
+    translation.slug,
+    translation.title,
+    translation.subtitle ?? translation.description ?? "",
+  );
+  const verifiedDescription = getVerifiedActivityDescription(
+    translation.slug,
+    locale,
+    translation.description ?? "",
+  );
 
   return {
     title: translation.title,
     subtitle: translation.subtitle ?? "",
-    description: translation.description ?? "",
+    description: verifiedDescription,
+    seoTitle: seo.title,
+    seoDescription: seo.description,
+    socialImage: activityArea.main_photo ?? sortedPhotos[0]?.photo_url,
+    relatedAreas: activityAreas
+      .filter((item) => item.id !== activityArea.id && item.is_active)
+      .sort((a, b) => a.sort_order - b.sort_order)
+      .flatMap((item) => {
+        const relatedTranslation = item.activity_area_translations.find(
+          (candidate) => candidate.locale === locale,
+        );
+
+        return relatedTranslation?.title && relatedTranslation.slug
+          ? [{
+              title: relatedTranslation.title,
+              href: `/expertise-areas/${relatedTranslation.slug}`,
+            }]
+          : [];
+      })
+      .slice(0, 3),
+    slug: translation.slug,
+    localizedPaths: Object.fromEntries(
+      activityArea.activity_area_translations
+        .filter((item): item is ActivityAreaTranslation & { locale: Locale } =>
+          item.locale === "tr" || item.locale === "en"
+        )
+        .map((item) => [
+          item.locale,
+          `/expertise-areas/${item.slug}`,
+        ]),
+    ),
     imageItems,
   };
 }

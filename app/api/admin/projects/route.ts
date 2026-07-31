@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 
 import { getProjectsData } from "@/lib/data/content";
 import { createClient } from "@/lib/supabase/server";
+import { submitIndexNow } from "@/lib/indexnow";
 
 type Locale = "tr" | "en";
 
@@ -62,6 +63,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: saveError }, { status: 500 });
     }
 
+    after(() => submitIndexNow(["/tr/projects", "/en/projects"]));
+
     return NextResponse.json({ id: data.id }, { status: 201 });
 }
 
@@ -93,6 +96,8 @@ export async function PUT(request: Request) {
         return NextResponse.json({ error: saveError }, { status: 500 });
     }
 
+    after(() => submitIndexNow(["/tr/projects", "/en/projects"]));
+
     return NextResponse.json({ id: payload.id });
 }
 
@@ -117,6 +122,8 @@ export async function DELETE(request: Request) {
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    after(() => submitIndexNow(["/tr/projects", "/en/projects"]));
 
     return NextResponse.json({ id });
 }

@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/page-header";
-import { buildBreadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  buildBreadcrumbJsonLd,
+  buildLocalizedAlternates,
+  buildSocialMetadata,
+  type PublicLocale,
+} from "@/lib/seo";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { ContactForm } from "./contact-form";
 
@@ -9,27 +15,32 @@ type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Metadata.contact" });
-  const b = await getTranslations({ locale, namespace: "Breadcrumb" });
+  const activeLocale: PublicLocale = locale === "en" ? "en" : "tr";
+  const t = await getTranslations({ locale: activeLocale, namespace: "Metadata.contact" });
+  const title = t("title");
+  const description = t("description");
   return {
-    title: t("title"),
-    description: t("description"),
-    other: {
-      "application/ld+json": buildBreadcrumbJsonLd([
-        { name: b("home"), href: "/" },
-        { name: t("title") },
-      ]),
-    },
+    title,
+    description,
+    alternates: buildLocalizedAlternates(activeLocale, "/contact"),
+    ...buildSocialMetadata({ locale: activeLocale, path: "/contact", title, description }),
   };
 }
 
 export default async function Page({ params }: Props) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Pages.contact" });
-  const b = await getTranslations({ locale, namespace: "Breadcrumb" });
+  const activeLocale: PublicLocale = locale === "en" ? "en" : "tr";
+  const t = await getTranslations({ locale: activeLocale, namespace: "Pages.contact" });
+  const b = await getTranslations({ locale: activeLocale, namespace: "Breadcrumb" });
 
   return (
     <>
+      <JsonLd
+        data={buildBreadcrumbJsonLd(activeLocale, [
+          { name: b("home"), href: "/" },
+          { name: t("title") },
+        ])}
+      />
       <PageHeader
         title={t("title")}
         description={t("description")}
@@ -56,7 +67,7 @@ export default async function Page({ params }: Props) {
               </p>
               <address className="not-italic flex flex-col gap-5">
                 <a
-                  href="tel:+905XXXXXXXXX"
+                  href="tel:+905465468292"
                   className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border bg-background group-hover:border-foreground transition-colors">
@@ -66,7 +77,7 @@ export default async function Page({ params }: Props) {
                     <span className="block text-xs font-semibold uppercase tracking-wider text-foreground">
                       {t("phone")}
                     </span>
-                    +90 5XX XXX XX XX
+                    +90 546 546 82 92
                   </span>
                 </a>
                 <a

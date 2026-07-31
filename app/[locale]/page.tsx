@@ -1,14 +1,22 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import GalleryShowcase from "@/components/gallery-showcase";
 import HoverBrandLogo from "@/components/hover-brand-logo";
 import { Timeline, type TimelineHizmetData } from "@/components/timeline";
 import noPhoto from "@/app/assets/no-photo.webp";
 import { HomeHero } from "@/components/home-hero";
+import { JsonLd } from "@/components/seo/json-ld";
 import {
   getActivityAreasData,
   getHizmetlerData,
   getPartnersData,
 } from "@/lib/data/content";
+import {
+  buildLocalizedAlternates,
+  buildOrganizationJsonLd,
+  buildSocialMetadata,
+  type PublicLocale,
+} from "@/lib/seo";
 
 type Locale = "tr" | "en";
 
@@ -65,6 +73,31 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const activeLocale: PublicLocale = locale === "en" ? "en" : "tr";
+  const t = await getTranslations({
+    locale: activeLocale,
+    namespace: "Metadata.home",
+  });
+  const title = activeLocale === "tr"
+    ? "Çelik Konstrüksiyon, Mühendislik ve Montaj | Stallcons"
+    : "Structural Steel Engineering, Fabrication and Erection | Stallcons";
+  const description = t("description");
+
+  return {
+    title: { absolute: title },
+    description,
+    alternates: buildLocalizedAlternates(activeLocale, ""),
+    ...buildSocialMetadata({
+      locale: activeLocale,
+      path: "",
+      title,
+      description,
+    }),
+  };
+}
+
 // ana sayfa verilerini paralel alıp bölümlere dağıtıyorum
 export default async function Home({ params }: Props) {
   const { locale } = await params;
@@ -78,6 +111,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={buildOrganizationJsonLd()} />
       <HomeHero locale={activeLocale} />
 
       {activityAreas.length > 0 && (
@@ -134,19 +168,16 @@ async function getHomeActivityAreas(locale: Locale): Promise<HomeActivityArea[]>
 
 function mapActivityAreaForGallery(activityArea: ActivityAreaRecord, locale: Locale) {
   const currentTranslation = activityArea.activity_area_translations.find((item) => item.locale === locale);
-  const fallbackTranslation = activityArea.activity_area_translations.find((item) => item.locale === "tr")
-    ?? activityArea.activity_area_translations.find((item) => item.locale === "en");
-  const translation = currentTranslation ?? fallbackTranslation;
 
-  if (!translation?.title || !translation.slug) return null;
+  if (!currentTranslation?.title || !currentTranslation.slug) return null;
 
   if (!activityArea.main_photo) return null;
 
   return {
     id: activityArea.id,
-    name: translation.title,
-    role: translation.subtitle ?? translation.description ?? "",
-    href: `/expertise-areas/${translation.slug}`,
+    name: currentTranslation.title,
+    role: currentTranslation.subtitle ?? currentTranslation.description ?? "",
+    href: `/expertise-areas/${currentTranslation.slug}`,
     image: activityArea.main_photo,
   };
 }
