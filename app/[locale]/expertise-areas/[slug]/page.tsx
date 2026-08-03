@@ -132,7 +132,6 @@ export default async function ActivityAreaDetailPage({ params }: Props) {
       <JsonLd
         data={buildBreadcrumbJsonLd(activeLocale, [
           { name: b("home"), href: "/" },
-          { name: b("expertiseAreas") },
           { name: activityArea.title },
         ])}
       />
