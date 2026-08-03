@@ -30,31 +30,25 @@ export default function HoverBrandLogo({ partners, eyebrow, title }: HoverBrandL
     return (
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 lg:gap-16 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {/* başlık alanı */}
-            <div className="flex-shrink-0 w-full md:w-auto text-center md:text-left">
-                <p className="text-sm sm:text-base text-muted-foreground font-medium mb-0 tracking-tight">
+            <div className="flex-shrink-0 w-full md:w-56 lg:w-72 xl:w-80 text-center md:text-left flex flex-col justify-center">
+                <p className="text-sm sm:text-base text-muted-foreground font-medium mb-1 tracking-tight">
                     {eyebrow}
                 </p>
-                <div className="relative">
-                    <p
-                        aria-hidden
-                        className="text-3xl lg:text-3xl font-bold tracking-tight whitespace-nowrap opacity-0 pointer-events-none select-none leading-none sm:leading-tight"
-                    >
-                        {title}
-                    </p>
-                    <div className="absolute inset-0 overflow-hidden">
-                        <AnimatePresence mode="wait">
-                            <motion.p
-                                key={hoveredId ?? 'default'}
-                                initial={{ y: 16, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: -16, opacity: 0 }}
-                                transition={{ duration: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
-                                className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-none sm:leading-tight tracking-tight whitespace-nowrap"
-                            >
-                                {activeBrand?.name ?? title}
-                            </motion.p>
-                        </AnimatePresence>
-                    </div>
+                <div className="h-[3.5rem] sm:h-[4.5rem] lg:h-[5rem] flex items-center justify-center md:justify-start">
+                    <AnimatePresence mode="wait">
+                        <motion.p
+                            key={hoveredId ?? 'default'}
+                            initial={{ y: 16, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -16, opacity: 0 }}
+                            transition={{ duration: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
+                            className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground leading-tight tracking-tight line-clamp-2"
+                        >
+                            {(activeBrand?.name ?? title).split(' ').map(word => 
+                                word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1).toLocaleLowerCase('tr-TR')
+                            ).join(' ')}
+                        </motion.p>
+                    </AnimatePresence>
                 </div>
             </div>
 

@@ -222,7 +222,7 @@ function DataRow({
             </div>
 
             {/* açıklama */}
-            <p className="mt-1.5 pl-[27px] text-[7px] md:text-[10px] font-medium capitalize tracking-[0.2em] text-muted-foreground">
+            <p className="mt-1.5 pl-[27px] text-xs md:text-sm font-medium text-muted-foreground">
                 {data.role}
             </p>
         </Link>
