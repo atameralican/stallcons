@@ -115,8 +115,8 @@ export default async function Home({ params }: Props) {
       <HomeHero locale={activeLocale} />
 
       {activityAreas.length > 0 && (
-        <div className="min-h-[40vh] mt-5 w-full text-black dark:text-white ">
-          <div className="max-w-7xl mx-auto pt-10 pb-4 px-4 md:px-8 lg:px-10">
+        <div className="min-h-[40vh] mt-0 sm:mt-5 w-full text-black dark:text-white ">
+          <div className="max-w-7xl mx-auto pt-0 sm:pt-10 pb-4 px-4 md:px-8 lg:px-10">
             <h2 className="text-lg md:text-4xl mb-4 max-w-4xl">
               {t("activitiesTitle")}
             </h2>
