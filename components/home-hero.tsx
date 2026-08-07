@@ -118,7 +118,7 @@ export function HomeHero({ locale }: { locale: string }) {
     return (
         <div
             ref={heroRef}
-            className="flex min-h-screen flex-col items-center justify-center px-4 py-10-"
+            className="flex min-h-dvh sm:min-h-screen flex-col items-center justify-center px-4 py-10-"
         >
             <TextFlippingBoard
                 text={msgs[msgIdx]}
